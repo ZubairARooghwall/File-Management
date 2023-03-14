@@ -11,4 +11,5 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 - Random help calls
 - Has a browser extension and you can add titles and words instantly && also reminds you of the study time.
 - You can embed a video on a side to take notes from.
+- You can take notes in a non-linear manner. It has shown better results than boring linear notes.
 - I should create it in a way that it doesn't make you 'isolated' from the world. Make it more social and engaging.
