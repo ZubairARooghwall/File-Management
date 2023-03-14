@@ -13,4 +13,5 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 - You can embed a video on a side to take notes from.
 - You can take notes in a non-linear manner. It has shown better results than boring linear notes.
 - You can make a "video" of the notes where it will be interactive like Simba website.
+- Use pomodoro technique to track your progress
 - I should create it in a way that it doesn't make you 'isolated' from the world. Make it more social and engaging.
