@@ -15,3 +15,5 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 - You can make a "video" of the notes where it will be interactive like Simba website.
 - Use pomodoro technique to track your progress
 - I should create it in a way that it doesn't make you 'isolated' from the world. Make it more social and engaging.
+- You can download a PDF file of your flashcards and notes and mind-maps. You can sort them by date, weakness, ...
+- Text to sign langauge, sign language to text
