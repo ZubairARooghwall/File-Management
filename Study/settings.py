@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'flashcard.apps.FlashcardConfig',
+    'flashcard',
 ]
+
+# creating custom user model
+AUTH_USER_MODEL = 'flashcard.User'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
