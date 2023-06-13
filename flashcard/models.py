@@ -97,8 +97,21 @@ class Messages(models.Model):
 	
 	def __str__(self):
 		return f"{self.sender.name} sent {self.message} to {self.recipient.name}"
-	
 
+
+class Friendship(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_friendship")
+	friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_friendship")
+	created = models.DateTimeField(auto_now_add=True)
+	is_accepted = models.BooleanField(default=False)
+	custom_name = models.CharField(max_length=120, default=friend.name)
+	
+	def __str__(self):
+		return f"{self.user} - {self.friend}"
+
+
+
+	
 # Social
 class Group(models.Model):
 	host = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -144,3 +157,5 @@ class GroupMessages(models.Model):
 
 #
 # class CallLog(models.Model):
+
+# class temporatyGroupForStudyingFlashCard or other things
