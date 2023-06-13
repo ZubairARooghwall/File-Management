@@ -1,5 +1,14 @@
 # Flashcard
 Website that helps organize your notes, flashcards, mind-maps, sketches, reminders, time spent studying, statistics and much more.
+### Implemented
+- You can create flashcards
+- You can add notes for flashcards when reviewing them
+- You can add notes in general
+- You can message anyone
+- You can create groups and chat
+
+
+### Not Implemented
 - You can share you flashcards. 
 - You can study together with friends, online. 
 - You can have video or audio calls the Call-of-Duty-style. 
