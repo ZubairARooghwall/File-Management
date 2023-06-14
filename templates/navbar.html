@@ -1,3 +1,29 @@
+{% load static %}
 <nav>
-
+  <div class="logo">
+    <a href="{% url 'home' %}">
+      <img src="{% static 'images/related/logo.png' %}">
+    </a>
+  </div>
+  <div class="search">
+    <form class="header_search" method="get" action="{% url 'home' %}">
+      <svg class="search_logo"></svg>
+      <input name="q" placeholder="Search">
+    </form>
+  </div>
+  <div class="user">
+    <div class="avatar">
+      <a href="{% url 'settings' %}">
+        <img src="{{ request.user.avatar.url }}">
+      </a>
+    </div>
+    <div class="user-name-score">
+      <p class="username">{{ request.user.username }}</p>
+      <p class="user-score">{{ request.user.score }}</p>
+    </div>
+    <div class="add">
+{#      <img src="" alt="">#}
+      <p class="add-icon">+</p>
+    </div>
+  </div>
 </nav>

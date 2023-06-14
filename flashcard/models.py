@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone # for updating time
 
 
 # Create your models here.
@@ -7,6 +8,7 @@ class User(AbstractUser):
 	name = models.CharField(max_length=200, null=True, blank=False)
 	email = models.EmailField(unique=True, blank=False)
 	bio = models.TextField(null=True, blank=True)
+	score = models.IntegerField(null=False, default=0, blank=False)
 	
 	education_choices = [
 		("MSC", "Middle_School"),
@@ -36,6 +38,12 @@ class Topics(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
+	
+	def save(self, *args, **kwargs):
+		self.subject.update = timezone.now()
+		self.subject.save()
+		super().save(*args, **kwargs)
+	
 
 
 
@@ -52,11 +60,22 @@ class FlashCard(models.Model):
 	average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added")
 	is_hidden = models.BooleanField(default=False)
 
+	
+	def save(self, *args, **kwargs):
+		self.topic.updated = timezone.now()
+		self.topic.save()
+		self.topic.subject.updated = timezone.now()
+		self.topic.subject.save()
+		super().save(*args, **kwargs)
+
 
 class Notes(models.Model):
 	note = models.CharField(max_length=3000, null=False, blank=False)
 	flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL)
 	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	
 
 
 
