@@ -72,8 +72,8 @@ class FlashCard(models.Model):
 class Notes(models.Model):
 	title = models.CharField(max_length=100, null=False, blank=False, default="")
 	note = models.CharField(max_length=3000, null=False, blank=False)
-	flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL)
-	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL)
+	flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL, blank=True)
+	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	
