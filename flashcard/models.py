@@ -21,6 +21,7 @@ class User(AbstractUser):
 	education = models.CharField(max_length=3, choices=education_choices, default="other")
 	
 	avatar = models.ImageField(null=True, default="avatar/avatar.svg")
+	prefers_dark_theme = models.BooleanField(default=False)
 	
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['name']
