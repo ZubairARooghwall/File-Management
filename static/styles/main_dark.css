@@ -1,0 +1,9 @@
+:root {
+    --search-form-light-background: #2a2929;
+    --logo-font-light-color: #fff;
+    --background-color: #2e3236;
+    --text-color-light: #fff;
+    --search-button-light-color: #000;
+    --search-form-button-color: invert(100%);
+    --box-shodow-color: rgb(77, 77, 77);
+}

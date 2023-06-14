@@ -41,3 +41,9 @@ def credit(request):
 	# This view is for all the people or websites who helped me
 
 	return render(request, 'flashcards/conf/credit.html')
+
+
+def statistics(request):
+	
+	
+	return render(request, 'flashcards/statistics.html')

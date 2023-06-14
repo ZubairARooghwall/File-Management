@@ -1,7 +1,26 @@
 :root {
-    --search-button-light-color: #f8f8f8;
-    --search-form-light-border-color: #d3d3d3;
+    /*All search things*/
+    --search-button-light-color: #f4f5f7;
+    --search-form-button-color: invert(0%);
+    --search-form-light-background: #f4f5f7;
+    --search-form-border-radius: 40px;
+    --search-form-border-hover: transparent;
 
+    /*All logo things*/
+    --logo-font-light-color: #000;
+
+    /*All general things*/
+    --text-color-light: #000;
+    --background-color: #fff;
+    --box-shodow-color: rgb(87, 85, 85);
+
+    
+
+}
+
+@font-face {
+    font-family: Teko;
+    src: url("static/fonts/Teko-Regular.ttf") format("truetype");
 }
 
 * {
@@ -11,9 +30,7 @@
 }
 
 body {
-
-
-
+    background-color: var(--background-color);
 }
 
 /*General navigation*/
@@ -30,8 +47,19 @@ nav {
 }
 
 /*the logo*/
+nav .logo a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--logo-font-light-color);
+    font-family: "Teko", "Jetbrains Mono", serif;
+    text-decoration: none;
+    font-size: 20px;
+}
+
 nav .logo a .logo-image {
-    height: 56px;
+    height: 45px;
 }
 
 /*the middle search*/
@@ -39,54 +67,98 @@ nav .search {
     height: 50px;
     display: flex;
     flex: 1 1 300px;
-    flex-basis: 300px;
-    max-width: 40%;
+    flex-basis: 200px;
+    max-width: 520.8px;
+
 }
 
 /*search's form*/
 nav .search form {
     height: 50px;
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*input in search*/
 nav .search form input.input {
     outline: none;
-    border: 1px solid var(--search-form-light-border-color);
-    background-color: transparent;
+    border: none;
+    background-color: var(--search-form-light-background);
     font-family: "Segoe UI", "JetBrains Mono", serif;
-    border-radius: 40px 0 0 40px;
+    border-radius: var(--search-form-border-radius) 0 0 var(--search-form-border-radius);
     padding: 10px;
     height: 40px;
     flex: 1;
     margin-right: 0;
 
+    transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
 }
+
+nav .search form input.input:hover {
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
+nav .search form input.input:hover ~ button.search-logo {
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
+button.search-logo:hover{
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
 
 /*div outside search icon*/
 nav .search button {
     height: 40px;
     width: 50px;
-    border-radius: 0 40px 40px 0;
-    border: 1px solid var(--search-form-light-border-color);
+    background-color: var(--search-form-light-background);
+    border-radius: 0 var(--search-form-border-radius) var(--search-form-border-radius) 0;
+    border: none;
     margin-right: 0;
+    transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
 }
 
 /*search svg*/
 nav .search div .search-logo {
-    height: 50px;
-    width: 50px;
+    height: 24px;
+    width: 24px;
 }
 
+nav .search data .search-logo .search-logo-image {
+    filter: invert(100%);
+}
 
 /*user div*/
 nav .user{
     display: flex;
+    gap: 1rem;
 }
+
+
+.avatar-image:hover .user-name-score-div{
+    transform: translate(-100px);
+    font-size: 15px;
+    visibility: visible;
+}
+
 
 /*user avatar*/
 nav .user .avatar a .avatar-image {
-    width: 45px;
-    height: 45px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
+    z-index: 343;
+
 }
+
+nav .user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

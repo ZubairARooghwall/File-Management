@@ -4,13 +4,14 @@
     <a href="{% url 'home' %}">
 {#      Thanks to manshagraphics for providing the image#}
       <img src="{% static 'images/related/logo.png' %}" class="logo-image">
+        <p>Flashy</p>
     </a>
   </div>
 
   <div id="center" class="search">
     <form class="header_search" method="get" action="{% url 'home' %}">
       <input name="q" placeholder="Search" class="input">
-      <button class="search-logo"><img src="{% static 'images/related/search.png' %}"></button>
+      <button class="search-logo"><img src="{% static 'images/related/search.png' %}" class="search-logo-image"></button>
     </form>
      </div>
 
@@ -19,22 +20,6 @@
       <a href="{% url 'settings' %}">
         <img src="{{ request.user.avatar.url }}" class="avatar-image">
       </a>
-    </div>
-{#  It checkes whether the user's score is 0 or 1 or more than one and according to that, #}
-{#    it will give grammatically correct word 'score' #}
-    <div class="user-name-score">
-      <p class="username">{{ request.user.username }}</p>
-      {% if request.user.score == 0 %}
-        <p class="user-score">{{ request.user.score }}</p>
-      {% elif request.user.score == 1 %}
-        <p class="user-score">{{ request.user.score }} score</p>
-      {% else %}
-        <p class="user-score">{{ request.user.score }} scores</p>
-      {% endif %}
-    </div>
-    <div class="add">
-{#      <img src="" alt="">#}
-      <p class="add-icon">+</p>
     </div>
   </div>
 </nav>
