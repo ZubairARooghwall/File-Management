@@ -158,4 +158,13 @@ class GroupMessages(models.Model):
 #
 # class CallLog(models.Model):
 
-# class temporatyGroupForStudyingFlashCard or other things
+# class temporatyGroupForStudyingFlashCard or other thing
+
+
+class Todo(models.Model):
+	task = models.CharField(max_length=300, null=False, blank=False)
+	created = models.DateTimeField(auto_now_add=True)
+	is_accomplished = models.BooleanField(default=False)
+	accomplished = models.DateTimeField(auto_now=True)
+	
+	
