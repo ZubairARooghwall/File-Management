@@ -1,0 +1,92 @@
+:root {
+    --search-button-light-color: #f8f8f8;
+    --search-form-light-border-color: #d3d3d3;
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+
+
+}
+
+/*General navigation*/
+
+nav {
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    /*flex: 1 1 95%*/
+    padding: 2rem;
+}
+
+/*the logo*/
+nav .logo a .logo-image {
+    height: 56px;
+}
+
+/*the middle search*/
+nav .search {
+    height: 50px;
+    display: flex;
+    flex: 1 1 300px;
+    flex-basis: 300px;
+    max-width: 40%;
+}
+
+/*search's form*/
+nav .search form {
+    height: 50px;
+    flex: 1;
+}
+
+/*input in search*/
+nav .search form input.input {
+    outline: none;
+    border: 1px solid var(--search-form-light-border-color);
+    background-color: transparent;
+    font-family: "Segoe UI", "JetBrains Mono", serif;
+    border-radius: 40px 0 0 40px;
+    padding: 10px;
+    height: 40px;
+    flex: 1;
+    margin-right: 0;
+
+}
+
+/*div outside search icon*/
+nav .search button {
+    height: 40px;
+    width: 50px;
+    border-radius: 0 40px 40px 0;
+    border: 1px solid var(--search-form-light-border-color);
+    margin-right: 0;
+}
+
+/*search svg*/
+nav .search div .search-logo {
+    height: 50px;
+    width: 50px;
+}
+
+
+/*user div*/
+nav .user{
+    display: flex;
+}
+
+/*user avatar*/
+nav .user .avatar a .avatar-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}

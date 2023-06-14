@@ -1,25 +1,36 @@
 {% load static %}
 <nav>
-  <div class="logo">
+  <div id="start" class="logo">
     <a href="{% url 'home' %}">
-      <img src="{% static 'images/related/logo.png' %}">
+{#      Thanks to manshagraphics for providing the image#}
+      <img src="{% static 'images/related/logo.png' %}" class="logo-image">
     </a>
   </div>
-  <div class="search">
+
+  <div id="center" class="search">
     <form class="header_search" method="get" action="{% url 'home' %}">
-      <svg class="search_logo"></svg>
-      <input name="q" placeholder="Search">
+      <input name="q" placeholder="Search" class="input">
+      <button class="search-logo"><img src="{% static 'images/related/search.png' %}"></button>
     </form>
-  </div>
-  <div class="user">
+     </div>
+
+  <div id="end" class="user">
     <div class="avatar">
       <a href="{% url 'settings' %}">
-        <img src="{{ request.user.avatar.url }}">
+        <img src="{{ request.user.avatar.url }}" class="avatar-image">
       </a>
     </div>
+{#  It checkes whether the user's score is 0 or 1 or more than one and according to that, #}
+{#    it will give grammatically correct word 'score' #}
     <div class="user-name-score">
       <p class="username">{{ request.user.username }}</p>
-      <p class="user-score">{{ request.user.score }}</p>
+      {% if request.user.score == 0 %}
+        <p class="user-score">{{ request.user.score }}</p>
+      {% elif request.user.score == 1 %}
+        <p class="user-score">{{ request.user.score }} score</p>
+      {% else %}
+        <p class="user-score">{{ request.user.score }} scores</p>
+      {% endif %}
     </div>
     <div class="add">
 {#      <img src="" alt="">#}

@@ -27,7 +27,7 @@ def home(request):
 	           "notes": notes, "subjects": subjects, "topics": topics, "flashcards": flashcards,
 	           "messages": messages, "group_messages": group_messages, "membership": membership,
 	           "groups": groups}
-	render(request, 'flashcards/home.html', context)
+	return render(request, 'flashcards/home.html', context)
 	
 	
 def settings(request):
@@ -35,3 +35,9 @@ def settings(request):
 	
 	
 	return render(request, 'flashcards/conf/settings.html')
+
+
+def credit(request):
+	# This view is for all the people or websites who helped me
+
+	return render(request, 'flashcards/conf/credit.html')
