@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 	# Everything homepage
 	path('', views.home, name="home"),
+	path('settings', views.settings, name='settings')
 	
 	
 	

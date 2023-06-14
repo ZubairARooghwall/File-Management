@@ -28,3 +28,10 @@ def home(request):
 	           "messages": messages, "group_messages": group_messages, "membership": membership,
 	           "groups": groups}
 	render(request, 'flashcards/home.html', context)
+	
+	
+def settings(request):
+	
+	
+	
+	return render(request, 'flashcards/conf/settings.html')

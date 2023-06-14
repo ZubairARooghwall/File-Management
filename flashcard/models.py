@@ -54,10 +54,10 @@ class FlashCard(models.Model):
 	answer = models.TextField(max_length=2000, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True)
+	score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
 	topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, null=True)
-	lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed")
-	average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added")
+	lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0)
+	average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True)
 	is_hidden = models.BooleanField(default=False)
 
 	
@@ -70,6 +70,7 @@ class FlashCard(models.Model):
 
 
 class Notes(models.Model):
+	title = models.CharField(max_length=100, null=False, blank=False, default="")
 	note = models.CharField(max_length=3000, null=False, blank=False)
 	flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL)
 	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL)
