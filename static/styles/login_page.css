@@ -1,0 +1,85 @@
+.login-page-div {
+    color: white;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-size: 0.9rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.login-page-div div {
+    width: 30%;
+}
+
+
+.login-page-div div p {
+    font-size: 1.5rem;
+}
+
+.login-page-div div .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    gap: 1rem;
+    background-color: transparent;
+    padding: 2rem;
+    width: 80%;
+    border-radius: 8px;
+}
+
+.login-page-div div .form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    gap: 2rem;
+    width: 400px;
+}
+
+.login-page-div div .form form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+}
+
+.login-page-div div .form form div input {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+}
+
+.login-page-div div .form form input {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+    padding: 5px;
+}
+
+.login-page-div div p.signup-questionmark {
+    font-size: 1rem;
+}
+
+.login-page-div div p.signup-questionmark a {
+    text-decoration: none;
+    color: #00d2ff;
+    transition: color 200ms ease-in-out;
+}
+
+.login-page-div div p.signup-questionmark a:hover {
+    color: greenyellow;
+
+}
+
+.login-page-div div.message-container {
+    color: red;
+    font-size: 1.2rem;
+}

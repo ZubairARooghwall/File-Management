@@ -9,19 +9,16 @@ class User(AbstractUser):
 	email = models.EmailField(unique=True, blank=False)
 	bio = models.TextField(null=True, blank=True)
 	score = models.IntegerField(null=False, default=0, blank=False)
-	
 	education_choices = [
 		("MSC", "Middle_School"),
 		("HSC", "High_School"),
 		("Col", "College"),
 		("GSC", "Graduate_School")
 	]
-	
 	# When adding values, User(...., education="MSC",...)
 	education = models.CharField(max_length=3, choices=education_choices, default="other")
-	
 	avatar = models.ImageField(null=True, default="avatar/avatar.svg")
-	prefers_dark_theme = models.BooleanField(default=False)
+	prefers_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
 	
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['name']

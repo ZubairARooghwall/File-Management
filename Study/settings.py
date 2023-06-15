@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'flashcard.apps.FlashcardConfig',
-    
+    'crispy_forms'
 ]
 
 # Use custom user model
@@ -138,3 +138,9 @@ MEDIA_ROOT = BASE_DIR / 'static/image/avatar'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "/home"
+LOGOUT_REDIRECT_URL = "/new"
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

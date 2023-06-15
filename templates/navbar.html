@@ -16,10 +16,18 @@
      </div>
 
   <div id="end" class="user">
-    <div class="avatar">
-      <a href="{% url 'settings' %}">
-        <img src="{{ request.user.avatar.url }}" class="avatar-image">
-      </a>
-    </div>
+      {% if request.user.is_authenticated %}
+        <div class="avatar">
+          <a href="{% url 'settings' %}">
+            <img src="{{ request.user.avatar.url }}" class="avatar-image">
+          </a>
+        </div>
+      {% else %}
+        <div class="login-button">
+            <a href="{% url 'login' %}">
+                <button>Login</button>
+            </a>
+        </div>
+      {% endif %}
   </div>
 </nav>

@@ -1,0 +1,68 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/login_page.css' %}"> {% endblock css_file %}
+
+{% block content %}
+
+    {% if page == 'login' %}
+        <div class="login-page-div">
+            <div class="message-container">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <p>Login</p>
+                <div class="form">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="email">Username</label>
+                            <input type="text" name="email" id="email" required>
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" required>
+                        </div>
+                        <input type="submit" value="Submit" class="submit-button">
+                    </form>
+                </div>
+                <p class="signup-questionmark">
+                    Haven't signed up? <a href="{% url 'register' %}">Sign up</a>
+                </p>
+            </div>
+        </div>
+       {% else %}
+            <div class="signup-page-div">
+            <div class="message-container">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <p>Sign up</p>
+                <div class="form">
+                    <form action="" method="post">
+                        {% csrf_token %}
+
+                        <input type="submit" value="Submit" class="submit-button">
+                    </form>
+                </div>
+                <p class="login-questionmark">
+                    Already signed up? <a href="{% url 'login' %}">Login</a>
+                </p>
+            </div>
+        </div>
+
+
+
+        {% endif %}
+
+{% endblock content %}

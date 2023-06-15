@@ -5,9 +5,6 @@
   Homepage
 {% endblock title %}
 
-{% if request.user.prefers_dark_theme == True %}
-    {% block link_css %} {% static 'styles/main_dark.css' %} {% endblock link_css %}
-{% endif %}
 
 <!--the content start here-->
 {% block content %}
