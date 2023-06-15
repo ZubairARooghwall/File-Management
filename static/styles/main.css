@@ -1,31 +1,23 @@
 :root {
 
-    /*For dark theme*/
-    --search-form-light-background: rgba(120, 131, 155, 0.2);
-    --logo-font-light-color: #fff;
-    --background-color: rgb(35, 39, 47);
-    --text-color-light: #fff;
-    --search-button-light-color: #000;
-    --search-form-button-color: invert(100%);
-    --box-shodow-color: rgb(77, 77, 77);
     /*Login button */
     --login-button-background: #fff;
     --login-button-background-hover: linear-gradient(to top, #00d2ff, #3a7bd5);
 
     /*All search things*/
-    /*--search-button-light-color: #f4f5f7;*/
-    /*--search-form-button-color: invert(0%);*/
-    /*--search-form-light-background: #f4f5f7;*/
+    --search-button-light-color: #f4f5f7;
+    --search-form-button-color: invert(0%);
+    --search-form-light-background: #f4f5f7;
     --search-form-border-radius: 40px;
     --search-form-border-hover: transparent;
 
     /*All logo things*/
-    /*--logo-font-light-color: #000;*/
+    --logo-font-light-color: #000;
 
     /*All general things*/
-    /*--text-color-light: #000;*/
-    /*--background-color: #fff;*/
-    /*--box-shodow-color: rgb(87, 85, 85);*/
+    --text-color-light: #000;
+    --background-color: #fff;
+    --box-shodow-color: rgb(87, 85, 85);
 
     
 

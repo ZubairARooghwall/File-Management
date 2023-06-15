@@ -1,0 +1,4 @@
+[build]
+    base = "Study/"
+    command = "python manage.py collectstatic --noinput"
+    publish = "Study/flashcard/static"

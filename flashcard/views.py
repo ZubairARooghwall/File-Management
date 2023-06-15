@@ -3,12 +3,14 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationForm
+from .forms import MyUserRegistrationForm, UserForm
 
 
 #Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Log, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
 # Create your views here.
+
+# user authentication
 
 def loginPage(request):
 	if request.user.is_authenticated:
@@ -70,9 +72,18 @@ def registerPage(request):
 def logoutPage(request):
 	logout(request)
 	return redirect('home')
-	
 
-# @login_required(login_url='login')
+# end user authentication
+# all user management
+@login_required(login_url='login')
+
+
+
+
+
+# end user management
+
+@login_required(login_url='login')
 def home(request):
 	
 	user = request.user
@@ -96,10 +107,16 @@ def home(request):
 	
 @login_required(login_url='login')
 def settings(request):
+	user = request.user
+	form = UserForm(instance=user)
 	
-	
-	
-	return render(request, 'flashcards/conf/settings.html')
+	if request.method == 'POST':
+		form = UserForm(request.POST, request.FILES, instance=user)
+		if form.is_valid():
+			form.save()
+			return redirect('settings')
+		
+	return render(request, 'flashcards/conf/settings.html', {'form': form})
 
 
 def credit(request):
@@ -113,3 +130,63 @@ def statistics(request):
 	
 	
 	return render(request, 'flashcards/statistics.html')
+
+
+# all to do lists
+
+
+
+
+
+
+# end to do lists
+# all notes
+
+
+
+
+
+# end notes
+# all statistics
+
+
+
+
+
+
+
+# end statistics
+# all subjects
+
+
+
+
+# end subjects
+# all topics
+
+
+
+
+
+# end topics
+# all flashcards
+
+
+
+
+
+# end flashcards
+# all friends' chats
+
+
+
+
+
+# end friends' chats
+# all group chats
+
+
+
+
+
+# end group chats
