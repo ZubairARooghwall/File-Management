@@ -6,8 +6,16 @@
     <div class="settings-page">
         <div class="user-settings">
             <div class="header">
-            <p>User Settings</p>
+                <p>User Settings</p>
             <hr>
+                <div class="message-container">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+                </div>
             </div>
             <div class="user-settings-body">
                 <form action="" method="post" enctype="multipart/form-data">
