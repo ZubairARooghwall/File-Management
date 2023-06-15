@@ -23,6 +23,26 @@
 
 }
 
+/* Style the selected text */
+::selection {
+  background-color: #ffcc00;
+  color: #000000;
+}
+
+/* Add animation to the selected text */
+@keyframes selectionAnimation {
+  0% { background-color: #ffcc00; }
+  50% { background-color: #ffffff; }
+  100% { background-color: #ffcc00; }
+}
+
+/* Apply animation to the selected text */
+::selection {
+  animation-name: selectionAnimation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
 @font-face {
     font-family: Teko;
     src: url("static/fonts/Teko-Regular.ttf") format("truetype");

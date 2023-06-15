@@ -24,12 +24,17 @@
                     {% for field in form %}
                         <div class="form-group">
                             <label>{{ field.label }}</label>
-                            {{ field }}
+                            {% if field.field.widget.input_type != 'file' %}
+                                {{ field }}
+                            {% else %}
+                                {{ field }}
+                                <img src="{{ field.value.url }}" alt="Current Image" class="current-image">
+                            {% endif %}
                         </div>
                     {% endfor %}
 
                     <div class="form-action">
-                        <button class="btn btn--main" type="submit">Update</button>
+                        <button class="btn btn--main update-button" type="submit">Update</button>
                     </div>
 
                 </form>

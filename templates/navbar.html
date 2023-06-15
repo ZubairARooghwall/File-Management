@@ -17,6 +17,10 @@
 
   <div id="end" class="user">
       {% if request.user.is_authenticated %}
+
+          {% if request.path ==  '/'  %}
+            <p class="welcome welcome-animation">Welcome, {{ request.user.name }}</p>
+          {% endif %}
         <div class="avatar">
           <a href="{% url 'settings' %}">
             <img src="{{ request.user.avatar.url }}" class="avatar-image">
