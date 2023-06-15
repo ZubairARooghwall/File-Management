@@ -6,6 +6,7 @@ from django.utils import timezone # for updating time
 # Create your models here.
 class User(AbstractUser):
 	name = models.CharField(max_length=200, null=True, blank=False)
+	username = models.CharField(max_length=100, )
 	email = models.EmailField(unique=True, blank=False)
 	bio = models.TextField(null=True, blank=True)
 	score = models.IntegerField(null=False, default=0, blank=False)
@@ -18,10 +19,12 @@ class User(AbstractUser):
 	# When adding values, User(...., education="MSC",...)
 	education = models.CharField(max_length=3, choices=education_choices, default="other")
 	avatar = models.ImageField(null=True, default="avatar/avatar.svg")
-	prefers_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
+	prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
+	is_active = models.BooleanField(default=False, help_text="If the person is active, it is True")
+	date_joined = models.DateTimeField(auto_now_add=True)
 	
 	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = ['name']
+	REQUIRED_FIELDS = []
 	
 
 class Subject(models.Model):
