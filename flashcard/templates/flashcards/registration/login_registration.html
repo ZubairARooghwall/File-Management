@@ -8,7 +8,6 @@
     {% if page == 'login' %}
         <div class="login-page-div">
             <div class="message-container">
-
                 {% if messages %}
                     {% for message in messages %}
                         {{ message }}
@@ -49,9 +48,15 @@
             <div>
                 <p>Sign up</p>
                 <div class="form">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="room_name">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
                         <input type="submit" value="Submit" class="submit-button">
                     </form>
                 </div>

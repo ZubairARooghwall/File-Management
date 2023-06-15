@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationFrom
+from .forms import MyUserRegistrationForm
 
 
 #Import all the models
@@ -44,18 +44,25 @@ def loginPage(request):
 		
 
 def registerPage(request):
-	form = MyUserRegistrationFrom()
+	form = MyUserRegistrationForm()
 	
 	if request.method == 'POST':
-		form = MyUserRegistrationFrom(request.POST)
+		form = MyUserRegistrationForm(request.POST, request.FILES)
 		if form.is_valid():
+			email = form.cleaned_data['email']
+			if User.objects.filter(email=email).exists():
+				messages.error(request, "User with this email already exists")
+				return redirect("register")
+			
 			user = form.save(commit=False)
+			user.email = user.email.lower()
 			user.username = user.username.lower()
 			user.save()
+			
 			login(request, user)
 			return redirect('home')
 		else:
-			messages.error(request, "An error occurred during registration")
+			messages.error(request, form.errors)
 			
 	return render(request, 'flashcards/registration/login_registration.html', {"form": form})
 
