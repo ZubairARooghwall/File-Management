@@ -76,7 +76,17 @@ def logoutPage(request):
 # end user authentication
 # all user management
 @login_required(login_url='login')
+def delete_account(request):
+	# try:
+	# 	u = User.objects.get(username=username)
+	# 	u.delete()
+	# 	messages.success(request, "The is deleted")
+	#
+	# except User.DoesNotExist:
+	# 	messages.error(request, "User does not exist")
+	#
 
+	return render(request, 'flashcards/conf/delete.html')
 
 
 

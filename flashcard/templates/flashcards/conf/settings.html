@@ -36,21 +36,38 @@
                     <div class="form-action">
                         <button class="btn btn--main update-button" type="submit">Update</button>
                     </div>
-
                 </form>
-
-
             </div>
-
-
-
-
-
         </div>
+        <div class="misc">
+            <div class="header">
+                <p>User Account</p>
+                <hr>
+            </div>
+            <div class="user-account-body">
+                <div class="logout">
+                    <p class="logout-paragraph">Logout:  </p>
+                    <a href="{% url 'logout' %}"><button>Logout</button></a>
+                </div>
+
+                {% if not request.user.is_superuser %}
+                <div class="delete">
+                    <p class="delete-paragraph">Delete Account:</p>
+                    <a href="{% url 'delete_account' %}"><button>Delete</button></a>
+                </div>
+                {% endif %}
+                <div class="message-container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
-
-
-
-
-
 {% endblock content %}
