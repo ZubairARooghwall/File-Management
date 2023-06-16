@@ -10,7 +10,7 @@ class Command(BaseCommand):
 		
 	
 	def handle(self, *args, **options):
-		options['name'] = input("Email: ")
+		options['name'] = input("Name: ")
 		options['username'] = input("Username: ")
-		options['email'] = input("Name: ")
+		options['email'] = input("Email: ")
 		super().handle(*args, **options)
