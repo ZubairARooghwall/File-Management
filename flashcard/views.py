@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
@@ -143,12 +143,18 @@ def statistics(request):
 
 
 # all to do lists
+def todo(request):
+	to_do = Todo.objects.filter(email=request.user.email)
+	context = {"todo": to_do}
+	
+	return render(request, 'flashcards/components/todo.html', context)
 
 
+# update todo
+def update_todo(request, todo_id):
 
 
-
-
+	return render(request, 'update.html', {"to_do_id": todo_id})
 # end to do lists
 # all notes
 

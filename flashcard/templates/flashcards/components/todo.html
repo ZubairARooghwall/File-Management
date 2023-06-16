@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/components/todo.css' %}">
+<div class="to-do-container container">
+    <div class="to-do-header header">Todo <hr></div>
+
+    <div class="to-do-body body">
+        {% for element in todo %}
+            <div class="todo-element">
+                <label for="checkboxes" class="todo-element-paragraph">{{ element.task }}</label>
+                <input type="checkbox" id="checkboxes" class="todo-checkbox" data-todo-id="{{ element.id }}" {% if element.is_accomplished %} checked {% endif %} >
+            </div>
+
+
+        {% endfor %}
+    </div>
+</div>

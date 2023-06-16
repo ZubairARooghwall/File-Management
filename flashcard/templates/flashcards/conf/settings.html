@@ -55,6 +55,11 @@
                     <p class="delete-paragraph">Delete Account:</p>
                     <a href="{% url 'delete_account' %}"><button>Delete</button></a>
                 </div>
+                {% else %}
+                    <div class="admin">
+                        <p class="admin-paragraph">Admin Dashboard:</p>
+                        <a href="/admin"><button>Open</button></a>
+                    </div>
                 {% endif %}
                 <div class="message-container">
                 {% if messages %}

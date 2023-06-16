@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone # for updating time
+from django.contrib.auth.models import BaseUserManager
+
 
 
 # Create your models here.
@@ -32,6 +34,7 @@ class Subject(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	picture = models.ImageField(null=True, default="#") # Add a default image
+	creator = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 
 class Topics(models.Model):
@@ -39,7 +42,7 @@ class Topics(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
-	
+
 	def save(self, *args, **kwargs):
 		self.subject.update = timezone.now()
 		self.subject.save()
@@ -77,7 +80,6 @@ class Notes(models.Model):
 	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	
 
 
 
@@ -187,5 +189,3 @@ class Todo(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	is_accomplished = models.BooleanField(default=False)
 	accomplished = models.DateTimeField(auto_now=True)
-	
-	
