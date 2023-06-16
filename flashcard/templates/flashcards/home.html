@@ -4,9 +4,15 @@
 {% block title %}
   Homepage
 {% endblock title %}
-
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock css_file %}
 <!--the content start here-->
 {% block content %}
+    <div class="home-container">
+        {% include 'flashcards/components/todo.html' %}
+
+    </div>
 
 
 {% endblock content %}
