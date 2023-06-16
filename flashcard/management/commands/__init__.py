@@ -1,2 +1,0 @@
-from flashcard.management.commands.custom_createsuperuser import Command as CustomCreateSuperuserCommand
-
