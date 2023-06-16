@@ -1,9 +1,10 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationForm, UserForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm
 
 
 #Import all the models
@@ -107,11 +108,13 @@ def home(request):
 	group_messages = GroupMessages.objects.all().order_by("-created")
 	membership = Membership.objects.all()
 	groups = Group.objects.all()
-	
+	error_message = 0
+
 	context = {"user": user, "inspirational": inspirational_quote, "todo": todo,
 	           "notes": notes, "subjects": subjects, "topics": topics, "flashcards": flashcards,
 	           "messages": messagess, "group_messages": group_messages, "membership": membership,
-	           "groups": groups}
+	           "groups": groups, "error_message": error_message
+			}
 	return render(request, 'flashcards/home.html', context)
 	
 	
@@ -139,8 +142,13 @@ def credit(request):
 def statistics(request):
 	
 	
-	return render(request, 'flashcards/statistics.html')
+	return render(request, 'flashcards/components/statistics.html')
 
+
+
+def update(request, pk):
+	
+	return redirect("home")
 
 # all to do lists
 def todo(request):
@@ -150,17 +158,52 @@ def todo(request):
 	return render(request, 'flashcards/components/todo.html', context)
 
 
-# update todo
-def update_todo(request, todo_id):
+def create_todo(request):
 
+	if request.method == "POST":
+		form = TodoForm(request.POST)
+		if form.is_valid():
+			todo = form.save(commit=False)
+			todo.creator = request.user
+			todo.save()
+			return redirect('home')
+	else:
+		form = TodoForm()
+	
+	return render(request, 'flashcards/components/createToDo.html', {"forms": form})
+	
 
-	return render(request, 'update.html', {"to_do_id": todo_id})
+def delete_todo(request, pk):
+	do = Todo.objects.get(id=pk)
+	do.delete()
+	return redirect('home')
+
 # end to do lists
 # all notes
+def notes(request):
+	note = Notes.objects.filter(email=request.user.email)
+	context = {'notes': note}
+	
+	return render(request, 'flashcards/components/notes.html', context)
 
+def create_notes(request):
+	if request.method == 'POST':
+		form = NotesForm(request.POST)
+		if form.is_valid():
+			notes = form.save(commit=False)
+			notes.creator = request.user
+			notes.save()
+			return redirect('home')
+	else:
+		form = NotesForm()
+	
+	return render(request, 'flashcards/components/create.html', {'forms': form})
 
-
-
+def delete_notes(request, pk):
+	do = Notes.objects.get(id=pk)
+	do.delete()
+	
+	return redirect('home')
 
 # end notes
 # all statistics
@@ -173,7 +216,9 @@ def update_todo(request, todo_id):
 
 # end statistics
 # all subjects
-
+def subjects_list(request):
+	subjects = Subject.objects.filter(email=request.user.email).annotate(topic_count=Count('Topics')).values('id', 'topic_count')
+	return render(request, 'flashcards/important/subjects.html', {"subjects": subjects})
 
 
 

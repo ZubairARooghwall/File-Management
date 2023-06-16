@@ -41,10 +41,6 @@
   animation-iteration-count: infinite;
 }
 
-@font-face {
-    font-family: Teko;
-    src: url("static/fonts/Teko-Regular.ttf") format("truetype");
-}
 
 /*The scrollbar*/
 ::-webkit-scrollbar {
@@ -74,11 +70,14 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
 }
 
 body {
     background-color: var(--background-color);
     transition: background-color 0.5s ease;
+    color: #ffffff;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
 
 /*    For FireFox scrollbar*/
     scroll-behavior: smooth;
@@ -115,7 +114,7 @@ nav .logo a{
     justify-content: center;
     gap: 0.5rem;
     color: var(--logo-font-light-color);
-    font-family: "Teko", "Jetbrains Mono", serif;
+    font-family: "Jetbrains Mono", "Segoe UI", serif;
     text-decoration: none;
     font-size: 20px;
 }

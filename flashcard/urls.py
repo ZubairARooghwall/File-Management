@@ -20,6 +20,11 @@ urlpatterns = [
 	path('delete-account', views.delete_account, name="delete_account"),
 	
 	# todo
-	path('update_todo/<int:todoid>/', views.update_todo, name="update_todo")
-
+	path('create_todo', views.create_todo, name="create_todo"),
+	path('delete_todo/<int:pk>/', views.delete_todo, name="delete_todo"),
+	
+	# notes
+	path('create-notes', views.create_notes, name="create_notes"),
+	path('delete-notes/<int:pk>', views.delete_notes, name="delete_notes"),
+	
 ]

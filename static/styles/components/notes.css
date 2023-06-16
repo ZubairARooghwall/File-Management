@@ -1,30 +1,37 @@
-.to-do-container {
+a {
+    text-decoration: none;
+    color: #ffffff;
+    
+}
+
+.notes-container {
     border-radius: 5px;
-    background-color: #0e3a77;
+    background-color: #dc7227;
     display: flex;
     flex-direction: column;
+    padding: 5px;
+    overflow: visible;
+    height: 340px;
+}
+
+.notes-container:hover {
 
 }
 
-.to-do-container:hover {
-
-}
-
-.to-do-body {
+.notes-body {
     display: flex;
     flex-direction: column;
     overflow: visible;
     gap: 5px;
-
 }
 
-.to-do-header {
+.notes-header {
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
 }
 
 
-.todo-element {
+.notes-element {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -34,17 +41,27 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.todo-element:hover, .todo-element-paragraph:hover {
+.notes-element:hover, .notes-paragraph:hover {
     background-color: #e81d1d;
     cursor: pointer;
 }
 
-.to-do-body .todo-element a {
+.notes-body .todo-element a {
     text-decoration: none;
     color: white
 }
 
-.to-do-body .todo-element a .todo-element-paragraph {
+.notes-body .todo-element a .todo-element-paragraph {
     font-size: 0.7rem;
     transition: background-color 0.3s ease-in-out;
+}
+
+.notes-element-title {
+    font-size: 0.8rem;
+    color: #c7c7c7;
+}
+
+.notes-element-paragraph {
+    font-size: 0.6rem;
+    color: white;
 }

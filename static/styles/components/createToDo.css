@@ -1,0 +1,41 @@
+.createToDo-div {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.createToDo-div div.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-direction: column;
+    padding: 10px;
+
+}
+
+.createToDo-div div.form-group textarea {
+    border-radius: 5px;
+    padding: 5px;
+    font-family: inherit;
+}
+
+.createToDo-div div.form-group textarea:focus {
+    outline: 1px solid black;
+}
+
+.createToDo-div input {
+    background-color: #ffffff;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    font-family: inherit;
+    transform: translateX(10px);
+}
+
+.createToDo-div input:hover {
+    cursor: pointer;
+
+}

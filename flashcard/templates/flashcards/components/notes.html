@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/components/notes.css' %}">
+<div class="notes-container container">
+  <a href="{% url 'create_notes' %}"><div class="notes-header header">Notes <hr></div></a>
+    <div class="notes-body body">
+        {% for element in notes %}
+            <div class="notes-element">
+                <a href="{% url 'delete_notes' element.id %}">
+                    <p class="notes-element-title">{{ element.title }}</p>
+                    <p class="notes-element-paragraph">{{ element.note }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{% load static %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/components/subjects_list.css' %}">
+{% endblock css_file %}
+
+<div class="subjects-list">
+  {% for subject in subjects %}
+    <div class="subject">
+      <p class="subject-name">{{ subject.topics_count }}</p>
+    </div>
+
+
+  {% endfor %}
+</div>

@@ -74,7 +74,7 @@ class FlashCard(models.Model):
 
 class Notes(models.Model):
 	title = models.CharField(max_length=100, null=False, blank=False, default="")
-	note = models.CharField(max_length=3000, null=False, blank=False)
+	note = models.TextField(max_length=3000, null=False, blank=False)
 	flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL, blank=True)
 	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
@@ -185,7 +185,7 @@ class GroupMessages(models.Model):
 
 
 class Todo(models.Model):
-	task = models.CharField(max_length=300, null=False, blank=False)
+	task = models.TextField(max_length=300, null=False, blank=False)
 	created = models.DateTimeField(auto_now_add=True)
 	is_accomplished = models.BooleanField(default=False)
 	accomplished = models.DateTimeField(auto_now=True)

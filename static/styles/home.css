@@ -1,13 +1,42 @@
 .home-container {
     display: grid;
+    grid-auto-flow: column;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 3fr;
+    gap: 1rem;
     padding: 1rem;
-
     color: #ffffff;
     font-family: "JetBrains Mono", "Segoe UI", serif;
 }
 
+.home-container div {
+
+}
+
+.start-home {
+    /*grid-column: 1;*/
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.start-home {
+    /*grid-column: 2;*/
+}
+
+.start-home {
+    /*grid-column: 3;*/
+}
+
+.notes-container {
+    /*grid-row: 2;*/
+
+}
+
+.to-do-container {
+    /*grid-row: 1;*/
+    height: 200px;
+}
 
 .to-do-container {
     border-radius: 5px;
@@ -18,3 +47,19 @@
 
 }
 
+/*Center*/
+
+.center-home .statistics-div {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #e81d1d;
+    height: 200px;
+}
+
+.center-home .subjects-list {
+    margin-top: 1rem;
+    background-color: #605f5f;
+    border-radius: 5px;
+    padding: 5px;
+    height: 340px;
+}

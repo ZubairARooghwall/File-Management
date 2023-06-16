@@ -10,7 +10,25 @@
 <!--the content start here-->
 {% block content %}
     <div class="home-container">
+      <div class="start-home">
         {% include 'flashcards/components/todo.html' %}
+{#        {% include 'flashcards/components/error.html' %}#}
+        {% include 'flashcards/components/notes.html' %}
+      </div>
+      <div class="center-home">
+
+        {% include 'flashcards/components/statistics.html' %}
+
+        {% include 'flashcards/important/subjects.html' %}
+
+
+      </div>
+      <div class="end-home">
+
+
+
+      </div>
+
 
     </div>
 
