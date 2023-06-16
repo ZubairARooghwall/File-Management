@@ -32,6 +32,7 @@ class Subject(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	picture = models.ImageField(null=True, default="#") # Add a default image
+	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Topics(models.Model):
@@ -39,6 +40,7 @@ class Topics(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=False)
+	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 	
 	def save(self, *args, **kwargs):
 		self.subject.update = timezone.now()
@@ -77,7 +79,7 @@ class Notes(models.Model):
 	topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	
+	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 
@@ -187,5 +189,5 @@ class Todo(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	is_accomplished = models.BooleanField(default=False)
 	accomplished = models.DateTimeField(auto_now=True)
-	
+	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 	
