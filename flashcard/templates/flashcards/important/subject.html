@@ -1,10 +1,9 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %} {{ subject.subject_name }} {% endblock title %}
-
 {% block css_file %}
 <link rel="stylesheet" href="{% static 'styles/important/subject.css' %}">
-{% endblock %}
+{% endblock css_file %}
 
 {% block content %}
   <div class="subject-container">

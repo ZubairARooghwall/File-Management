@@ -33,7 +33,7 @@ class User(AbstractUser):
 	
 
 class Subject(models.Model):
-	subject_name = models.CharField(max_length=120, null=False, blank=False, unique=True)
+	subject_name = models.CharField(max_length=120, null=False, blank=False)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	picture = models.ImageField(null=True, default="#") # Add a default image
@@ -192,7 +192,5 @@ class GroupMessages(models.Model):
 class Todo(models.Model):
 	task = models.TextField(max_length=300, null=False, blank=False)
 	created = models.DateTimeField(auto_now_add=True)
-	is_accomplished = models.BooleanField(default=False)
-	accomplished = models.DateTimeField(auto_now=True)
 	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 	

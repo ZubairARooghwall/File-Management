@@ -1,9 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
-
-{% block title %}
-  Homepage
-{% endblock title %}
+{% block title %} Homepage {% endblock title %}
 {% block css_file %}
 <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 {% endblock css_file %}
@@ -12,7 +9,6 @@
     <div class="home-container">
       <div class="start-home">
         {% include 'flashcards/components/todo.html' %}
-{#        {% include 'flashcards/components/error.html' %}#}
         {% include 'flashcards/components/notes.html' %}
       </div>
       <div class="center-home">

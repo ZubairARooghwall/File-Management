@@ -21,7 +21,7 @@ urlpatterns = [
 	
 	# todo
 	path('create_todo', views.create_todo, name="create_todo"),
-	path('delete_todo/<int:pk>/', views.delete_todo, name="delete_todo"),
+	path('delete_todo/<int:pk>', views.delete_todo, name="delete_todo"),
 	
 	# notes
 	path('create-notes', views.create_notes, name="create_notes"),

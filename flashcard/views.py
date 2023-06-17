@@ -5,7 +5,6 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
 from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm
 
-
 #Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Log, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
 # Create your views here.
@@ -89,7 +88,7 @@ def delete_account(request):
 	return render(request, 'flashcards/conf/delete.html')
 
 
-
+########################################################################################################################
 
 # end user management
 
@@ -97,24 +96,41 @@ def delete_account(request):
 def home(request):
 	user = request.user
 	inspirational_quote = 0
-	todo = Todo.objects.filter(creator = user).order_by("created")
-	notes = Notes.objects.filter(creator = user).order_by("-updated") # - means descending order
-	subjects = Subject.objects.filter(creator = user).order_by("-updated")
+	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
 	topics = Topics.objects.filter(creator = user).order_by("-updated")
 	flashcards = FlashCard.objects.filter(creator = user).order_by("-updated")
-	# messagess = Messages.objects.all().order_by("-created")
-	# group_messages = GroupMessages.objects.all().order_by("-created")
-	# membership = Membership.objects.all()
-	# groups = Group.objects.all()
-	# error_message = 0
+	messagess = Messages.objects.all().order_by("-created")
+	group_messages = GroupMessages.objects.all().order_by("-created")
+	membership = Membership.objects.all()
+	groups = Group.objects.all()
+	error_message = 0
 
-	context = {"user": user, "inspirational": inspirational_quote, "todo": todo,
+	context = {"user": user, "inspirational": inspirational_quote, "todo": to_do,
 	           "notes": notes, "topics": topics, "flashcards": flashcards,
-	            "subjects": subjects
+	            "subjects": subjects,
 			}
+	
+	
 	return render(request, 'flashcards/home.html', context)
+
+
+@login_required(login_url='login')
+def subject(request, pk):
+	user = request.user
 	
+	notes = Notes.objects.filter(creator=user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=user).order_by("created")
+	topics = Topics.objects.filter(creator=user).order_by("-updated")
 	
+	context = {"notes": notes, "todo": to_do, "topics": topics}
+	
+	return render(request, 'flashcards/important/subject.html', context)
+########################################################################################################################
+
+
 @login_required(login_url='login')
 def settings(request):
 	user = request.user
@@ -148,15 +164,12 @@ def update(request, pk):
 	return redirect("home")
 
 # all to do lists
-def todo(request):
-	to_do = Todo.objects.filter(email=request.user.email)
-	context = {"todo": to_do}
-	
-	return render(request, 'flashcards/components/todo.html', context)
-
+# def todo(request):
+# 	to_do = Todo.objects.filter(creator = request.user).order_by("created")
+# 	return render(request, 'flashcards/important/subject.html', {"todo": to_do})
+#
 
 def create_todo(request):
-
 	if request.method == "POST":
 		form = TodoForm(request.POST)
 		if form.is_valid():
@@ -174,15 +187,17 @@ def create_todo(request):
 def delete_todo(request, pk):
 	do = Todo.objects.get(id=pk)
 	do.delete()
-	return redirect('home')
+	return redirect(request.GET.get("next_url", '/'))
+
 
 # end to do lists
 # all notes
-def notes(request):
-	note = Notes.objects.filter(email=request.user.email)
-	context = {'notes': note}
-	
-	return render(request, 'flashcards/components/notes.html', context)
+
+# def notes(request):
+# 	note = Notes.objects.filter(creator = request.user).order_by("-updated")
+# 	context = {'notes': note}
+# 	return render(request, 'flashcards/components/notes.html', context)
+#
 
 def create_notes(request):
 	if request.method == 'POST':
@@ -202,32 +217,20 @@ def delete_notes(request, pk):
 	do = Notes.objects.get(id=pk)
 	do.delete()
 	
-	return redirect('home')
+	return redirect(request.GET.get("next_url", '/'))
 
 # end notes
 # all statistics
 
 
-
-
-
-
-
 # end statistics
 # all subjects
-@login_required(login_url='login')
-def subjects_list(request):
-	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
-		# Subject.objects.filter(email=request.user.email).annotate(topic_count=Count('Topics')).values('id', 'topic_count')
-	return render(request, 'flashcards/important/subjects_list.html', {"subjects": subjects})
-
-
-def subject(request, pk):
-	
-	
-	
-	return render(request, 'flashcards/important/subject.html', {"subject": Subject.objects.get(id=pk)})
-
+# @login_required(login_url='login')
+# def subjects_list(request):
+# 	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
+# 		# Subject.objects.filter(email=request.user.email).annotate(topic_count=Count('Topics')).values('id', 'topic_count')
+# 	return render(request, 'flashcards/important/subjects_list.html', {"subjects": subjects})
+#
 
 
 def subject_create(request):
@@ -238,9 +241,16 @@ def subject_create(request):
 			subjects = form.save(commit=False)
 			subjects.creator = request.user
 			subjects.save()
+			
+			if form.errors:
+				return redirect('subject_create', messages.error)
+			
 			return redirect('subject', subjects.id)
 	else:
 		form = SubjectForm()
+		
+	
+		
 	return render(request, 'flashcards/important/subject_create.html', {"forms": form})
 
 
