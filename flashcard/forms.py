@@ -47,4 +47,7 @@ class SubjectForm(ModelForm):
 		model = Subject
 		fields = ['subject_name', 'picture']
 	
-	
+class TopicForm(ModelForm):
+	class Meta:
+		model = Topics
+		fields = ['topic_name']

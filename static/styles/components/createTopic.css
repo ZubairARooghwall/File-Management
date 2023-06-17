@@ -9,31 +9,38 @@
 .createTopic-div div.form-group {
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: flex-start;
     flex-direction: column;
     padding: 10px;
+    gap: 10px;
+    width: 500px;
 
 }
 
-.createTopic-div div.form-group textarea {
-    border-radius: 5px;
-    font-family: inherit;
-    padding: 1rem;
-}
-
-.createTopic-div div.form-group textarea:focus {
-    outline: 1px solid black;
-}
-
-.createTopic-div input {
+.createTopic-div input.create_topic {
     background-color: #ffffff;
     height: 30px;
     border: none;
     border-radius: 5px;
     width: 100px;
     font-family: inherit;
-    transform: translateX(10px);
+    margin-left: 10px;
 }
+
+.createTopic-div input#id_topic_name {
+    background-color: #ffffff;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-family: inherit;
+    padding: 1rem;
+}
+
+#id_topic_name:focus {
+    outline: none;
+}
+
 
 .createTopic-div .create_topic:hover {
     cursor: pointer;

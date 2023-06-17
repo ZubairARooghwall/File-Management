@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm
 
 #Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Log, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
@@ -117,17 +117,35 @@ def home(request):
 	return render(request, 'flashcards/home.html', context)
 
 
+
 @login_required(login_url='login')
 def subject(request, pk):
 	user = request.user
 	
+	current_subject = Subject.objects.get(id=pk)
+	topics = Topics.objects.filter(creator=user, subject=current_subject).order_by("-updated")
+	
+	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
 	notes = Notes.objects.filter(creator=user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=user).order_by("created")
-	topics = Topics.objects.filter(creator=user).order_by("-updated")
 	
-	context = {"notes": notes, "todo": to_do, "topics": topics}
+	context = {"notes": notes, "todo": to_do, "topics": topics, "subject": subjects, "current_subject": current_subject}
 	
 	return render(request, 'flashcards/important/subject.html', context)
+
+
+def topic(request, topic_id, subject_id):
+	current_subject = Subject.objects.get(id=subject_id)
+	
+	current_topic = Topics.objects.get(id=topic_id)
+	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject, topic=current_topic).order_by("-updated")
+	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	
+	
+	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "subject": current_subject, "current_subject": current_subject}
+	return render(request, 'flashcards/important/topic.html', context)
 ########################################################################################################################
 
 
@@ -158,10 +176,11 @@ def statistics(request):
 	return render(request, 'flashcards/components/statistics.html')
 
 
-
+@login_required(login_url='login')
 def update(request, pk):
 	
 	return redirect("home")
+
 
 # all to do lists
 # def todo(request):
@@ -169,6 +188,7 @@ def update(request, pk):
 # 	return render(request, 'flashcards/important/subject.html', {"todo": to_do})
 #
 
+@login_required(login_url='login')
 def create_todo(request):
 	if request.method == "POST":
 		form = TodoForm(request.POST)
@@ -184,6 +204,7 @@ def create_todo(request):
 	return render(request, 'flashcards/components/createToDo.html', {"forms": form})
 	
 
+@login_required(login_url='login')
 def delete_todo(request, pk):
 	do = Todo.objects.get(id=pk)
 	do.delete()
@@ -199,6 +220,7 @@ def delete_todo(request, pk):
 # 	return render(request, 'flashcards/components/notes.html', context)
 #
 
+@login_required(login_url='login')
 def create_notes(request):
 	if request.method == 'POST':
 		form = NotesForm(request.POST)
@@ -213,6 +235,8 @@ def create_notes(request):
 	
 	return render(request, 'flashcards/components/create.html', {'forms': form})
 
+
+@login_required(login_url='login')
 def delete_notes(request, pk):
 	do = Notes.objects.get(id=pk)
 	do.delete()
@@ -233,10 +257,11 @@ def delete_notes(request, pk):
 #
 
 
+@login_required(login_url='login')
 def subject_create(request):
 	
 	if request.method == "POST":
-		form = SubjectForm(request.POST)
+		form = SubjectForm(request.POST, request.FILES)
 		if form.is_valid():
 			subjects = form.save(commit=False)
 			subjects.creator = request.user
@@ -249,18 +274,43 @@ def subject_create(request):
 	else:
 		form = SubjectForm()
 		
-	
-		
 	return render(request, 'flashcards/important/subject_create.html', {"forms": form})
 
 
-# end subjects
-# all topics
+@login_required(login_url='login')
+def subject_update(request, subject_id):
+	subject = get_object_or_404(Subject, id = subject_id)
+	if request.method == 'POST':
+		form = SubjectForm(request.POST, request.FILES, instance=subject)
+		
+		if form.is_valid():
+			form.save()
+			return redirect('subject', pk = subject_id)
+	else:
+		form = SubjectForm(instance=subject)
+	
+	return render(request, 'flashcards/important/subject_update.html', {"forms": form})
 
 
-
-
-
+@login_required(login_url='login')
+def create_topic(request, pk):
+	
+	subject = Subject.objects.get(id = pk)
+	
+	if request.method == "POST":
+		form = TopicForm(request.POST)
+		if form.is_valid():
+			topic = form.save(commit=False)
+			topic.subject = subject
+			topic.creator = request.user
+			topic.save()
+			
+			return redirect('subject', pk=subject.id)
+	else:
+		form = TopicForm()
+		
+	
+	return render(request, 'flashcards/components/createTopic.html', {"forms": form})
 # end topics
 # all flashcards
 

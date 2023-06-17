@@ -1,0 +1,38 @@
+.topics-list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 5px;
+
+    height: 507px;
+    background-color: #4f4c3d;
+
+}
+
+.topics-list .topic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    overflow: auto;
+
+    height: 100%;
+}
+
+
+.topics-list .topic a {
+
+
+
+}
+
+.topics-list .topic a .topic-element {
+    border-radius: 10px;
+
+
+}
+
+.topics-list a {
+
+
+
+}

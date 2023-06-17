@@ -25,6 +25,12 @@
     margin: 1rem;
 }
 
+
+
+.subjects-list .subject a {
+    border-radius: 50%;
+}
+
 .subjects-list .subject a div {
     border-radius: 50%;
     background-color: #675656;
@@ -56,6 +62,6 @@
 
 }
 
-.subjects-list .subject a .subjects-element:hover p.subject-name{
-    top: 5px;
+.subjects-list .subject a:hover p.subject-name{
+    top: 0;
 }

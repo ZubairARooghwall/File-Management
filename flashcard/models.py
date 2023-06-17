@@ -36,7 +36,7 @@ class Subject(models.Model):
 	subject_name = models.CharField(max_length=120, null=False, blank=False)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	picture = models.ImageField(null=True, default="#") # Add a default image
+	picture = models.ImageField(null=True, default="related/head_icon/android-chrome-512x512.png") # Add a default image
 	creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -67,7 +67,6 @@ class FlashCard(models.Model):
 	lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0)
 	average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True)
 	is_hidden = models.BooleanField(default=False)
-
 	
 	def save(self, *args, **kwargs):
 		self.topic.updated = timezone.now()

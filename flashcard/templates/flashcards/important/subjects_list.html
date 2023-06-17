@@ -1,7 +1,5 @@
 {% load static %}
-{% block css_file %}
-<link rel="stylesheet" href="{% static 'styles/components/subjects_list.css' %}">
-{% endblock css_file %}
+<link rel="stylesheet" href="{% static 'styles/important/subjects_list.css' %}">
 
 <div class="subjects-list">
 
@@ -16,6 +14,7 @@
       <a href="{% url 'subject' subject.id %}">
         <div class="subjects-element" style='background-image: url("{{ subject.picture.url }}")'>
             <p class="subject-name">{{ subject.subject_name }}</p>
+{#            <p class="subject-info"></p> todo: give information and animation like the welcome message #}
         </div>
       </a>
   {% endfor %}
