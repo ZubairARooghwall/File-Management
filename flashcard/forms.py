@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 
 #Import all the models
-from .models import User, Notes, FlashCard, Topics, Todo
+from .models import User, Notes, FlashCard, Topics, Todo, Subject
 
 class MyUserRegistrationForm(UserCreationForm):
 	class Meta:
@@ -17,8 +17,8 @@ class MyUserRegistrationForm(UserCreationForm):
 class UserForm(ModelForm):
 	class Meta:
 		model = User
-		fields = ['username', 'name', 'email', 'bio', 'education', 'prefer_dark_theme', 'avatar']
-		exclude = ['score', 'is_staff', 'is_superuser']
+		fields = ['name', 'email', 'bio', 'education', 'prefer_dark_theme', 'avatar']
+		exclude = ['score', 'is_staff', 'is_superuser', 'is_active']
 
 
 class NotesForm(ModelForm):
@@ -40,4 +40,11 @@ class TodoForm(ModelForm):
 		class Meta:
 			model = Todo
 			fields = ['task']
-			
+		
+
+class SubjectForm(ModelForm):
+	class Meta:
+		model = Subject
+		fields = ['subject_name', 'picture']
+	
+	

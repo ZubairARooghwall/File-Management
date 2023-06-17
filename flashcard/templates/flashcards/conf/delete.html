@@ -11,7 +11,7 @@
             <form action="" class="form" method="post">
                 {% csrf_token %}
                 <div class="form_text">
-                    <p>Are you sure you want to delete "{{ obj }}"?</p>
+                    <p>Are you sure you want to delete your account?</p>
                 </div>
                 <div class="button-div">
                     <a href="{{ request.META.HTTP_REFERER }}"><button class="cancel">Cancel</button></a>

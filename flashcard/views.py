@@ -1,10 +1,9 @@
-from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm
 
 
 #Import all the models
@@ -86,7 +85,7 @@ def delete_account(request):
 	# except User.DoesNotExist:
 	# 	messages.error(request, "User does not exist")
 	#
-
+	
 	return render(request, 'flashcards/conf/delete.html')
 
 
@@ -96,24 +95,22 @@ def delete_account(request):
 
 @login_required(login_url='login')
 def home(request):
-	
 	user = request.user
 	inspirational_quote = 0
-	todo = Todo.objects.all().order_by("created")
-	notes = Notes.objects.all().order_by("-updated") # - means descending order
-	subjects = Subject.objects.all().order_by("-updated")
-	topics = Topics.objects.all().order_by("-updated")
-	flashcards = FlashCard.objects.all().order_by("-updated")
-	messagess = Messages.objects.all().order_by("-created")
-	group_messages = GroupMessages.objects.all().order_by("-created")
-	membership = Membership.objects.all()
-	groups = Group.objects.all()
-	error_message = 0
+	todo = Todo.objects.filter(creator = user).order_by("created")
+	notes = Notes.objects.filter(creator = user).order_by("-updated") # - means descending order
+	subjects = Subject.objects.filter(creator = user).order_by("-updated")
+	topics = Topics.objects.filter(creator = user).order_by("-updated")
+	flashcards = FlashCard.objects.filter(creator = user).order_by("-updated")
+	# messagess = Messages.objects.all().order_by("-created")
+	# group_messages = GroupMessages.objects.all().order_by("-created")
+	# membership = Membership.objects.all()
+	# groups = Group.objects.all()
+	# error_message = 0
 
 	context = {"user": user, "inspirational": inspirational_quote, "todo": todo,
-	           "notes": notes, "subjects": subjects, "topics": topics, "flashcards": flashcards,
-	           "messages": messagess, "group_messages": group_messages, "membership": membership,
-	           "groups": groups, "error_message": error_message
+	           "notes": notes, "topics": topics, "flashcards": flashcards,
+	            "subjects": subjects
 			}
 	return render(request, 'flashcards/home.html', context)
 	
@@ -216,10 +213,33 @@ def delete_notes(request, pk):
 
 # end statistics
 # all subjects
+@login_required(login_url='login')
 def subjects_list(request):
-	subjects = Subject.objects.filter(email=request.user.email).annotate(topic_count=Count('Topics')).values('id', 'topic_count')
-	return render(request, 'flashcards/important/subjects.html', {"subjects": subjects})
+	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
+		# Subject.objects.filter(email=request.user.email).annotate(topic_count=Count('Topics')).values('id', 'topic_count')
+	return render(request, 'flashcards/important/subjects_list.html', {"subjects": subjects})
 
+
+def subject(request, pk):
+	
+	
+	
+	return render(request, 'flashcards/important/subject.html', {"subject": Subject.objects.get(id=pk)})
+
+
+
+def subject_create(request):
+	
+	if request.method == "POST":
+		form = SubjectForm(request.POST)
+		if form.is_valid():
+			subjects = form.save(commit=False)
+			subjects.creator = request.user
+			subjects.save()
+			return redirect('subject', subjects.id)
+	else:
+		form = SubjectForm()
+	return render(request, 'flashcards/important/subject_create.html', {"forms": form})
 
 
 # end subjects

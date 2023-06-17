@@ -1,0 +1,24 @@
+{% load static %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/components/subjects_list.css' %}">
+{% endblock css_file %}
+
+<div class="subjects-list">
+
+  <a href="{% url 'create_subjects' %}"><div>
+      <p class="subject-title">Subjects</p>
+      <hr>
+    </div>
+  </a>
+
+ <div class="subject">
+  {% for subject in subjects %}
+      <a href="{% url 'subject' subject.id %}">
+        <div class="subjects-element" style='background-image: url("{{ subject.picture.url }}")'>
+            <p class="subject-name">{{ subject.subject_name }}</p>
+        </div>
+      </a>
+  {% endfor %}
+
+</div>
+</div>

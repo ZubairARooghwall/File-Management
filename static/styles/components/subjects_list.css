@@ -1,0 +1,61 @@
+.subjects-list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 1rem;
+    background-color: #312e2e;
+    border-radius: 5px;
+    height: 340px;
+
+
+}
+
+.subject a div p {
+    font-size: 0.9rem;
+}
+
+
+.subjects-list .subject {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    flex-wrap: nowrap;
+    overflow: auto;
+    position: relative;
+    margin: 1rem;
+}
+
+.subjects-list .subject a div {
+    border-radius: 50%;
+    background-color: #675656;
+    height: 125px;
+    width: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.subjects-list .subject a .subjects-element {
+
+
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+
+
+}
+
+
+.subjects-list div.subject a div  p.subject-name {
+    position: relative;
+    top: 35px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    padding: 2px;
+    transition: top 300ms ease;
+
+}
+
+.subjects-list .subject a .subjects-element:hover p.subject-name{
+    top: 5px;
+}

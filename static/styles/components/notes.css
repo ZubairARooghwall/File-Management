@@ -10,7 +10,7 @@ a {
     display: flex;
     flex-direction: column;
     padding: 5px;
-    overflow: visible;
+    overflow: auto;
     height: 340px;
 }
 
@@ -46,12 +46,12 @@ a {
     cursor: pointer;
 }
 
-.notes-body .todo-element a {
+.notes-body .notes-element a {
     text-decoration: none;
     color: white
 }
 
-.notes-body .todo-element a .todo-element-paragraph {
+.notes-body .notes-element a .todo-element-paragraph {
     font-size: 0.7rem;
     transition: background-color 0.3s ease-in-out;
 }

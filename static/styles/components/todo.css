@@ -3,7 +3,7 @@
     background-color: #0e3a77;
     display: flex;
     flex-direction: column;
-
+    overflow: auto;
 }
 
 .to-do-container:hover {

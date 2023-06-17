@@ -27,4 +27,8 @@ urlpatterns = [
 	path('create-notes', views.create_notes, name="create_notes"),
 	path('delete-notes/<int:pk>', views.delete_notes, name="delete_notes"),
 	
+	# subjects
+	path('subject/<int:pk>', views.subject, name='subject'),
+	path('subject-create', views.subject_create, name='create_subjects'),
+	
 ]

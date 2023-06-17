@@ -1,0 +1,70 @@
+.create-things-div {
+    width: 100%;
+    height: 43vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form {
+    display: flex;
+    background-color: #021e34;
+    border-radius: 5px;
+    padding: 15px;
+    width: 40%;
+    height: 80%;
+}
+
+.create-things-div .form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+}
+
+.create-things-div .form form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-things-div .form form div input {
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+
+.create-things-div .form form div  input:active {
+    outline: none;
+}
+
+.create-things-div .form form div #id_picture::file-selector-button {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+    padding: 5px;
+    background: #ffff;
+
+
+}
+
+
+.create-things-div .form form .submit-button {
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-family: inherit;
+    border: none;
+    height: 30px;
+}
+
+
+div.message-container {
+    color: red;
+    font-size: 1.2rem;
+}

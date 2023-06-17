@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.db import models
 from django.utils import timezone # for updating time
+
+
+def get_default_avatar():
+    return staticfiles_storage.url('avatar/avatar.svg')
 
 
 # Create your models here.
@@ -18,9 +23,9 @@ class User(AbstractUser):
 	]
 	# When adding values, User(...., education="MSC",...)
 	education = models.CharField(max_length=3, choices=education_choices, default="other")
-	avatar = models.ImageField(null=True, default="avatar/avatar.svg")
+	avatar = models.ImageField(null=True, default=get_default_avatar)
 	prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
-	is_active = models.BooleanField(default=False, help_text="If the person is active, it is True")
+	is_active = models.BooleanField(default=True, help_text="If the person is active, it is True")
 	date_joined = models.DateTimeField(auto_now_add=True)
 	
 	USERNAME_FIELD = 'email'
