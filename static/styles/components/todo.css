@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
+    height: 200px;
+    padding: 0.5rem;
 }
 
 .to-do-container:hover {

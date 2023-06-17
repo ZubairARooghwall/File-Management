@@ -2,9 +2,19 @@
 {% load static %}
 {% block title %} {{ subject.subject_name }} {% endblock title %}
 
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/important/subject.css' %}">
+{% endblock %}
+
 {% block content %}
-
-
-
+  <div class="subject-container">
+    <div class="left-subject">
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+    </div>
+    <div class="right-subject">
+      {% include 'flashcards/important/titles_list.html' %}
+    </div>
+  </div>
 
 {% endblock content %}

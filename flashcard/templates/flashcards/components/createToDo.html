@@ -9,6 +9,7 @@
   <div class="createToDo-div">
     <form method="post">
       {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
       {% for field in forms %}
         <div class="form-group">
           <label for="thing-label">{{ field.label }}</label>

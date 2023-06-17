@@ -163,7 +163,8 @@ def create_todo(request):
 			todo = form.save(commit=False)
 			todo.creator = request.user
 			todo.save()
-			return redirect('home')
+			next_url = request.GET.get("next", '/')
+			return redirect(next_url)
 	else:
 		form = TodoForm()
 	
@@ -190,7 +191,8 @@ def create_notes(request):
 			notes = form.save(commit=False)
 			notes.creator = request.user
 			notes.save()
-			return redirect('home')
+			next_url = request.GET.get("next", '/')
+			return redirect(next_url)
 	else:
 		form = NotesForm()
 	

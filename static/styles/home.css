@@ -36,20 +36,10 @@
 
 .to-do-container {
     /*grid-row: 1;*/
-    height: 200px;
-}
-
-.to-do-container {
-    border-radius: 5px;
-    background-color: #343434;
-
-    padding: 0.5rem;
-
 
 }
 
 /*Center*/
-
 .center-home .statistics-div {
     border-radius: 5px;
     padding: 5px;

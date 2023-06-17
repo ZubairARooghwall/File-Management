@@ -1,7 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles/components/todo.css' %}">
 <div class="to-do-container container">
-  <a href="{% url 'create_todo' %}"><div class="to-do-header header">Todo <hr></div></a>
+  <a href="{% url 'create_todo' %}?next={{ request.path }}"><div class="to-do-header header">Todo <hr></div></a>
 
     <div class="to-do-body body">
         {% for element in todo %}

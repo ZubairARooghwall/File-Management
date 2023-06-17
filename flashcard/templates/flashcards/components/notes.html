@@ -1,7 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles/components/notes.css' %}">
 <div class="notes-container container">
-  <a href="{% url 'create_notes' %}"><div class="notes-header header">Notes <hr></div></a>
+  <a href="{% url 'create_notes' %}?next={{ request.path }}"><div class="notes-header header">Notes <hr></div></a>
     <div class="notes-body body">
         {% for element in notes %}
             <div class="notes-element">
