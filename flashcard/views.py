@@ -154,13 +154,29 @@ def topic(request, topic_id, subject_id):
 	current_subject = Subject.objects.get(id=subject_id)
 	
 	current_topic = Topics.objects.get(id=topic_id)
-	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject, topic=current_topic).order_by("-updated")
+	flashcards = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject, topic=current_topic).order_by("-updated")
 	
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
+	flashcard_question_preview = ""
+	flashcard_answer_preview = ""
 	
-	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "current_subject": current_subject, "flashcards": flashcard}
+	if flashcards:
+		question = flashcards[0].question
+		flashcard_question_preview = question[:40]
+		if len(question) > 40:
+			flashcard_question_preview += "..."
+		
+		answer = flashcards[0].answer
+		flashcard_answer_preview = answer[:20]
+		if len(answer) > 20:
+			flashcard_answer_preview += "..."
+	
+	
+	context = {"notes": notes, "todo": to_do, "current_topic": current_topic,
+	           "current_subject": current_subject, "flashcards": flashcards,
+	           "question_preview": flashcard_question_preview, "answer_preview": flashcard_answer_preview}
 	return render(request, 'flashcards/important/topic.html', context)
 
 
@@ -176,8 +192,6 @@ def flashcard(request, subject_id, topic_id, flashcard_id):
 	
 	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "current_subject": current_subject, "flashcards": flashcard}
 	return render(request, "flashcards/important/flashcard.html", context)
-
-
 
 
 
