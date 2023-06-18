@@ -43,25 +43,51 @@
 }
 
 .subjects-list .subject a .subjects-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;*/
+    background-size: cover;
+    background-repeat: no-repeat;
 
 
 }
 
+.subjects-list .subject a .subjects-element div.time-since-div {
+    transform: scale(0);
+    background-color: transparent;
+    margin-top: 50px;
+    position: absolute;
+    visibility: hidden;
+    transition: all 100ms ease-in-out;
+}
+
+.subjects-list .subject a:hover div.time-since-div {
+    transform: scale(1);
+    visibility: visible;
+}
+
+.subjects-list .subject a .subjects-element div .time_updated {
+    width: 80px;
+    border-radius: 5px;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 0.7rem;
+    color: #ffffff;
+}
 
 .subjects-list div.subject a div  p.subject-name {
     position: relative;
-    top: 35px;
+    transform: translateY(25px);
     background-color: rgba(0, 0, 0, 0.9);
     border-radius: 5px;
     padding: 2px;
-    transition: top 300ms ease;
+    transition: transform 300ms ease;
 
 }
 
 .subjects-list .subject a:hover p.subject-name{
-    top: 0;
+    transform: translateY(-25px);
 }
+

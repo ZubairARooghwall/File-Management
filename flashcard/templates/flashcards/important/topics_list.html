@@ -7,11 +7,20 @@
     {% for topic in topics %}
       <a href="{% url 'topic' topic_id=topic.id subject_id=current_subject.id %}">
         <div class="topic-element">
-          <p class="topic-name">{{ topic.topic_name }}</p>
+          <div>
+            <p class="topic-name">{{ topic.topic_name }}</p>
+            <div class="flashcard-count-div">
+              <p class="topic-flashcard-count">{{ topic.flashcard_set.count }}</p>
+            </div>
+          </div>
+            <div class="date_updated">
+              <p>{{ topic.updated | timesince }}</p>
+            </div>
         </div>
       </a>
+
     {% endfor %}
-  </div>
+    </div>
 
   <a href="{% url 'create_topic' pk=current_subject.id %}">
     <hr>

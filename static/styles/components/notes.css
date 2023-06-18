@@ -33,7 +33,7 @@ a {
 
 .notes-element {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.2);
@@ -46,12 +46,12 @@ a {
     cursor: pointer;
 }
 
-.notes-body .notes-element a {
+.notes-body a .notes-element {
     text-decoration: none;
     color: white
 }
 
-.notes-body .notes-element a .todo-element-paragraph {
+.notes-body a .notes-element .todo-element-paragraph {
     font-size: 0.7rem;
     transition: background-color 0.3s ease-in-out;
 }

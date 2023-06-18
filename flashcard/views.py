@@ -144,7 +144,7 @@ def topic(request, topic_id, subject_id):
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
 	
-	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "subject": current_subject, "current_subject": current_subject}
+	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "subject": current_subject, "current_subject": current_subject, "flashcard": flashcard}
 	return render(request, 'flashcards/important/topic.html', context)
 ########################################################################################################################
 
@@ -289,7 +289,16 @@ def subject_update(request, subject_id):
 	else:
 		form = SubjectForm(instance=subject)
 	
-	return render(request, 'flashcards/important/subject_update.html', {"forms": form})
+	return render(request, 'flashcards/important/subject_update.html', {"forms": form, "current_subject": subject})
+
+
+@login_required(login_url='login')
+def delete_subject(request, subject_id):
+	subject = get_object_or_404(Subject, id = subject_id)
+	subject.delete()
+	
+	return redirect('home')
+
 
 
 @login_required(login_url='login')
@@ -311,6 +320,16 @@ def create_topic(request, pk):
 		
 	
 	return render(request, 'flashcards/components/createTopic.html', {"forms": form})
+
+
+@login_required(login_url='login')
+def delete_topic(request, pk):
+	do = Topics.objects.get(id = pk)
+	do.delete()
+	
+	return redirect(request, 'home')
+	
+	
 # end topics
 # all flashcards
 

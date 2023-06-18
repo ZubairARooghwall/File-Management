@@ -41,12 +41,12 @@
     cursor: pointer;
 }
 
-.to-do-body .todo-element a {
+.to-do-body a {
     text-decoration: none;
     color: white
 }
 
-.to-do-body .todo-element a .todo-element-paragraph {
+.to-do-body a .todo-element .todo-element-paragraph {
     font-size: 0.7rem;
     transition: background-color 0.3s ease-in-out;
 }

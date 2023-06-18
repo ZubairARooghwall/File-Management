@@ -15,6 +15,9 @@
         <div class="subjects-element" style='background-image: url("{{ subject.picture.url }}")'>
             <p class="subject-name">{{ subject.subject_name }}</p>
 {#            <p class="subject-info"></p> todo: give information and animation like the welcome message #}
+          <div class="time-since-div">
+            <p class="time_updated">{{ subject.updated | timesince }}</p>
+          </div>
         </div>
       </a>
   {% endfor %}

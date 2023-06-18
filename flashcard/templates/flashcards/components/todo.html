@@ -5,11 +5,11 @@
 
     <div class="to-do-body body">
         {% for element in todo %}
+          <a href="{% url 'delete_todo' element.id %}?next_url={{ request.path|urlencode }}">
             <div class="todo-element">
-                <a href="{% url 'delete_todo' element.id %}?next_url={{ request.path|urlencode }}">
-                    <p class="todo-element-paragraph">{{ element.task }}</p>
-                </a>
+              <p class="todo-element-paragraph">{{ element.task }}</p>
             </div>
+          </a>
         {% endfor %}
     </div>
 </div>

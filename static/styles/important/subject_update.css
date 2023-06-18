@@ -1,6 +1,6 @@
 .create-things-div {
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,12 +9,14 @@
 
 .form {
     display: flex;
+    flex-direction: column;
     background-color: #021e34;
     border-radius: 5px;
     padding: 15px;
     width: 40%;
     height: 80%;
 
+    gap: 2rem;
 }
 
 .create-things-div .form form {
@@ -67,11 +69,33 @@
     font-family: inherit;
     border: none;
     height: 30px;
-    margin-top: 30px;
+}
+
+.submit-button:hover {
+    cursor: pointer;
 }
 
 
 div.message-container {
     color: red;
     font-size: 1.2rem;
+}
+
+
+.delete-button {
+   background-color: #ff0000;
+    border-radius: 5px;
+    font-family: inherit;
+    border: none;
+    height: 30px;
+    width: 100%;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
+.update-form {
+    display: flex;
+    flex-direction: column;
 }

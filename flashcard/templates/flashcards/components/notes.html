@@ -4,12 +4,12 @@
   <a href="{% url 'create_notes' %}?next={{ request.path }}"><div class="notes-header header">Notes <hr></div></a>
     <div class="notes-body body">
         {% for element in notes %}
+           <a href="{% url 'delete_notes' element.id %}">
             <div class="notes-element">
-                <a href="{% url 'delete_notes' element.id %}">
-                    <p class="notes-element-title">{{ element.title }}</p>
-                    <p class="notes-element-paragraph">{{ element.note }}</p>
-                </a>
+              <p class="notes-element-title">{{ element.title }}</p>
+              <p class="notes-element-paragraph">{{ element.note }}</p>
             </div>
+           </a>
         {% endfor %}
     </div>
 </div>
