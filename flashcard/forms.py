@@ -21,6 +21,13 @@ class UserForm(ModelForm):
 		exclude = ['score', 'is_staff', 'is_superuser', 'is_active']
 
 
+class FlashcardForm(ModelForm):
+	class Meta:
+		model = FlashCard
+		fields = ['question', 'answer', 'question_hint', 'is_hidden']
+	
+
+
 class NotesForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)

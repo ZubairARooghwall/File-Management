@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
-from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm
 
 #Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Log, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
@@ -284,7 +284,24 @@ def create_topic(request, pk):
 	return render(request, 'flashcards/components/createTopic.html', {"forms": form})
 
 
-
+def create_flashcard(request, subject_id, topic_id):
+	current_subject = Subject.objects.get(id = subject_id)
+	current_topic = Subject.objects.get(id=topic_id, subject=current_subject)
+	user = request.user
+	
+	if request.method == 'POST':
+		form = FlashcardForm(request.POST)
+		if form.is_valid():
+			flashcard = form.save(commit=False)
+			flashcard.creator = user
+			flashcard.topic = current_topic
+			flashcard.save()
+			
+			return render('flashcard', pk = flashcard.id)
+	
+	
+	
+	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form})
 
 #End Create Things######################################################################################################
 #Update Things##########################################################################################################

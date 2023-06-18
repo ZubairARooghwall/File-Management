@@ -39,7 +39,6 @@
 
 .flashcard-list .flashcard a .flashcard-element div p.flashcard-name {
     transform: translateY(40px);
-    background-color: #ef2c3a;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -76,7 +75,6 @@ p.lapses {
 
 
 .flashcard-list .flashcard a .flashcard-element #answer {
-    background-color: #e81d1d;
     transform: translateY(40px);
     transition: transform 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }

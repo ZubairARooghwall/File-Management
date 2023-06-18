@@ -36,7 +36,7 @@ class Subject(models.Model):
   subject_name = models.CharField(max_length=120, null=False, blank=False)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  picture = models.ImageField(null=True, default="") # Add a default image
+  picture = models.ImageField(null=True, default="", blank=True) # Add a default image
   creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
