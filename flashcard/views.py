@@ -76,14 +76,16 @@ def logoutPage(request):
 # all user management
 @login_required(login_url='login')
 def delete_account(request):
-	# try:
-	# 	u = User.objects.get(username=username)
-	# 	u.delete()
-	# 	messages.success(request, "The is deleted")
-	#
-	# except User.DoesNotExist:
-	# 	messages.error(request, "User does not exist")
-	#
+	try:
+		u = User.objects.get(id=request.user.id)
+		u.delete()
+		messages.success(request, "The is deleted")
+		
+		return redirect('login')
+	
+	except User.DoesNotExist:
+		messages.error(request, "User does not exist")
+
 	
 	return render(request, 'flashcards/conf/delete.html')
 
@@ -158,8 +160,25 @@ def topic(request, topic_id, subject_id):
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
 	
-	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "subject": current_subject, "current_subject": current_subject, "flashcard": flashcard}
+	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "current_subject": current_subject, "flashcards": flashcard}
 	return render(request, 'flashcards/important/topic.html', context)
+
+
+def flashcard(request, subject_id, topic_id, flashcard_id):
+	current_subject = Subject.objects.get(id = subject_id)
+	current_topic = Topics.objects.get(id = topic_id)
+	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	
+	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
+	                                     topic=current_topic).order_by("-updated")
+	
+	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "current_subject": current_subject, "flashcards": flashcard}
+	return render(request, "flashcards/important/flashcard.html", context)
+
+
+
 
 
 def credit(request):
@@ -274,19 +293,20 @@ def subject_update(request, subject_id):
 
 @login_required(login_url='login')
 def topic_update(request, subject_id, topic_id):
-	current_subject = Subject.objects.get(id=subject_id, user=request.user)
+	current_subject = Subject.objects.get(id=subject_id, creator=request.user)
 	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
 	user = request.user
 	
-	if current_topic.creator != user:
-		return redirect('home')
 	
 	if request.method == 'POST':
+		# form = UpdateTopicForm(request.POST, request.user.id , instance=current_topic)
 		form = TopicForm(request.POST, instance=current_topic)
 		
 		if form.is_valid():
+			form.save(commit=False)
+			form.subject_id = int(subject_id)
 			form.save()
-			return redirect('topic', pk='topic_id')
+			return redirect('topic', subject_id=subject_id, topic_id=topic_id)
 	else:
 		form = TopicForm(instance=current_topic)
 	

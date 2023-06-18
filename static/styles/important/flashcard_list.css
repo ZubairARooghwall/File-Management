@@ -1,0 +1,29 @@
+.flashcard-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 5px;
+
+    height: 507px;
+    background-color: #4e505b;
+}
+
+.flashcard-list .flashcard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.5rem;
+    overflow: auto;
+    height: 100%;
+
+}
+
+.flashcard-list .flashcard a .flashcard-element {
+    background-color: #e81d1d;
+    height: 150px;
+    padding: 1rem;
+    border-radius: 10px;
+
+
+
+}

@@ -51,3 +51,17 @@ class TopicForm(ModelForm):
 	class Meta:
 		model = Topics
 		fields = ['topic_name']
+		
+		
+# class UpdateTopicForm(ModelForm):
+#
+# 	# This is for topic update where I can change the subject of the topic
+# 	# subject = forms.ChoiceField(choices=[])
+#
+# 	# def __init__(self, user, *args, **kwargs):
+# 	# 	super().__init__(*args, **kwargs)
+# 		# self.fields['subject'].choices = [(subject.id, subject.subject_name) for subject in Subject.objects.filter(creator = user)]
+#
+# 	class Meta:
+# 		model = Topics
+# 		fields = ['topic_name']

@@ -12,17 +12,13 @@
     </div>
     <div class="right-topic">
       <div class="topic-info">
-        <a href="{% %}"><div class="topic-info-name">{{ current_topic.topic_name }}</div></a>
+        <a href="{% url 'update_topic' current_subject.id current_topic.id %}"><div class="topic-info-name">{{ current_topic.topic_name }}</div></a>
         <div class="topic-info-count">{{ current_topic.flashcard_set.count }} Flashcards</div>
         <div class="topic-info-other">test</div>
 
       </div>
-
       {% include 'flashcards/important/flashcard_list.html' %}
-
     </div>
-
-
   </div>
 
 

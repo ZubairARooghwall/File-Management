@@ -16,13 +16,13 @@
     padding: 0.5rem;
     overflow: auto;
     height: 100%;
+
 }
 
 
 .topics-list .topic a {
     border-radius: 10px;
     background-color: #1e9ed5;
-
 
 }
 
@@ -33,6 +33,7 @@
     height: 5rem;
     padding: 10px;
     color: black;
+
 
     display: flex;
     flex-direction: column;
