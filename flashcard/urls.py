@@ -32,7 +32,9 @@ urlpatterns = [
 	path('subject-create', views.subject_create, name='create_subjects'),
 	path('subject=<int:subject_id>/update', views.subject_update, name='update_subjects'),
 	path('subject=<int:subject_id>/delete', views.delete_subject, name='delete_subject'),
-
+	
+	# topics
 	path('subject=<int:subject_id>/topic=<int:topic_id>', views.topic, name='topic'),
-	path('subject=<int:pk>/create_topic', views.create_topic, name='create_topic')
+	path('subject=<int:pk>/create_topic', views.create_topic, name='create_topic'),
+	path('subject=<int:pk>/topic<int:pk>/update', views.topic_update, name='update_topic')
 ]

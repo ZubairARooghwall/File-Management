@@ -27,7 +27,7 @@
           </div>
 
           {% if current_subject.picture.url != '/images/%23' %}
-            <img src="{{ current_subject.picture.url }}">
+            <img src="{{ current_subject.picture.url }}" alt="{{ current_subject.picture.url   }}">
           {% else %}
             <div class="empty-div"></div>
           {% endif %}

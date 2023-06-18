@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Flashcards {% endblock title %}
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/important/flashcard.css' %}"> {% endblock css_file %}
+{% block content %}
+  {% include 'flashcards/components/todo.html' %}
+  {% include 'flashcards/components/notes.html' %}
+
+
+
+{% endblock content %}
