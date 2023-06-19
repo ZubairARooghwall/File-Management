@@ -1,0 +1,14 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/components/recently_added_flashcards.css' %}">
+
+<div class="recently-added">
+{#  when you click on one, you are redirected to the update page, and next you will be recirected back to the create page#}
+  {% for flashcard in flashcards %}
+    <a href="{% url 'update-flashcard' subject_id=current_subject.id topic_id=current_topic.id flashcard_id=flashcard.id %}">
+      <div class="flashcard-list-div">
+        <p class="question">{{ flashcard.question|slice:":40" }}</p>
+        <p class="answer">{{ flashcard.answer|slice:":40" }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>

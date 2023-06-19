@@ -1,0 +1,100 @@
+.topics-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 5px;
+
+    height: 507px;
+    background-color: rgba(9, 13, 86, 0.47);
+
+}
+
+.topics-list .topic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0.5rem;
+    overflow: auto;
+    height: 100%;
+
+}
+
+
+.topics-list .topic a {
+    border-radius: 10px;
+    background-color: #1e9ed5;
+
+}
+
+
+
+.topics-list .topic a .topic-element {
+    border-radius: 10px;
+    height: 5rem;
+    padding: 10px;
+    color: black;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+}
+
+
+.topics-list .topic a .topic-element div {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.topics-list .topic a div.topic-element div p.topic-name {
+    font-size: 1.3rem;
+    transform: translateY(30px);
+    transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+}
+
+
+.flashcard-count-div p.topic-flashcard-count {
+    opacity: 0;
+    transform: translateX(12px);
+    transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ;
+}
+
+.date_updated {
+    display: flex;
+    justify-content: flex-end;
+    color: #ffffff;
+    font-size: 0.7rem;
+
+}
+
+.date_updated p {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/*hover*/
+.topics-list .topic a:hover  div.topic-element div p.topic-name {
+    transform: translateY(0px);
+
+}
+
+.topics-list .topic a:hover .flashcard-count-div p.topic-flashcard-count {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.topics-list .topic a:hover div.date_updated p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+/*end hover*/

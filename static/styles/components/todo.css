@@ -1,0 +1,52 @@
+.to-do-container {
+    border-radius: 5px;
+    background-color: #0e3a77;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 200px;
+    padding: 0.5rem;
+}
+
+.to-do-container:hover {
+
+}
+
+.to-do-body {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    gap: 5px;
+
+}
+
+.to-do-header {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+
+.todo-element {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.todo-element:hover, .todo-element-paragraph:hover {
+    background-color: #e81d1d;
+    cursor: pointer;
+}
+
+.to-do-body a {
+    text-decoration: none;
+    color: white
+}
+
+.to-do-body a .todo-element .todo-element-paragraph {
+    font-size: 0.7rem;
+    transition: background-color 0.3s ease-in-out;
+}

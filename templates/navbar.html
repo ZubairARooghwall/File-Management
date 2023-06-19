@@ -1,0 +1,37 @@
+{% load static %}
+<nav>
+  <div id="start" class="logo">
+    <a href="{% url 'home' %}">
+{#      Thanks to manshagraphics for providing the image#}
+      <img src="{% static 'images/related/logo.png' %}" class="logo-image">
+        <p>Flashy</p>
+    </a>
+  </div>
+
+  <div id="center" class="search">
+    <form class="header_search" method="get" action="{% url 'home' %}">
+      <input name="q" placeholder="Search" class="input">
+      <button class="search-logo"><img src="{% static 'images/related/search.png' %}" class="search-logo-image"></button>
+    </form>
+     </div>
+
+  <div id="end" class="user">
+      {% if request.user.is_authenticated %}
+
+          {% if request.path ==  '/'  %}
+            <p class="welcome welcome-animation">Welcome, {{ request.user.name }}</p>
+          {% endif %}
+        <div class="avatar">
+          <a href="{% url 'settings' %}">
+            <img src="{{ request.user.avatar.url }}" class="avatar-image">
+          </a>
+        </div>
+      {% else %}
+        <div class="login-button">
+            <a href="{% url 'login' %}">
+                <button>Login</button>
+            </a>
+        </div>
+      {% endif %}
+  </div>
+</nav>

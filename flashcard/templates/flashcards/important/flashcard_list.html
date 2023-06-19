@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/important/flashcard_list.css' %}">
+<div class="flashcard-list">
+  <div class="flashcard">
+
+    {% for flashcard in flashcards %}
+      <a href="{% url 'flashcard' current_subject.id current_subject.id flashcard.id %}">
+        <div class="flashcard-element">
+          <div>
+            <p class="flashcard-name">{{ flashcard.question|slice:":20" }}...</p>
+          </div>
+          <div class="time-answer">
+          <div id="time">
+            <div>
+              <p class="lapses">{{ flashcard.lapses }}:{{ flashcard.average }}</p>
+            </div>
+            <div>
+              <p class="updated-time-since">{{ flashcard.updated|timesince }}</p>
+            </div>
+          </div>
+
+          <div id="answer">
+            <p>{{ flashcard.answer|slice:":40" }}</p>
+          </div>
+          </div>
+
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'create-flashcard' current_subject.id current_topic.id %}">
+    <hr>
+    <p class="flashcard-title">Flashcards</p>
+  </a>
+
+
+</div>

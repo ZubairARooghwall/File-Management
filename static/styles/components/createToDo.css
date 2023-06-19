@@ -1,0 +1,40 @@
+.createTopic-div {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.createTopic-div div.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-direction: column;
+    padding: 10px;
+
+}
+
+.createTopic-div div.form-group textarea {
+    border-radius: 5px;
+    font-family: inherit;
+    padding: 1rem;
+}
+
+.createTopic-div div.form-group textarea:focus {
+    outline: 1px solid black;
+}
+
+.createTopic-div input {
+    background-color: #ffffff;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    font-family: inherit;
+    transform: translateX(10px);
+}
+
+.createTopic-div .create_topic:hover {
+    cursor: pointer;
+}

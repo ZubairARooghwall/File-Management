@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{#  This is for the icon on the tab of the html file #}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/related/head_icon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/related/head_icon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/related/head_icon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'images/related/head_icon/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'images/related/head_icon/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+{#    End tab icon  #}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'styles/main_dark.css' %}">
+{#    For custom css file#}
+    {% block css_file %} {% endblock css_file %}
+  <title>{% block title %} {% endblock title %}</title>
+</head>
+<body>
+  {% include 'navbar.html' %}
+  {% block content %}
+
+
+  {% endblock content %}
+</body>
+</html>

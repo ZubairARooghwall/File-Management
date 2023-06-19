@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Update Topic {% endblock title %}
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/important/topic_update.css' %}"> {% endblock css_file %}
+
+{% block content %}
+
+  <div class="updateTopic-div">
+
+    <div>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in forms %}
+        <div class="form-group">
+          <label for="thing-label">{{ field.label }}</label>
+            {{ field }}
+        </div>
+      {% endfor %}
+      <input type="submit" value="Submit" class="update_topic">
+    </form>
+    </div>
+  </div>
+{% endblock content %}

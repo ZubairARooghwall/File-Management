@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Settings {% endblock title %}
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/settings.css' %}"> {% endblock css_file %}
+{% block content %}
+    <div class="settings-page">
+        <div class="user-settings">
+            <div class="header">
+                <p>User Settings</p>
+            <hr>
+                <div class="message-container">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+            <div class="user-settings-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
+                            {% if field.field.widget.input_type != 'file' %}
+                                {{ field }}
+                            {% else %}
+                                {{ field }}
+                                <img src="{{ field.value.url }}" alt="Current Image" class="current-image">
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="form-action">
+                        <button class="btn btn--main update-button" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="misc">
+            <div class="header">
+                <p>User Account</p>
+                <hr>
+            </div>
+            <div class="user-account-body">
+                <div class="logout">
+                    <p class="logout-paragraph">Logout:  </p>
+                    <a href="{% url 'logout' %}"><button>Logout</button></a>
+                </div>
+
+                {% if not request.user.is_superuser %}
+                <div class="delete">
+                    <p class="delete-paragraph">Delete Account:</p>
+                    <a href="{% url 'delete_account' %}"><button>Delete</button></a>
+                </div>
+                {% else %}
+                    <div class="admin">
+                        <p class="admin-paragraph">Admin Dashboard:</p>
+                        <a href="/admin"><button>Open</button></a>
+                    </div>
+                {% endif %}
+                <div class="message-container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+{% endblock content %}

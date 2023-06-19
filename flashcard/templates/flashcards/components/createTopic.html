@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Create To Do{% endblock title %}
+{% block css_file %}
+  <link rel="stylesheet" href="{% static 'styles/components/createTopic.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="createTopic-div">
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
+      {% for field in forms %}
+        <div class="form-group">
+          <label for="thing-label">{{ field.label }}</label>
+            {{ field }}
+        </div>
+      {% endfor %}
+      <input type="submit" value="Submit" class="create_topic">
+    </form>
+  </div>
+{% endblock content %}

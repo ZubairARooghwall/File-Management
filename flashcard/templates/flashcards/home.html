@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Homepage {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock css_file %}
+<!--the content start here-->
+{% block content %}
+    <div class="home-container">
+      <div class="start-home">
+        {% include 'flashcards/components/todo.html' %}
+        {% include 'flashcards/components/notes.html' %}
+      </div>
+      <div class="center-home">
+
+        {% include 'flashcards/components/statistics.html' %}
+
+        {% include 'flashcards/important/subjects_list.html' %}
+
+
+      </div>
+      <div class="end-home">
+
+
+
+      </div>
+
+
+    </div>
+
+
+{% endblock content %}

@@ -1,0 +1,284 @@
+:root {
+
+    /*For dark theme*/
+    --search-form-light-background: rgba(120, 131, 155, 0.2);
+    --logo-font-light-color: #fff;
+    --background-color: #141221;
+    --text-color-light: #fff;
+    --search-button-light-color: #000;
+    --search-form-button-color: invert(100%);
+    --box-shodow-color: rgb(77, 77, 77);
+
+    /*Login button */
+    --login-button-background: #fff;
+    --login-button-background-hover: linear-gradient(to top, #00d2ff, #3a7bd5);
+
+    /*All search things*/
+    --search-form-border-radius: 40px;
+    --search-form-border-hover: transparent;
+
+
+}
+
+/* Style the selected text */
+::selection {
+  background-color: #ffcc00;
+  color: #000000;
+}
+
+
+/* Add animation to the selected text */
+@keyframes selectionAnimation {
+  0% { background-color: #ffcc00; }
+  50% { background-color: #ffffff; }
+  100% { background-color: #ffcc00; }
+}
+
+/* Apply animation to the selected text */
+::selection {
+  animation-name: selectionAnimation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+
+/*The scrollbar*/
+::-webkit-scrollbar {
+    width: 5px;
+    transition: all 300ms ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    background-color: var(--background-color);
+    transition: background-color 0.5s ease;
+    color: #ffffff;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+
+/*    For FireFox scrollbar*/
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+/*General navigation*/
+
+nav {
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    /*flex: 1 1 95%*/
+    padding: 2rem;
+}
+
+/*the logo*/
+nav .logo a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--logo-font-light-color);
+    font-family: "Jetbrains Mono", "Segoe UI", serif;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav .logo a .logo-image {
+    height: 45px;
+}
+
+/*the middle search*/
+nav .search {
+    height: 50px;
+    display: flex;
+    flex: 1 1 300px;
+    flex-basis: 200px;
+    max-width: 520.8px;
+
+}
+
+/*search's form*/
+nav .search form {
+    height: 50px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*input in search*/
+nav .search form input.input {
+    outline: none;
+    border: none;
+    background-color: var(--search-form-light-background);
+    font-family: "Segoe UI", "JetBrains Mono", serif;
+    border-radius: var(--search-form-border-radius) 0 0 var(--search-form-border-radius);
+    padding: 10px;
+    height: 40px;
+    flex: 1;
+    margin-right: 0;
+    color: #ffff;
+    transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    
+}
+
+nav .search form input.input:hover {
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
+nav .search form input.input:hover ~ button.search-logo {
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
+button.search-logo:hover{
+    box-shadow: 1px 1px 3px var(--box-shodow-color);
+}
+
+
+/*div outside search icon*/
+nav .search button {
+    height: 40px;
+    width: 50px;
+    background-color: var(--search-form-light-background);
+    border-radius: 0 var(--search-form-border-radius) var(--search-form-border-radius) 0;
+    border: none;
+    margin-right: 0;
+    transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+}
+
+/*search svg*/
+nav .search div .search-logo {
+    height: 24px;
+    width: 24px;
+}
+
+nav .search data .search-logo .search-logo-image {
+    height: 24px;
+    width: 24px;
+}
+
+/*user div*/
+nav .user{
+    display: flex;
+    gap: 1rem;
+}
+
+
+.avatar-image:hover .user-name-score-div{
+    transform: translate(-100px);
+    font-size: 15px;
+    visibility: visible;
+}
+
+
+/*user avatar*/
+nav .user .avatar a .avatar-image {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    z-index: 343;
+
+}
+
+nav .user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .user .login-button a button {
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+    background-color: var(--login-button-background);
+    transition: transform 200ms ease-in-out, background 500ms ease-in-out;
+}
+
+nav .user .login-button a button:hover {
+    transform: translate(-2px, -3px);
+    background-color: #00d2ff;
+    background: var(--login-button-background-hover);
+}
+
+nav .user .login-button a button:active {
+    transform: translate(1px, 1px);
+    background-color: #00d2ff;
+    background: var(--login-button-background-hover);
+}
+
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(0px);
+  } 100% {
+        opacity: 1;
+        transform: translateX(-50px);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateX(-50px);
+    } 100% {
+              opacity: 0;
+              transform: translateX(0px);
+          }
+}
+
+.welcome-animation {
+    position: absolute;
+    color: #ffff;
+    font-family: "JetBrains Mono", "Segoe UI", serif;
+    z-index: -10;
+    font-size: 0.9rem;
+    transform: translate(0px, 0px);
+    opacity: 0;
+    animation-name: slideIn, slideOut;
+    animation-delay: 0.0s, 1.4s;
+    animation-duration: 0.3s, 0.3s;
+    animation-timing-function: linear, ease-out;
+    animation-iteration-count: 1, 1;
+    animation-fill-mode: forwards;
+}
+

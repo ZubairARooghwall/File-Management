@@ -1,0 +1,93 @@
+.subjects-list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 1rem;
+    background-color: #312e2e;
+    border-radius: 5px;
+    height: 340px;
+
+
+}
+
+.subject a div p {
+    font-size: 0.9rem;
+}
+
+
+.subjects-list .subject {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    flex-wrap: nowrap;
+    overflow: auto;
+    position: relative;
+    margin: 1rem;
+}
+
+
+
+.subjects-list .subject a {
+    border-radius: 50%;
+}
+
+.subjects-list .subject a div {
+    border-radius: 50%;
+    background-color: #675656;
+    height: 125px;
+    width: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.subjects-list .subject a .subjects-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+
+
+}
+
+.subjects-list .subject a .subjects-element div.time-since-div {
+    transform: scale(0);
+    background-color: transparent;
+    margin-top: 50px;
+    position: absolute;
+    visibility: hidden;
+    transition: all 100ms ease-in-out;
+}
+
+.subjects-list .subject a:hover div.time-since-div {
+    transform: scale(1);
+    visibility: visible;
+}
+
+.subjects-list .subject a .subjects-element div .time_updated {
+    width: 80px;
+    border-radius: 5px;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 0.7rem;
+    color: #ffffff;
+}
+
+.subjects-list div.subject a div  p.subject-name {
+    position: relative;
+    transform: translateY(25px);
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    padding: 2px;
+    transition: transform 300ms ease;
+
+}
+
+.subjects-list .subject a:hover p.subject-name{
+    transform: translateY(-25px);
+}
+

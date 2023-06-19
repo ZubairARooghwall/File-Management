@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ current_subject.subject_name }} {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/important/subject.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="subject-container">
+    <div class="left-subject">
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+    </div>
+    <div class="right-subject">
+      <div class="subject-info">
+{#        todo: subject information#}
+        <a href="{% url 'update_subjects' current_subject.id %}"><p class="subject-name">{{ current_subject.subject_name }}</p></a>
+          <div>
+            {% if current_subject.topics_set.count == 1 %}
+              <p>{{ current_subject.topics_set.count }} Topic</p>
+            {% else %}
+              <p>{{ current_subject.topics_set.count }} Topics</p>
+            {% endif %}
+          </div>
+          <div>
+            
+          </div>
+
+          {% if current_subject.picture.url != '/images/%23' %}
+            <img src="{{ current_subject.picture.url }}" alt="{{ current_subject.picture.url   }}">
+          {% else %}
+            <div class="empty-div"></div>
+          {% endif %}
+      </div>
+      {% include 'flashcards/important/topics_list.html' %}
+    </div>
+  </div>
+
+{% endblock content %}
