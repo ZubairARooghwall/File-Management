@@ -7,7 +7,7 @@
     height: 560px;
     padding: 5px;
     border-radius: 5px;
-    /*todo: add transition to scorll when hovered*/
+    /*todo: add transition to scroll when hovered*/
     overflow: auto;
 }
 

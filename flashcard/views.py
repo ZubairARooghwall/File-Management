@@ -181,18 +181,32 @@ def topic(request, topic_id, subject_id):
 
 
 def flashcard(request, subject_id, topic_id, flashcard_id):
-	current_subject = Subject.objects.get(id = subject_id)
-	current_topic = Topics.objects.get(id = topic_id)
+	current_subject = Subject.objects.get(id=subject_id)
+	current_topic = Topics.objects.get(id=topic_id)
 	
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
-	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
-	                                     topic=current_topic).order_by("-updated")
+	flashcards = FlashCard.objects.get(creator=request.user, topic__subject=current_topic.subject,
+	                                     topic=current_topic, id=flashcard_id)
 	
-	context = {"notes": notes, "todo": to_do, "current_topic": current_topic, "current_subject": current_subject, "flashcards": flashcard}
+	context = {"notes": notes, "todo": to_do, "topic": current_topic, "subject": current_subject, "flashcards": flashcards}
 	return render(request, "flashcards/important/flashcard.html", context)
 
+
+def flashcard_preview(request, subject_id, topic_id, flashcard_id):
+	current_subject = Subject.objects.get(id=subject_id)
+	current_topic = Topics.objects.get(id=topic_id)
+	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	
+	flashcards = FlashCard.objects.get(creator=request.user, topic__subject=current_topic.subject,
+	                                   topic=current_topic, id=flashcard_id)
+	
+	context = {"notes": notes, "todo": to_do, "topic": current_topic, "subject": current_subject,
+	           "flashcards": flashcards}
+	return render(request, "flashcards/important/flashcard_preview.html", context)
 
 
 def credit(request):
@@ -366,12 +380,12 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 		
 	user = request.user
 	
-	flashcard = FlashCard.objects.get(id = flashcard_id)
-	if flashcard.creator != user:
+	flashcards = FlashCard.objects.get(id = flashcard_id)
+	if flashcards.creator != user:
 		return redirect('flashcard', current_subject, current_topic)
 	
 	if request.method == 'POST':
-		form = FlashcardForm(request.POST, instance=flashcard)
+		form = FlashcardForm(request.POST, instance=flashcards)
 		
 		if form.is_valid():
 			flashcard = form.save(commit=False)
@@ -383,11 +397,11 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 			return redirect('create-flashcard', current_subject.id, current_topic.id)
 	
 	else:
-		form = FlashcardForm(instance=flashcard)
+		form = FlashcardForm(instance=flashcards)
 		
 		
 	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update",
-	                                                                      "isUpdate": "true", "current_flashcard": flashcard,
+	                                                                      "isUpdate": "true", "current_flashcard": flashcards,
 	                                                                      "current_subject": current_subject, "current_topic": current_topic,
 	                                                                      "flashcards": flashcards, "notes": notes, "todo": to_do
 	                                                                      })

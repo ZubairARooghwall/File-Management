@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ flashcards.question }} {% endblock title %}
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/important/flashcard_preview.css' %}"> {% endblock css_file %}
+{% block content %}
+  <div class="flashcard-div">
+
+    <div class="flashcard-left">
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+    </div>
+    <div class="flashcard-right">
+
+      <div class="question-div">
+        <p class="question">{{ flashcards.question }}</p>
+        <a href="{% url 'flashcard' subject_id=subject.id topic_id=topic.id flashcard_id=flashcards.id %}"><button>Show Detail</button></a>
+      </div>
+
+{#      <div class="flashcard-details">#}
+{#        <h1>Flashcard Details</h1>#}
+{#        <p>Subject: {{ subject.subject_name }}</p>#}
+{#        <p>Topic: {{ topic.topic_name }}</p>#}
+{#        <p>Flashcard ID: {{ flashcards.id }}</p>#}
+{#        <p>Flashcard Question: {{ flashcards.question }}</p>#}
+{#        <p>Flashcard Answer: {{ flashcards.answer }}</p>#}
+{#        <!-- Add more flashcard details as needed -->#}
+{#      </div>#}
+    </div>
+  </div>
+{% endblock content %}

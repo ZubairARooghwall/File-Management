@@ -1,6 +1,6 @@
 .to-do-container {
     border-radius: 5px;
-    background-color: #0e3a77;
+    background-color: #4fc1cc;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -43,7 +43,7 @@
 
 .to-do-body a {
     text-decoration: none;
-    color: white
+    color: white;
 }
 
 .to-do-body a .todo-element .todo-element-paragraph {
