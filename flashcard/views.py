@@ -286,22 +286,25 @@ def create_topic(request, pk):
 
 def create_flashcard(request, subject_id, topic_id):
 	current_subject = Subject.objects.get(id = subject_id)
-	current_topic = Subject.objects.get(id=topic_id, subject=current_subject)
-	user = request.user
-	
+	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
+	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
+	                                     topic=current_topic).order_by("-updated")
 	if request.method == 'POST':
 		form = FlashcardForm(request.POST)
+		user = request.user
+
 		if form.is_valid():
 			flashcard = form.save(commit=False)
 			flashcard.creator = user
 			flashcard.topic = current_topic
 			flashcard.save()
-			
-			return render('flashcard', pk = flashcard.id)
-	
-	
-	
-	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form})
+			# return redirect('flashcard', subject_id = current_subject.id, topic_id = current_topic.id, flashcard_id = flashcard.id)
+			return redirect('create-flashcard', subject_id = current_subject.id, topic_id = current_topic.id)
+	else:
+		form = FlashcardForm()
+
+
+	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "flashcards": flashcard, "current_topic": current_topic, "current_subject": current_subject, "CreateOrUpdate": "Create"})
 
 #End Create Things######################################################################################################
 #Update Things##########################################################################################################
@@ -343,6 +346,34 @@ def topic_update(request, subject_id, topic_id):
 	
 	return render(request, 'flashcards/important/topic_update.html', {"forms": form, "current_topic": topic})
 
+
+@login_required(login_url='login')
+def update_flashcard(request, subject_id, topic_id, flashcard_id):
+	current_subject = Subject.objects.get(id = subject_id)
+	current_topic = Topics.objects.get(id=topic_id, subject = current_subject)
+	
+	user = request.user
+	
+	flashcard = FlashCard.objects.get(id = flashcard_id)
+	if flashcard.creator != user:
+		return redirect('flashcard', current_subject, current_topic)
+	
+	if request.method == 'POST':
+		form = FlashcardForm(request.POST, instance=flashcard)
+		
+		if form.is_valid():
+			flashcard = form.save(commit=False)
+			flashcard.creator = user
+			flashcard.topic = current_topic
+			flashcard.subject = current_subject
+			flashcard.save()
+			
+			return redirect('create-flashcard', current_subject.id, current_topic.id)
+	
+	else:
+		form = FlashcardForm(instance=flashcard)
+		
+	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update"})
 
 #End Update Things######################################################################################################
 #Delete Things##########################################################################################################

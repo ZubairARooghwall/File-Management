@@ -65,7 +65,7 @@ class FlashCard(models.Model):
   score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
   topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, null=True)
   lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0)
-  average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True)
+  average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True, default=0)
   is_hidden = models.BooleanField(default=False)
   
   def save(self, *args, **kwargs):

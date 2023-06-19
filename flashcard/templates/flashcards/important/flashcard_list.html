@@ -20,7 +20,7 @@
           </div>
 
           <div id="answer">
-            <p>{{ flashcard.answer|slice:":20" }}</p>
+            <p>{{ flashcard.answer|slice:":40" }}</p>
           </div>
           </div>
 
@@ -29,7 +29,7 @@
     {% endfor %}
   </div>
 
-  <a href="">
+  <a href="{% url 'create-flashcard' current_subject.id current_topic.id %}">
     <hr>
     <p class="flashcard-title">Flashcards</p>
   </a>

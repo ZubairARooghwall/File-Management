@@ -40,6 +40,7 @@ urlpatterns = [
 	
 	# flashcards
 	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>', views.flashcard, name='flashcard'),
-	
+	path('subject=<int:subject_id>/topic=<int:topic_id>/create-flashcard', views.create_flashcard, name='create-flashcard'),
+	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/update-flashcard', views.update_flashcard, name='update-flashcard'),
 	
 ]

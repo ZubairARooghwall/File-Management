@@ -1,12 +1,38 @@
 {% extends 'main.html' %}
 {% load static %}
-{% block title %} Create Flashcard {% endblock title %}
+{% block title %} {{ CreateOrUpdate }} {% endblock title %}
 {% block css_file %}
 <link rel="stylesheet" href="{% static 'styles/important/flashcard_create.css' %}">
 {% endblock css_file %}
 
 {% block content %}
+  <div class="flashcard-create-div">
+    <div class="flashcard-start">
 
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+
+    </div>
+    <div class="flashcard-center">
+    <div class="form">
+      <form action="" method="post">
+        {% csrf_token %}
+        {% for field in forms %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}" class="flashcard-label">{{ field.label }}</label>
+            {{ field }}
+          </div>
+        {% endfor %}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    </div>
+    <div class="flashcard-end">
+      {% include 'flashcards/components/recently_added_flashcards.html' %}
+    </div>
+
+
+  </div>
 
 
 
