@@ -238,7 +238,7 @@ def create_notes(request):
 			notes = form.save(commit=False)
 			notes.creator = request.user
 			notes.save()
-			next_url = request.GET.get("next", '/')
+			next_url = request.GET.get("next_url", '/')
 			return redirect(next_url)
 	else:
 		form = NotesForm()
@@ -269,6 +269,7 @@ def subject_create(request):
 def create_topic(request, pk):
 	subject = Subject.objects.get(id=pk)
 	
+	
 	if request.method == "POST":
 		form = TopicForm(request.POST)
 		if form.is_valid():
@@ -285,6 +286,10 @@ def create_topic(request, pk):
 
 
 def create_flashcard(request, subject_id, topic_id):
+	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	
 	current_subject = Subject.objects.get(id = subject_id)
 	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
 	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
@@ -304,7 +309,9 @@ def create_flashcard(request, subject_id, topic_id):
 		form = FlashcardForm()
 
 
-	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "flashcards": flashcard, "current_topic": current_topic, "current_subject": current_subject, "CreateOrUpdate": "Create"})
+	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "flashcards": flashcard, "current_topic": current_topic,
+	                                                                      "current_subject": current_subject, "CreateOrUpdate": "Create", "notes": notes,
+	                                                                      "todo": to_do, "isUpdate": "false"})
 
 #End Create Things######################################################################################################
 #Update Things##########################################################################################################
@@ -352,6 +359,11 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 	current_subject = Subject.objects.get(id = subject_id)
 	current_topic = Topics.objects.get(id=topic_id, subject = current_subject)
 	
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	flashcards = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
+	                                     topic=current_topic).order_by("-updated")
+		
 	user = request.user
 	
 	flashcard = FlashCard.objects.get(id = flashcard_id)
@@ -373,7 +385,13 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 	else:
 		form = FlashcardForm(instance=flashcard)
 		
-	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update"})
+		
+	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update",
+	                                                                      "isUpdate": "true", "current_flashcard": flashcard,
+	                                                                      "current_subject": current_subject, "current_topic": current_topic,
+	                                                                      "flashcards": flashcards, "notes": notes, "todo": to_do
+	                                                                      })
+
 
 #End Update Things######################################################################################################
 #Delete Things##########################################################################################################
@@ -412,6 +430,14 @@ def delete_topic(request, pk):
 	return redirect(request, 'home')
 
 
-
+@login_required(login_url='login')
+def delete_flashcard(request, subject_id, topic_id, flashcard_id):
+	current_subject = Subject.objects.get(id=subject_id)
+	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
+	
+	do = FlashCard.objects.get(id=flashcard_id, topic=current_topic)
+	do.delete()
+	
+	return redirect(request.GET.get('next_url', '/'))
 
 #End Delete Things######################################################################################################

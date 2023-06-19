@@ -3,5 +3,28 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: 10px;
+    height: 560px;
+    padding: 5px;
+    border-radius: 5px;
+    /*todo: add transition to scorll when hovered*/
+    overflow: auto;
+}
+
+.recently-added a {
+    background-color: #070ccb;
+    padding: 5px;
+    border-radius: 5px;
+
+    width: 100%;
+}
+
+.recently-added a div p.question {
+    font-size: 0.8rem;
+
+}
+
+.recently-added a div p.answer {
+    font-size: 0.7rem;
 
 }

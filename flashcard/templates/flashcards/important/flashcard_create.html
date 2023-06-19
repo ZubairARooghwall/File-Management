@@ -23,6 +23,14 @@
             {{ field }}
           </div>
         {% endfor %}
+        {% if isUpdate == "true" %}
+          <a href="{% url 'delete-flashcard' subject_id=current_subject.id topic_id=current_topic.id flashcard_id=current_flashcard.id %}?next_url={% url 'create-flashcard' subject_id=current_subject.id topic_id=current_topic.id %}">
+            <input type="button" value="Delete">
+          </a>
+        {% else %}
+          <div></div>
+        {% endif %}
+
         <input type="submit" value="Submit">
       </form>
     </div>
@@ -30,11 +38,5 @@
     <div class="flashcard-end">
       {% include 'flashcards/components/recently_added_flashcards.html' %}
     </div>
-
-
   </div>
-
-
-
-
 {% endblock content %}
