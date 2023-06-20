@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/study/study.css' %}">
+{% endblock css_file   %}
+{% block title %} Study {% endblock  %}
+
+{% block content %}
+<div class="study-flashcard-div">
+{#{% for flashcard in flashcards %}#}
+  <div class="flashcard" data-flashcard-id="{{ flashcard.id }}">
+     {% if flashcard %}
+       <div class="question-answer">
+          <p class="question">{{ flashcard.question }}</p>
+          <p class="answer">{{ flashcard.answer }} </p>
+       </div>
+
+       <div class="buttons">
+       <div class="show-answer-div">
+          <button onclick="showAnswer()" class="answer-button" >Show Answer</button>
+       </div>
+
+       <div class="score">
+         <p>How was your retention?</p>
+          <button class="bad" >Bad</button>
+          <button class="good">Good</button>
+          <button class="excellent">Excellent</button>
+       </div>
+       </div>
+
+    {% endif %}
+  </div>
+{#{% endfor %}#}
+
+</div>
+
+  <script src="{% static 'javascript/study.js' %}" defer ></script>
+
+
+{% endblock content %}
+
+

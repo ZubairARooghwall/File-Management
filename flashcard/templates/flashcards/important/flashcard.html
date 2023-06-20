@@ -21,8 +21,8 @@
           <p>Subject: {{ subject.subject_name }}</p>
           <p>Topic: {{ topic.topic_name }}</p>
           <p>Flashcard ID: {{ flashcards.id }}</p>
-          <p>Flashcard Question: {{ flashcards.question|slice:":50" }}</p>
-          <p>Flashcard Answer: {{ flashcards.answer|slice:":50" }}</p>
+          <p>Flashcard Question: {{ flashcards.question|slice:":50" }}...</p>
+          <p>Flashcard Answer: {{ flashcards.answer|slice:":50" }}...</p>
           <p>Is it hidden: {{ flashcards.is_hidden }}</p>
         </div>
         <div class="statistical-info">

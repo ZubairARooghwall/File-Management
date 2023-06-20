@@ -3,10 +3,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm
 
 #Import all the models
-from .models import User, Subject, Topics, FlashCard, Notes, Log, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
+from .models import User, Subject, Topics, FlashCard, Notes, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
 # Create your views here.
 
 # user authentication###################################################################################################
@@ -209,6 +211,91 @@ def flashcard_preview(request, subject_id, topic_id, flashcard_id):
 	return render(request, "flashcards/important/flashcard_preview.html", context)
 
 
+#Study flashcards #######################################################################################################
+@csrf_exempt
+def study_flashcards(request):
+	flashcards = FlashCard.objects.filter(creator=request.user)
+	total_flashcards = flashcards.count()
+	current_flashcard_index = request.session.get('current_flashcard_index', 0)
+	
+	if current_flashcard_index >= total_flashcards:
+		# Reset the current_flashcard_index if all flashcards have been studied
+		request.session['current_flashcard_index'] = 0
+		messages.info(request, "You have completed studying all flashcards.")
+		return redirect('completed')
+	
+	current_flashcard = flashcards[current_flashcard_index]
+	current_flashcard.lapses = current_flashcard.lapses + 1
+	
+	return render(request, 'flashcards/studying/study.html', {
+		'flashcard': current_flashcard,
+		'current_flashcard_index': current_flashcard_index,
+		'total_flashcards': total_flashcards,
+	})
+
+
+	
+# @csrf_exempt
+# def update_flashcard_score(request):
+# 	if request.method != 'POST':
+# 		return JsonResponse({'success': False, 'message': 'Invalid request method'})
+# 	flashcard_scores = request.session.get('flashcard_scores', {})
+# 	flashcard_id = request.POST.get('flashcard_id')
+# 	score = int(request.POST.get('score'))
+#
+# 	# Get the flashcard object from the database
+# 	flashcard = get_object_or_404(FlashCard, id=flashcard_id)
+#
+# 	# Initialize scores and lapses dictionary for a new flashcard
+# 	if flashcard_id not in flashcard_scores:
+# 		flashcard_scores[flashcard_id] = {'score': 0, 'lapses': 0}
+#
+# 	# Update the flashcard's score and lapses
+# 	flashcard_scores[flashcard_id]['score'] += score
+# 	flashcard_scores[flashcard_id]['lapses'] += 1
+#
+# 	# Save the updated flashcard scores in the session
+# 	request.session['flashcard_scores'] = flashcard_scores
+#
+# 	# Update the flashcard object in the database
+# 	flashcard.score = score
+# 	flashcard.lapses += 1
+# 	flashcard.save()
+#
+# 	# Increment the current_flashcard_index in the session
+# 	current_flashcard_index = request.session.get('current_flashcard_index', 0)
+# 	request.session['current_flashcard_index'] = current_flashcard_index + 1
+# 	return JsonResponse({'success': True})
+
+@csrf_exempt
+def update_flashcard_index(request):
+	if request.method == 'POST':
+		current_flashcard_index = request.session.get('current_flashcard_index', 0)
+		request.session['current_flashcard_index'] = current_flashcard_index + 1
+		return JsonResponse({'success': True, 'index': current_flashcard_index})
+	
+	return JsonResponse({'success': False, 'message': 'Invalid request method'})
+	
+	
+def completed_page(request):
+	# Get all flashcards
+	flashcards = FlashCard.objects.all()
+	flashcard_scores = request.session.get('flashcard_scores', {})
+	
+	# Calculate total flashcards and total correct flashcards
+	total_flashcards = flashcards.count()
+	total_correct = sum(flashcard_scores.get(str(flashcard.id), {}).get('score', 0) > 0 for flashcard in flashcards)
+	
+	context = {
+		'flashcards': flashcards,
+		'total_flashcards': total_flashcards,
+		'total_correct': total_correct,
+	}
+	
+	return render(request, 'flashcards/studying/completed.html', context)
+	
+	
+
 def credit(request):
 	# This view is for all the people or websites who helped me
 	
@@ -380,12 +467,12 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 		
 	user = request.user
 	
-	flashcards = FlashCard.objects.get(id = flashcard_id)
-	if flashcards.creator != user:
+	current_flashcard = FlashCard.objects.get(id = flashcard_id)
+	if current_flashcard.creator != user:
 		return redirect('flashcard', current_subject, current_topic)
 	
 	if request.method == 'POST':
-		form = FlashcardForm(request.POST, instance=flashcards)
+		form = FlashcardForm(request.POST, instance=current_flashcard)
 		
 		if form.is_valid():
 			flashcard = form.save(commit=False)
@@ -397,11 +484,11 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 			return redirect('create-flashcard', current_subject.id, current_topic.id)
 	
 	else:
-		form = FlashcardForm(instance=flashcards)
+		form = FlashcardForm(instance=current_flashcard)
 		
 		
 	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update",
-	                                                                      "isUpdate": "true", "current_flashcard": flashcards,
+	                                                                      "isUpdate": "true", "current_flashcard": current_flashcard,
 	                                                                      "current_subject": current_subject, "current_topic": current_topic,
 	                                                                      "flashcards": flashcards, "notes": notes, "todo": to_do
 	                                                                      })

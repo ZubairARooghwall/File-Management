@@ -43,7 +43,10 @@ urlpatterns = [
 	path('subject=<int:subject_id>/topic=<int:topic_id>/create-flashcard', views.create_flashcard, name='create-flashcard'),
 	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/update-flashcard', views.update_flashcard, name='update-flashcard'),
 	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/delete-flashcard', views.delete_flashcard, name='delete-flashcard'),
-	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/preview-flashcard', views.flashcard_preview, name='flashcard-preview')
+	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/preview-flashcard', views.flashcard_preview, name='flashcard-preview'),
+	path('flashcards/study', views.study_flashcards, name='flashcard-study'),
+	path('update_flashcard_index/', views.update_flashcard_index, name='update_flashcard_index'),
+	path('completed', views.completed_page, name='completed'),
 	
 	
 	

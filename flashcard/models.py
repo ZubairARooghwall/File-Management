@@ -62,10 +62,10 @@ class FlashCard(models.Model):
   answer = models.TextField(max_length=2000, blank=True)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
+  # score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
   topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, null=True)
-  lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0)
-  average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True, default=0)
+  # lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0, editable=True)
+  # average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True, default=0)
   is_hidden = models.BooleanField(default=False)
   
   def save(self, *args, **kwargs):
@@ -90,22 +90,22 @@ class Notes(models.Model):
 
 # Whenever you review a flashcard, it is recorded there. Good for statistics
 # flashcard = Flashcard.objects.get(id=1)
-# logs = flashcard.log_set.all() to get all the log instances of the flashcard
-class Log(models.Model):
-  flashcard = models.ForeignKey(FlashCard, on_delete=models.SET_NULL, null=True, related_name="logs") # you can use flashcard.logs.all() to access all the flashcards
-  reviewed_time = models.DateTimeField(auto_now_add=True)
-  
-  choice_field = [
-    ("bad", "answered badly"),
-    ("meh", "answered badgood"),
-    ("good", "answered good"),
-    ("best", "answered best")
-  ]
-  action = models.CharField(max_length=10, null=False, blank=False, choices=choice_field)
-  user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  result = models.BooleanField(help_text="Was is answered correctly")
-  duration = models.DurationField()
-  notes = models.ForeignKey(Notes, on_delete=models.CASCADE)
+# # logs = flashcard.log_set.all() to get all the log instances of the flashcard
+# class Log(models.Model):
+#   flashcard = models.ForeignKey(FlashCard, on_delete=models.SET_NULL, null=True, related_name="logs") # you can use flashcard.logs.all() to access all the flashcards
+#   reviewed_time = models.DateTimeField(auto_now_add=True)
+#
+#   choice_field = [
+#     ("bad", "answered badly"),
+#     ("meh", "answered badgood"),
+#     ("good", "answered good"),
+#     ("best", "answered best")
+#   ]
+#   action = models.CharField(max_length=10, null=False, blank=False, choices=choice_field)
+#   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#   result = models.BooleanField(help_text="Was is answered correctly")
+#   duration = models.DurationField()
+#   notes = models.ForeignKey(Notes, on_delete=models.CASCADE)
 
 
 # If I wanted, I will do it

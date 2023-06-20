@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %} Completed {% endblock title %}
+{% block css_file %}
+  <link rel="stylesheet" href="{% static 'styles/study/completed.css' %}"> {% endblock css_file %}
+{% block content %}
+  <div class="completed">
+    <p class="completed-p">You completed all the flashcards</p>
+    <p>You studied {{ total_flashcards }} flashcards</p>
+  </div>
+
+
+
+
+
+{% endblock content %}

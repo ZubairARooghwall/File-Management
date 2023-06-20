@@ -43,10 +43,6 @@
   animation-iteration-count: infinite;
 }
 
-@font-face {
-    font-family: Teko;
-    src: url("static/fonts/Teko-Regular.ttf") format("truetype");
-}
 
 * {
     padding: 0;

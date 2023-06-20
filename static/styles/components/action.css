@@ -1,0 +1,10 @@
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #3b15ad;
+    height: 200px;
+}

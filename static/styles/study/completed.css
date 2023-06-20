@@ -1,0 +1,11 @@
+.completed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.completed .completed-p {
+    font-size: 3rem;
+}
