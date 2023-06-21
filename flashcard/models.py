@@ -5,13 +5,13 @@ from django.utils import timezone # for updating time
 
 
 def get_default_avatar():
-    return staticfiles_storage.url('avatar/avatar.svg')
+    return staticfiles_storage.url('avatar/avatar.png')
 
 
 # Create your models here.
 class User(AbstractUser):
   name = models.CharField(max_length=200, null=True, blank=False)
-  username = models.CharField(max_length=100, )
+  username = models.CharField(max_length=100, unique=True)
   email = models.EmailField(unique=True, blank=False)
   bio = models.TextField(null=True, blank=True)
   score = models.IntegerField(null=False, default=0, blank=False)
@@ -23,7 +23,7 @@ class User(AbstractUser):
   ]
   # When adding values, User(...., education="MSC",...)
   education = models.CharField(max_length=3, choices=education_choices, default="other")
-  avatar = models.ImageField(null=True, default=get_default_avatar)
+  avatar = models.ImageField(null=True, default=get_default_avatar())
   prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
   is_active = models.BooleanField(default=True, help_text="If the person is active, it is True")
   date_joined = models.DateTimeField(auto_now_add=True)
@@ -132,7 +132,12 @@ class Friendship(models.Model):
   friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_friendship")
   created = models.DateTimeField(auto_now_add=True)
   is_accepted = models.BooleanField(default=False)
-  custom_name = models.CharField(max_length=120, default=friend.name)
+  custom_name = models.CharField(max_length=120, default=friend.name, null=True, blank=True)
+  
+  
+  # def save(self, *args, **kwargs):
+  #   self.friend = self.user
+  #   super().save(*args, **kwargs)
   
   def __str__(self):
     return f"{self.user} - {self.friend}"

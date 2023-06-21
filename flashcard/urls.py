@@ -48,6 +48,9 @@ urlpatterns = [
 	path('update_flashcard_index/', views.update_flashcard_index, name='update_flashcard_index'),
 	path('completed', views.completed_page, name='completed'),
 	
+	# social
+	path('profiles', views.all_profiles, name='profiles'),
+	path('profile/<str:username>', views.profile, name='profile'),
 	
 	
 ]

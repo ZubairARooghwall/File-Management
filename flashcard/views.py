@@ -211,6 +211,31 @@ def flashcard_preview(request, subject_id, topic_id, flashcard_id):
 	return render(request, "flashcards/important/flashcard_preview.html", context)
 
 
+# Chat #################################################################################################################
+def all_profiles(request):
+	profiles = User.objects.all()
+	
+	return render(request, 'flashcards/social/find_profiles.html', {"profiles": profiles})
+
+# def show_groups(request):
+	# groups = Group.objects.
+
+
+def profile(request, username):
+	profile = User.objects.get(name = username)
+	
+	friendships = Friendship.objects.filter(user=profile)
+	friends = [friendship.friend for friendship in friendships]
+	
+	
+	# friends += Friendship.objects.filter(friend = profile)
+	flashcards = FlashCard.objects.filter(creator = profile, is_hidden=False)
+	
+	
+	return render(request, 'flashcards/social/profile.html', {"profile": profile, "flashcards": flashcards, "friends": friends})
+
+
+# End chat #############################################################################################################
 #Study flashcards #######################################################################################################
 @csrf_exempt
 def study_flashcards(request):
@@ -221,7 +246,7 @@ def study_flashcards(request):
 	if current_flashcard_index >= total_flashcards:
 		# Reset the current_flashcard_index if all flashcards have been studied
 		request.session['current_flashcard_index'] = 0
-		messages.info(request, "You have completed studying all flashcards.")
+		# messages.info(request, "You have completed studying all flashcards.")
 		return redirect('completed')
 	
 	current_flashcard = flashcards[current_flashcard_index]
