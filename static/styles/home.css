@@ -6,7 +6,7 @@
     gap: 1rem;
     padding: 1rem;
     color: #ffffff;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
 }
 
 body {

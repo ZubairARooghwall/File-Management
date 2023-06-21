@@ -155,8 +155,13 @@ class Group(models.Model):
   is_public = models.BooleanField(default=True)
   image = models.ImageField(null=True, default="#") # Add default image!
   members = models.ManyToManyField(User, through="Membership", related_name="members")
-
-  
+  last_message = models.OneToOneField(
+    'GroupMessages',
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='group_last_message'
+  )
   def __str__(self):
     return self.group_name
   
@@ -178,10 +183,9 @@ class Membership(models.Model):
 class GroupMessages(models.Model):
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
   sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  message = models.TextField(null=False, blank=False)
+  message = models.CharField(max_length=1000, null=False, blank=False)
   created = models.DateTimeField(auto_now_add=True)
   reply = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name="replyGroup")
-  
   
   def __str__(self):
     return f"Message #{self.id} in {self.group} by {self.sender.name}"

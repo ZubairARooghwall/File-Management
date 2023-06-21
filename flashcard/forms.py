@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 
 #Import all the models
-from .models import User, Notes, FlashCard, Topics, Todo, Subject
+from .models import User, Notes, FlashCard, Topics, Todo, Subject, GroupMessages, Group
 
 class MyUserRegistrationForm(UserCreationForm):
 	class Meta:
@@ -72,3 +72,14 @@ class TopicForm(ModelForm):
 # 	class Meta:
 # 		model = Topics
 # 		fields = ['topic_name']
+
+class GroupMessageForm(forms.ModelForm):
+	class Meta:
+		model = GroupMessages
+		fields = ['message']
+		
+
+class GroupForm(forms.ModelForm):
+	class Meta:
+		model = Group
+		fields = ['group_name', 'description', 'is_public', 'image']

@@ -1,0 +1,79 @@
+.group-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 550px;
+}
+
+.group-form .form {
+    display: flex;
+
+    width: 40%;
+}
+
+.group-form .form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+.group-form .form form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.group-form .form form .field label {
+
+}
+
+
+.group-form .form form .field input {
+    height: 30px;
+    border-radius: 5px;
+    border:none;
+    padding: 10px;
+    outline: none;
+    font-family: inherit;
+}
+
+.group-form .form form .field input:focus {
+    outline: 2px solid #1b65c5;
+
+}
+
+
+.group-form .form form .field textarea {
+    height: 80px;
+    border-radius: 5px;
+    border:none;
+    padding: 10px;
+    outline: none;
+
+    font-family: inherit;
+}
+
+.group-form .form form .field textarea:focus {
+    outline: 2px solid #1b65c5;
+}
+
+.group-form .form form input {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.group-form .form form input:hover {
+    cursor: pointer;
+}
+
+.group-form .form form input:active {
+    cursor: wait;
+
+
+
+}

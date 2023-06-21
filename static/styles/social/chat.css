@@ -1,6 +1,82 @@
 .chat-div {
     background-color: slategrey;
-    height: 100%;
+    min-height: 555px;
+    max-height: 555px;
+
     border-radius: 5px;
     padding: 1rem;
+}
+
+.chat-div .groups {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    overflow: auto;
+    max-height: 490px;
+    min-height: 490px;
+}
+
+.chat-div .groups .group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    height: 50px;
+    background-color: #20251d;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.chat-div .groups .group .left {
+
+
+}
+
+.chat-div .groups .group .left img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+}
+
+
+.chat-div .groups .group .right {
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+
+.chat-div .groups .group .right .group_name {
+    font-size: 0.8rem;
+
+}
+
+.chat-div .groups .group .right .last_message {
+    display: flex;
+    gap: 5px;
+}
+
+.chat-div .groups .group .right .last_message .last_message_sender {
+    font-size: 0.7rem;
+
+
+}
+
+.chat-div .groups .group .right .last_message div {
+
+}
+
+.chat-div .groups .group .right .last_message div .last_message_body {
+    font-size: 0.7rem;
+}
+
+.chat-div .groups .group .right .last_message div .last_message_created {
+    font-size: 9px;
+}
+
+.chat-div .groups .group .right .last_message p {
+    font-size: 0.7rem;
 }

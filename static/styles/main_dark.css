@@ -77,7 +77,8 @@ body {
     background-color: var(--background-color);
     transition: background-color 0.5s ease;
     color: #ffffff;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: "Segoe UI", serif;
+
 
 /*    For FireFox scrollbar*/
     scroll-behavior: smooth;

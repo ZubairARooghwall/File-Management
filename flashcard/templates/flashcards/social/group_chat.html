@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ group.name }} {% endblock title %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/social/group_chat.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="left">
+    {% include 'flashcards/components/todo.html' %}
+    {% include 'flashcards/components/notes.html' %}
+  </div>
+  <div class="right">
+    <div class="chat">
+
+    </div>
+    <div class="input">
+      <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <label>{{ field.label }}</label>
+          {{ field }}
+        {% endfor %}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+
+  </div>
+
+
+
+{% endblock content %}

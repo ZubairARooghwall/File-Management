@@ -1,3 +1,4 @@
+from django.db.models import Max
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -5,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm, GroupForm
 
 #Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
@@ -120,17 +121,13 @@ def home(request):
 	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
 	topics = Topics.objects.filter(creator = user).order_by("-updated")
 	flashcards = FlashCard.objects.filter(creator = user).order_by("-updated")
-	messagess = Messages.objects.all().order_by("-created")
-	group_messages = GroupMessages.objects.all().order_by("-created")
-	membership = Membership.objects.all()
 	groups = Group.objects.all()
-	error_message = 0
-
+	GroupMessages.objects.all().order_by("-created")
+	
 	context = {"user": user, "inspirational": inspirational_quote, "todo": to_do,
 	           "notes": notes, "topics": topics, "flashcards": flashcards,
-	            "subjects": subjects,
+	            "subjects": subjects, "groups": groups,
 			}
-	
 	
 	return render(request, 'flashcards/home.html', context)
 
@@ -211,6 +208,29 @@ def flashcard_preview(request, subject_id, topic_id, flashcard_id):
 	return render(request, "flashcards/important/flashcard_preview.html", context)
 
 
+def group(request, group_id):
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	group = Group.objects.get(id = group_id)
+	
+	if request.method == 'POST':
+		form = GroupMessageForm(request.POST)
+		if form.is_valid():
+			message = form.save(commit=False)
+			message.sender = request.user
+			message.group = group
+			message.save()
+			
+			group.last_message = message
+			group.save()
+			return redirect('group', group.id)
+	else:
+		form = GroupMessageForm()
+	
+	
+	return render(request, 'flashcards/social/group_chat.html', {"form": form, "notes": notes, "todo": to_do, "group": group})
+
+
 # Chat #################################################################################################################
 def all_profiles(request):
 	profiles = User.objects.all()
@@ -234,6 +254,31 @@ def profile(request, username):
 	
 	return render(request, 'flashcards/social/profile.html', {"profile": profile, "flashcards": flashcards, "friends": friends})
 
+
+from .forms import GroupMessageForm
+
+def show_all_groups(request):
+	groups = Group.objects.all()
+	
+	return render(request, 'flashcards/social/chat.html', {'groups': groups})
+	
+
+def create_group(request):
+	
+	if request.method == 'POST':
+		form = GroupForm(request.POST, request.FILES)
+		
+		if form.is_valid():
+			group = form.save(commit=False)
+			group.host = request.user
+			group.save()
+			return redirect('group', group.id)
+	else:
+		form = GroupForm()
+		
+	
+	return render(request, 'flashcards/social/create_group.html', {"form": form})
+	
 
 # End chat #############################################################################################################
 #Study flashcards #######################################################################################################
