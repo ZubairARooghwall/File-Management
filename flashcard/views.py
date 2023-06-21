@@ -225,7 +225,6 @@ def study_flashcards(request):
 		return redirect('completed')
 	
 	current_flashcard = flashcards[current_flashcard_index]
-	current_flashcard.lapses = current_flashcard.lapses + 1
 	
 	return render(request, 'flashcards/studying/study.html', {
 		'flashcard': current_flashcard,

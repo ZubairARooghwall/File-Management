@@ -33,7 +33,6 @@ body {
 
 .study-flashcard-div .flashcard .question-answer .question {
     font-size: 3rem;
-    /*transform: translateY(-150px);*/
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -92,7 +91,7 @@ body {
 .study-flashcard-div .flashcard .buttons div .answer-button {
     position: absolute;
     z-index: -10;
-    left: 150px;
+    left: -20px;
     transition: transform 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -102,7 +101,6 @@ body {
 }
 
 .study-flashcard-div .flashcard .score {
-
    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
