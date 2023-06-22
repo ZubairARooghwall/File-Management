@@ -9,7 +9,7 @@
       <a href="{% url 'group' group.id %}">
         <div class="group">
           <div class="left">
-            <img src="{{ group.image.url }}">
+            <img src="{% if group.image %}{{ group.image.url }}{% endif %}">
           </div>
           <div class="right">
             <div class="group_name">{{ group.group_name }}</div>

@@ -5,7 +5,7 @@ from django.utils import timezone # for updating time
 
 
 def get_default_avatar():
-    return staticfiles_storage.url('avatar/avatar.png')
+    return staticfiles_storage.url('image/avatar/avatar.png')
 
 
 # Create your models here.
@@ -23,7 +23,7 @@ class User(AbstractUser):
   ]
   # When adding values, User(...., education="MSC",...)
   education = models.CharField(max_length=3, choices=education_choices, default="other")
-  avatar = models.ImageField(null=True, default=get_default_avatar())
+  avatar = models.ImageField(null=True, default=get_default_avatar)
   prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
   is_active = models.BooleanField(default=True, help_text="If the person is active, it is True")
   date_joined = models.DateTimeField(auto_now_add=True)
@@ -146,6 +146,11 @@ class Friendship(models.Model):
 
   
 # Social
+
+def get_default_group_avatar():
+  return staticfiles_storage.url('images/related/group.jpeg')
+
+
 class Group(models.Model):
   host = models.ForeignKey(User, on_delete=models.CASCADE)
   group_name = models.CharField(max_length=120, null=False, blank=False)
@@ -153,7 +158,7 @@ class Group(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
   is_public = models.BooleanField(default=True)
-  image = models.ImageField(null=True, default="#") # Add default image!
+  image = models.ImageField(null=True, default=get_default_group_avatar) # Add default image!
   members = models.ManyToManyField(User, through="Membership", related_name="members")
   last_message = models.OneToOneField(
     'GroupMessages',

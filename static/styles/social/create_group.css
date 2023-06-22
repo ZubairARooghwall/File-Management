@@ -65,7 +65,15 @@
     border: none;
     border-radius: 5px;
     font-family: inherit;
+
 }
+
+
+
+input[type='text'], textarea, input[type='submit']{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .group-form .form form input:hover {
     cursor: pointer;
@@ -73,7 +81,4 @@
 
 .group-form .form form input:active {
     cursor: wait;
-
-
-
 }
