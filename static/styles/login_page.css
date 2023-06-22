@@ -63,7 +63,13 @@
     border-radius: 5px;
     font-family: "JetBrains Mono", "Segoe UI", serif;
     padding: 5px;
+
 }
+
+.login-page-div div .form form input[type='text'], input[type='email']{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .login-page-div div p.signup-questionmark {
     font-size: 1rem;
@@ -155,7 +161,15 @@
     border-radius: 5px;
     font-family: "JetBrains Mono", "Segoe UI", serif;
     padding: 5px;
+
 }
+
+.signup-page-div div .form form input[type='text'], input[type='email'], input[type='password']{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
 
 .signup-page-div div p.login-questionmark {
     font-size: 1rem;
