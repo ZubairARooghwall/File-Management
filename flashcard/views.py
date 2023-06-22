@@ -613,3 +613,25 @@ def delete_flashcard(request, subject_id, topic_id, flashcard_id):
 	return redirect(request.GET.get('next_url', '/'))
 
 #End Delete Things######################################################################################################
+#Search ###############################################################################################################
+
+@login_required(login_url='login')
+def search(request):
+	query = request.GET.get('q')
+	results = []
+
+	if query:
+		results.extend(
+			(
+				FlashCard.objects.filter(question__icontains=query),
+				FlashCard.objects.filter(answer__icontains=query),
+				Topics.objects.filter(topic_name__icontains=query),
+				Subject.objects.filter(subject_name__icontains=query),
+				Group.objects.filter(group_name__icontains=query),
+				User.objects.filter(name__icontains=query),
+				User.objects.filter(email__icontains=query),
+			)
+		)
+	context = {"query": query, "results": results}
+	return render(request, 'flashcards/search.html', context)
+	

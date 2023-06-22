@@ -55,5 +55,7 @@ urlpatterns = [
 	path('group/<int:group_id>', views.group, name='group'),
 	path('group/create', views.create_group, name='create-group'),
 	
+	#Search
+	path('search', views.search, name='search'),
 	
 ]
