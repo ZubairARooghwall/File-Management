@@ -9,7 +9,7 @@
       <a href="{% url 'group' group.id %}">
         <div class="group">
           <div class="left">
-            <img src="{% if group.image %}{{ group.image.url }}{% endif %}">
+            <img src="{% if group.image.url == "/images/static/images/related/group.jpeg" %} {% static 'images/related/group.jpeg' %} {% else %} {{ group.image.url }}{% endif %}">
           </div>
           <div class="right">
             <div class="group_name">{{ group.group_name }}</div>
