@@ -1,11 +1,45 @@
 {% extends 'main.html' %}
 {% load static %}
-{% block title %} Flashcards {% endblock title %}
+{#{% load filters %}#}
+{% block title %} {{ flashcards.question }} {% endblock title %}
 {% block css_file %} <link rel="stylesheet" href="{% static 'styles/important/flashcard.css' %}"> {% endblock css_file %}
 {% block content %}
-  {% include 'flashcards/components/todo.html' %}
-  {% include 'flashcards/components/notes.html' %}
+  <div class="flashcard-div">
+
+    <div class="flashcard-left">
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+    </div>
+    <div class="flashcard-right">
+      <div class="div-info">
+        <p>Flashcard Details</p>
+      </div>
+
+      <div class="flashcard-details">
+        <div class="general-info">
+          <h1>General Information</h1>
+          <p>Subject: {{ subject.subject_name }}</p>
+          <p>Topic: {{ topic.topic_name }}</p>
+          <p>Flashcard ID: {{ flashcards.id }}</p>
+          <p>Flashcard Question: {{ flashcards.question|slice:":50" }}...</p>
+          <p>Flashcard Answer: {{ flashcards.answer|slice:":50" }}...</p>
+          <p>Is it hidden: {{ flashcards.is_hidden }}</p>
+        </div>
+        <div class="statistical-info">
+          <h1>Statistical Information</h1>
+          <p>Created: {{ flashcards.created }} ({{ flashcards.created|timesince }} ago)</p>
+          <p>Last updated: {{ flashcards.updated }} ({{ flashcards.created|timesince }} ago)</p>
+          <p>Number of reviews: {{ flashcards.lapses }}</p>
+          <p>Score: {{ flashcards.score }} </p>
+          <p>Average Score: {{ flashcards.average }}</p>
+        </div>
+        <div class="created-by">
+          <p>Created by: {{ flashcards.creator }}</p>
+        </div>
+
+      </div>
 
 
-
+    </div>
+  </div>
 {% endblock content %}

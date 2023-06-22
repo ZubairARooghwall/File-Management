@@ -6,7 +6,7 @@ a {
 
 .notes-container {
     border-radius: 5px;
-    background-color: #dc7227;
+    background-color: #FFA07A;
     display: flex;
     flex-direction: column;
     padding: 5px;
@@ -28,6 +28,8 @@ a {
 .notes-header {
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
+
+    color: #000000;
 }
 
 
@@ -36,19 +38,19 @@ a {
     flex-direction: column;
     flex-wrap: nowrap;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(253, 253, 253, 0.2);
     padding: 5px;
     transition: background-color 0.3s ease-in-out;
 }
 
 .notes-element:hover, .notes-paragraph:hover {
-    background-color: #e81d1d;
+    background-color: rgba(29, 87, 232, 0.65);
     cursor: pointer;
 }
 
 .notes-body a .notes-element {
     text-decoration: none;
-    color: white
+    color: black;
 }
 
 .notes-body a .notes-element .todo-element-paragraph {
@@ -58,10 +60,10 @@ a {
 
 .notes-element-title {
     font-size: 0.8rem;
-    color: #c7c7c7;
+    color: rgba(0, 0, 0, 0.9);
 }
 
 .notes-element-paragraph {
     font-size: 0.6rem;
-    color: white;
+    color: rgba(0, 0, 0, 0.97);
 }

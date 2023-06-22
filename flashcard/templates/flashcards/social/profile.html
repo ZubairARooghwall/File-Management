@@ -1,0 +1,112 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ profile.name }} {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/social/profile.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="profile-div">
+    <div class="information">
+      <div class="basic-info">
+        <div class="avatar"><img src="{{ profile.avatar.url }}" ></div>
+        <div class="naming">
+          <p class="email">{{ profile.email }}</p>
+          <p class="name">@{{ profile.name }}</p>
+        </div>
+      </div>
+      <div class="bio">
+        <p class="bio-heading">Bio:</p>
+        <p class="bio-body">{{ profile.bio }}</p>
+      </div>
+
+
+      <div class="flashcards-profile">
+        <div class="flashcard-heading-div">
+          <p class="flashcard-heading">Flashcards: </p>
+        </div>
+      {% if flashcards %}
+        <div class="flashcard-body">
+          {% for flashcard in flashcards %}
+            <div class="flashcard">
+              <p class="question">{{ flashcard.question }}</p>
+              <p class="answer">{{ flashcard.answer }}</p>
+            </div>
+
+        {% endfor %}
+        </div>
+      {% else %}
+        <p>None</p>
+      {% endif %}
+      </div>
+
+      <div class="friends">
+        <div class="friends-heading-div">
+          <p class="friends-heading">Friends: </p>
+        </div>
+
+      {% if friends %}
+        <div class="friend-body">
+          {% for friend in friends %}
+            <a href="{% url 'profile' friend.name %}">
+          <div class="profile">
+            <div class="upper">
+              <p class="date-created">{{ friend.date_joined }}</p>
+              <p class="no-of-flashcards">{{ friend.flashcard_set.count }} flashcards</p>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <img src="{{ friend.avatar.url }}" >
+              </div>
+              <div class="right">
+                <p>{{ friend.name }}</p>
+                {% if friend.education == 'HSC' %}
+                  <p>High School</p>
+                {% elif friend.education == 'COL' %}
+                  <p>College</p>
+                {% elif friend.education == 'MSC' %}
+                  <p>Middle School</p>
+                {% elif friend.education == 'GSC' %}
+                  <p>Graduate School</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+            </a>
+        {% endfor %}
+        </div>
+      {% else %}
+        <p>None</p>
+      {% endif %}
+      </div>
+
+      <div class="messages">
+        <div class="messages-heading-div">
+          <p class="messages-heading">Messages: </p>
+        </div>
+      {% if messages %}
+        <div class="message-body">
+          {% for message in messages %}
+            <div class="message">
+              <p class="message-created">{{ message.created|timesince }}</p>
+              <p class="message-body-text">{{ message.message }}</p>
+              <div class="info-about-group">
+                <img src="{{ message.group.image.url }}">
+                <p class="group">{{ message.group.group_name }}</p>
+              </div>
+            </div>
+        {% endfor %}
+        </div>
+      {% else %}
+        <p>None</p>
+      {% endif %}
+      </div>
+
+
+
+      </div>
+    </div>
+
+
+
+{% endblock content %}

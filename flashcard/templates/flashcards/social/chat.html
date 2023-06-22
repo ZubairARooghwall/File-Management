@@ -1,0 +1,37 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/social/chat.css' %}">
+
+<div class="chat-div">
+  <a href="{% url 'profiles' %}">Profiles</a>
+
+  <div class="groups">
+    {% for group in groups %}
+      <a href="{% url 'group' group.id %}">
+        <div class="group">
+          <div class="left">
+            <img src="{% if group.image.url == "/images/static/images/related/group.jpeg" %} {% static 'images/related/group.jpeg' %} {% else %} {{ group.image.url }}{% endif %}">
+          </div>
+          <div class="right">
+            <div class="group_name">{{ group.group_name }}</div>
+            <div class="last_message">
+              {% if group.last_message %}
+                <p class="last_message_sender">{{ group.last_message.sender.name }}: </p>
+                <div>
+                  <p class="last_message_body" >{{ group.last_message.message|slice:":20" }}...</p>
+                  <p class="last_message_created" >{{ group.last_message.created|timesince }} ago</p>
+                </div>
+              {% else %}
+                <p>No Message</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </a>
+    {% endfor %}
+  </div>
+  <hr>
+  <a href="{% url 'create-group' %}">
+    <p>Groups</p>
+  </a>
+</div>

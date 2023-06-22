@@ -78,7 +78,13 @@ body {
     background-color: #3b3a3a;
     color: #ffffff;
     transition: outline 0.5s ease-in-out;
+
 }
+
+input[type='text'] {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .flashcard-center .form form div input[type='text']:focus {
    outline: 1px solid #1b65c5;

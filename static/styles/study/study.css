@@ -1,0 +1,113 @@
+.study-flashcard-div {
+    /*background-color: #ffcc00;*/
+    height: 590px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    overflow: hidden;
+}
+
+
+.study-flashcard-div .flashcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10rem;
+}
+
+
+.study-flashcard-div .flashcard .question-answer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    transform: translateY(150px);
+
+}
+
+
+.study-flashcard-div .flashcard .question-answer .question {
+    font-size: 3rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.question-show-answer {
+    transform: translateY(-150px);
+
+}
+
+.study-flashcard-div .flashcard p.answer {
+    font-size: 1.2rem;
+    transform: translateY(50px);
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.study-flashcard-div .flashcard p.show-answer {
+    transform: translateY(-50px);
+    opacity: 1;
+}
+
+
+.study-flashcard-div .flashcard .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(170px);
+    gap: 5rem;
+}
+
+.study-flashcard-div .flashcard .buttons div button {
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 100px;
+
+    transition: background-color 0.3s ease-in-out;
+    font-family: inherit;
+
+}
+
+.study-flashcard-div .flashcard .buttons div button:hover {
+    cursor: pointer;
+    background-color: #ffcc00;
+}
+
+.study-flashcard-div .flashcard .buttons div button:active {
+    background-color: red;
+}
+
+/*show button*/
+
+.study-flashcard-div .flashcard .buttons div .answer-button {
+    position: absolute;
+    z-index: -10;
+    left: -20px;
+    transition: transform 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.study-flashcard-div .flashcard .buttons div .show-answer-button {
+    transform: translateY(100px);
+
+}
+
+.study-flashcard-div .flashcard .score {
+   transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.study-flashcard-div .flashcard .score p {
+    font-size: 0.5rem;
+}
+
+.study-flashcard-div .flashcard .show-score {
+    transform: translateY(-80px);
+}

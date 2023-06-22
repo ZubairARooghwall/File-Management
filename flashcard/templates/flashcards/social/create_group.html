@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} Create Group {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/social/create_group.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="group-form">
+    <div class="form">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="field">
+            <label>{{ field.label }}</label>
+            {{ field }}
+          </div>
+        {% endfor %}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+
+
+
+{% endblock content %}

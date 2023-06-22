@@ -1,0 +1,34 @@
+.completed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+
+    gap: 3rem;
+}
+
+.completed .completed-p {
+    font-size: 3rem;
+}
+
+.home-button .go-home {
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 100px;
+
+    transition: background-color 0.3s ease-in-out;
+    font-family: inherit;
+}
+
+.home-button .go-home:hover {
+    cursor: pointer;
+    background-color: #ffcc00;
+}
+
+.home-button .go-home:active {
+    background-color: red;
+}

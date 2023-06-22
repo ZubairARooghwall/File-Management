@@ -12,7 +12,7 @@
  <div class="subject">
   {% for subject in subjects %}
       <a href="{% url 'subject' subject.id %}">
-        <div class="subjects-element" style='background-image: url("{{ subject.picture.url }}")'>
+        <div class="subjects-element" {% if subject.picture %} style="background-image: url('{{ subject.picture.url }}')" {% endif %}>
             <p class="subject-name">{{ subject.subject_name }}</p>
 {#            <p class="subject-info"></p> todo: give information and animation like the welcome message #}
           <div class="time-since-div">

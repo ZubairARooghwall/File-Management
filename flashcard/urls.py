@@ -43,8 +43,19 @@ urlpatterns = [
 	path('subject=<int:subject_id>/topic=<int:topic_id>/create-flashcard', views.create_flashcard, name='create-flashcard'),
 	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/update-flashcard', views.update_flashcard, name='update-flashcard'),
 	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/delete-flashcard', views.delete_flashcard, name='delete-flashcard'),
+	path('subject=<int:subject_id>/topic=<int:topic_id>/flashcard=<int:flashcard_id>/preview-flashcard', views.flashcard_preview, name='flashcard-preview'),
+	path('flashcards/study', views.study_flashcards, name='flashcard-study'),
+	path('update_flashcard_index/', views.update_flashcard_index, name='update_flashcard_index'),
+	path('completed', views.completed_page, name='completed'),
 	
+	# social
+	path('profiles', views.all_profiles, name='profiles'),
+	path('profile/<str:username>', views.profile, name='profile'),
+	# group
+	path('group/<int:group_id>', views.group, name='group'),
+	path('group/create', views.create_group, name='create-group'),
 	
-	
+	#Search
+	path('search', views.search, name='search'),
 	
 ]

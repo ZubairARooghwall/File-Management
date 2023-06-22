@@ -9,9 +9,9 @@
   </div>
 
   <div id="center" class="search">
-    <form class="header_search" method="get" action="{% url 'home' %}">
+    <form class="header_search" method="get" action="{% url 'search' %}">
       <input name="q" placeholder="Search" class="input">
-      <button class="search-logo"><img src="{% static 'images/related/search.png' %}" class="search-logo-image"></button>
+      <button class="search-logo"><img src="{% static 'images/related/search_dark.png' %}" class="search-logo-image" width="24px" height="24px"></button>
     </form>
      </div>
 
@@ -23,7 +23,11 @@
           {% endif %}
         <div class="avatar">
           <a href="{% url 'settings' %}">
-            <img src="{{ request.user.avatar.url }}" class="avatar-image">
+            {% if request.user.avatar == "/static/image/avatar/avatar.png"%}
+              <img src="{{ request.user.avatar }}" class="avatar-image">
+            {% else %}
+              <img src="{{ request.user.avatar.url }}" class="avatar-image">
+            {% endif %}
           </a>
         </div>
       {% else %}

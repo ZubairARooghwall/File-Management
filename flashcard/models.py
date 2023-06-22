@@ -5,13 +5,13 @@ from django.utils import timezone # for updating time
 
 
 def get_default_avatar():
-    return staticfiles_storage.url('avatar/avatar.svg')
+    return staticfiles_storage.url('image/avatar/avatar.png')
 
 
 # Create your models here.
 class User(AbstractUser):
-  name = models.CharField(max_length=200, null=True, blank=False)
-  username = models.CharField(max_length=100, )
+  name = models.CharField(max_length=200, null=True, blank=False, unique=True)
+  username = models.CharField(max_length=100, unique=True)
   email = models.EmailField(unique=True, blank=False)
   bio = models.TextField(null=True, blank=True)
   score = models.IntegerField(null=False, default=0, blank=False)
@@ -36,7 +36,7 @@ class Subject(models.Model):
   subject_name = models.CharField(max_length=120, null=False, blank=False)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  picture = models.ImageField(null=True, default="", blank=True) # Add a default image
+  picture = models.ImageField(null=True, default="#", blank=True, upload_to="image/avatar") # Add a default image
   creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -62,10 +62,10 @@ class FlashCard(models.Model):
   answer = models.TextField(max_length=2000, blank=True)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
+  # score = models.IntegerField(default=0, help_text="How much score is gained by the card", editable=True, null=True)
   topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, null=True)
-  lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0)
-  average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True, default=0)
+  # lapses = models.IntegerField(help_text="How many times has the flashcard been reviewed", default=0, editable=True)
+  # average = models.IntegerField(help_text="What is the average score of the flashcard. After every lapse, the score is added", null=True, default=0)
   is_hidden = models.BooleanField(default=False)
   
   def save(self, *args, **kwargs):
@@ -90,22 +90,22 @@ class Notes(models.Model):
 
 # Whenever you review a flashcard, it is recorded there. Good for statistics
 # flashcard = Flashcard.objects.get(id=1)
-# logs = flashcard.log_set.all() to get all the log instances of the flashcard
-class Log(models.Model):
-  flashcard = models.ForeignKey(FlashCard, on_delete=models.SET_NULL, null=True, related_name="logs") # you can use flashcard.logs.all() to access all the flashcards
-  reviewed_time = models.DateTimeField(auto_now_add=True)
-  
-  choice_field = [
-    ("bad", "answered badly"),
-    ("meh", "answered badgood"),
-    ("good", "answered good"),
-    ("best", "answered best")
-  ]
-  action = models.CharField(max_length=10, null=False, blank=False, choices=choice_field)
-  user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  result = models.BooleanField(help_text="Was is answered correctly")
-  duration = models.DurationField()
-  notes = models.ForeignKey(Notes, on_delete=models.CASCADE)
+# # logs = flashcard.log_set.all() to get all the log instances of the flashcard
+# class Log(models.Model):
+#   flashcard = models.ForeignKey(FlashCard, on_delete=models.SET_NULL, null=True, related_name="logs") # you can use flashcard.logs.all() to access all the flashcards
+#   reviewed_time = models.DateTimeField(auto_now_add=True)
+#
+#   choice_field = [
+#     ("bad", "answered badly"),
+#     ("meh", "answered badgood"),
+#     ("good", "answered good"),
+#     ("best", "answered best")
+#   ]
+#   action = models.CharField(max_length=10, null=False, blank=False, choices=choice_field)
+#   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#   result = models.BooleanField(help_text="Was is answered correctly")
+#   duration = models.DurationField()
+#   notes = models.ForeignKey(Notes, on_delete=models.CASCADE)
 
 
 # If I wanted, I will do it
@@ -132,7 +132,12 @@ class Friendship(models.Model):
   friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_friendship")
   created = models.DateTimeField(auto_now_add=True)
   is_accepted = models.BooleanField(default=False)
-  custom_name = models.CharField(max_length=120, default=friend.name)
+  custom_name = models.CharField(max_length=120, default=friend.name, null=True, blank=True)
+  
+  
+  # def save(self, *args, **kwargs):
+  #   self.friend = self.user
+  #   super().save(*args, **kwargs)
   
   def __str__(self):
     return f"{self.user} - {self.friend}"
@@ -141,6 +146,11 @@ class Friendship(models.Model):
 
   
 # Social
+
+def get_default_group_avatar():
+  return staticfiles_storage.url('images/related/group.jpeg')
+
+
 class Group(models.Model):
   host = models.ForeignKey(User, on_delete=models.CASCADE)
   group_name = models.CharField(max_length=120, null=False, blank=False)
@@ -148,10 +158,15 @@ class Group(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
   is_public = models.BooleanField(default=True)
-  image = models.ImageField(null=True, default="#") # Add default image!
+  image = models.ImageField(null=True, default=get_default_group_avatar) # Add default image!
   members = models.ManyToManyField(User, through="Membership", related_name="members")
-
-  
+  last_message = models.OneToOneField(
+    'GroupMessages',
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='group_last_message'
+  )
   def __str__(self):
     return self.group_name
   
@@ -173,10 +188,9 @@ class Membership(models.Model):
 class GroupMessages(models.Model):
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
   sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  message = models.TextField(null=False, blank=False)
+  message = models.CharField(max_length=1000, null=False, blank=False, help_text="Message")
   created = models.DateTimeField(auto_now_add=True)
   reply = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name="replyGroup")
-  
   
   def __str__(self):
     return f"Message #{self.id} in {self.group} by {self.sender.name}"

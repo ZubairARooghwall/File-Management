@@ -1,6 +1,5 @@
 .login-page-div {
-    color: white;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
     font-size: 0.9rem;
 
     display: flex;
@@ -8,6 +7,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+
+    color: var(--text-color-light)
 }
 
 .login-page-div div {
@@ -62,7 +63,13 @@
     border-radius: 5px;
     font-family: "JetBrains Mono", "Segoe UI", serif;
     padding: 5px;
+
 }
+
+.login-page-div div .form form input[type='text'], input[type='email']{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .login-page-div div p.signup-questionmark {
     font-size: 1rem;
@@ -89,7 +96,7 @@
 
 /*Register time*/
 .signup-page-div {
-    color: white;
+    color: var(--text-color-light);
     font-family: "JetBrains Mono", "Segoe UI", serif;
     font-size: 0.9rem;
 
@@ -98,6 +105,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+
+
 }
 
 .signup-page-div div {
@@ -152,7 +161,15 @@
     border-radius: 5px;
     font-family: "JetBrains Mono", "Segoe UI", serif;
     padding: 5px;
+
 }
+
+.signup-page-div div .form form input[type='text'], input[type='email'], input[type='password']{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
 
 .signup-page-div div p.login-questionmark {
     font-size: 1rem;

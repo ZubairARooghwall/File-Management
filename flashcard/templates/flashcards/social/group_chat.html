@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ group.group_name }} {% endblock title %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/social/group_chat.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="group-chat-div">
+  <div class="left">
+    {% include 'flashcards/components/todo.html' %}
+    {% include 'flashcards/components/notes.html' %}
+  </div>
+  <div class="right">
+    <div class="chat">
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.sender == request.user %}
+            <div class="my-message">
+              <div class="message">
+                <a href="{% url 'profile' message.sender.name %}">
+                  <p class="sender">@{{ message.sender.name }}</p>
+                </a>
+                <p>{{ message.message }}</p>
+                <div class="time">
+                  <p>{{ message.created|time }}</p>
+                </div>
+              </div>
+              <div class="avatar">
+                <a href="{% url 'profile' message.sender.name %}">
+                  <img src="{{ message.sender.avatar.url }}">
+                </a>
+              </div>
+            </div>
+          {% else %}
+            <div class="not-my-message">
+
+               <div class="avatar">
+                <a href="{% url 'profile' message.sender.name %}">
+                  <img src="{{ message.sender.avatar.url }}">
+                </a>
+              </div>
+
+              <div class="message">
+                <a href="{% url 'profile' message.sender.name %}">
+                  <p class="sender">@{{ message.sender.name }}</p>
+                </a>
+                <p>{{ message.message }}</p>
+                <div class="time">
+                  <p>{{ message.created|time }}</p>
+                </div>
+              </div>
+            </div>
+
+
+
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p>No Messages</p>
+      {% endif %}
+
+    </div>
+    <div class="input">
+      <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="{{ form.message.name }}" id="field" placeholder="{{ form.message.field.widget.attrs.placeholder }}" >
+        <button type="submit" value="Submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById('field').focus();
+    });
+  </script>
+
+{% endblock content %}

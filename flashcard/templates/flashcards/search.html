@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ query }} {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/search.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="search-div">
+  <div class="showing">
+    <p>Showing results for "<b>{{ query }}</b>"</p>
+  </div>
+  {% if results %}
+  <div class="flashcards">
+    <h2>Flashcards</h2>
+    <ul>
+      {% for flashcard in results.0 %}
+        <li>
+          <a href="{% url 'flashcard' flashcard.topic.subject.id flashcard.topic.id flashcard.id %}">
+            <p>{{ flashcard.question }}</p>
+            <p>- {{ flashcard.answer|slice:":30"}}...</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="topics">
+    <h2>Topics</h2>
+    <ul>
+      {% for topic in results.2 %}
+        <li>
+          <a href="{% url 'topic' topic.subject.id topic.id %}">
+            <p>{{ topic.subject.subject_name }}</p>
+            <p>- {{ topic.topic_name }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <!-- Add similar blocks for other models -->
+
+  <div class="subjects">
+    <h2>Subjects</h2>
+    <ul>
+      {% for subject in results.3 %}
+        <li>
+          <a href="{% url 'subject' subject.id %}">
+            <p>{{ subject.subject_name }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="groups">
+    <h2>Group</h2>
+    <ul>
+      {% for group in results.4 %}
+        <li>
+          <a href="{% url 'group' group.id %}">
+            <img src="{{ group.image.url }}">
+            <p>{{ group.group_name }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="users">
+    <h2>User</h2>
+  <ul>
+    {% for user in results.6 %}
+       <a href="{% url 'profile' user.name %}">
+      <li>
+          <img src="{{ user.avatar.url }}">
+          <div class="information-user">
+            <p>@{{ user.name }}</p>
+            <p>{{ user.email }}</p>
+          </div>
+      </li>
+      </a>
+    {% endfor %}
+  </ul>
+  </div>
+
+{% else %}
+  <p class="not-found">No results found.</p>
+{% endif %}
+
+</div>
+
+{% endblock content %}

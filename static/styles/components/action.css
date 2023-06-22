@@ -1,0 +1,27 @@
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #3b15ad;
+    height: 50px;
+}
+
+.action button {
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.action button:hover {
+    cursor: pointer;
+    background-color: #ffcc00;
+}
+
+.action button:active {
+    background-color: red;
+}

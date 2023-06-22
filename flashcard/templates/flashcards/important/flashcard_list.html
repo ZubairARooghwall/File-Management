@@ -4,7 +4,7 @@
   <div class="flashcard">
 
     {% for flashcard in flashcards %}
-      <a href="{% url 'flashcard' current_subject.id current_subject.id flashcard.id %}">
+      <a href="{% url 'flashcard-preview' subject_id=current_subject.id topic_id=current_topic.id flashcard_id=flashcard.id %}">
         <div class="flashcard-element">
           <div>
             <p class="flashcard-name">{{ flashcard.question|slice:":20" }}...</p>

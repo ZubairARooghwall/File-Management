@@ -1,0 +1,102 @@
+.search-div {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    padding: 2rem;
+
+}
+
+.search-div .showing {
+
+
+}
+
+.search-div div {
+   display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.search-div div ul {
+    list-style: none;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-div div ul li {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-div div ul li a {
+    text-decoration: none;
+    color: var(--text-color-light);
+}
+
+.search-div .flashcards ul li {
+    background-color: #55e326;
+    padding: 10px;
+    border-radius: 5px;
+}
+/*Topics ################################################*/
+
+.search-div .topics ul li {
+    background-color: #1e9ed5;
+}
+
+/*Subjects ************************************************/
+.search-div .subjects ul li {
+    background-color: #ffcc00;
+}
+
+/*Groups #################################################*/
+.search-div .groups ul li {
+    background-color: #007BFF;
+}
+
+.search-div .groups ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-div .groups ul li a img {
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+}
+
+/*Users ##################################################*/
+
+.search-div .users ul li {
+    background-color: #00d2ff;
+
+}
+
+.search-div .users ul a {
+    text-decoration: none;
+    color: var(--text-color-light);
+}
+
+.search-div .users ul a li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.search-div .users ul a li div.information-user {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+
+
+.search-div p.not-found {
+    font-size: 2rem;
+}
