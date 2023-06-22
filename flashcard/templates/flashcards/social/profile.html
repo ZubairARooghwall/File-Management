@@ -73,13 +73,37 @@
             </div>
           </div>
             </a>
-
         {% endfor %}
         </div>
       {% else %}
         <p>None</p>
       {% endif %}
       </div>
+
+      <div class="messages">
+        <div class="messages-heading-div">
+          <p class="messages-heading">Messages: </p>
+        </div>
+      {% if messages %}
+        <div class="message-body">
+          {% for message in messages %}
+            <div class="message">
+              <p class="message-created">{{ message.created|timesince }}</p>
+              <p class="message-body-text">{{ message.message }}</p>
+              <div class="info-about-group">
+                <img src="{{ message.group.image.url }}">
+                <p class="group">{{ message.group.group_name }}</p>
+              </div>
+            </div>
+        {% endfor %}
+        </div>
+      {% else %}
+        <p>None</p>
+      {% endif %}
+      </div>
+
+
+
       </div>
     </div>
 

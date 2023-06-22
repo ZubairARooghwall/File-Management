@@ -78,6 +78,7 @@
     border-radius: 5px;
     padding: 5px;
 
+    color: #F0F8FF;
 }
 
 .profile-div .flashcards-profile .flashcard-body .flashcard .question {
@@ -156,4 +157,76 @@ a {
     border-radius: 50%;
     height: 40px;
     width: 40px;
+}
+
+
+.messages {
+}
+
+.messages .messages-heading-div {
+
+
+
+}
+
+.messages .messages-heading-div p.messages-heading {
+
+
+
+}
+
+
+.messages .message-body {
+    display: flex;
+    gap: 1rem;
+    padding: 10px;
+    flex-wrap: wrap;
+
+}
+
+.messages .message-body .message {
+    background-color: #2bb9c5;
+    border-radius: 5px;
+
+    width: 250px;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.messages .message-body .message .message-created {
+    font-size: 0.7rem;
+
+}
+
+.messages .message-body .message .message-body-text {
+    color: black;
+
+
+}
+
+.messages .message-body .message .info-about-group {
+
+    display: flex;
+    gap: 5px;
+
+}
+
+.messages .message-body .message .info-about-group img {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+
+
+}
+
+.messages .message-body .message .info-about-group p {
+
+
+
+
 }

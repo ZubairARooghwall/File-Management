@@ -1,6 +1,5 @@
 .login-page-div {
-    color: white;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
     font-size: 0.9rem;
 
     display: flex;
@@ -8,6 +7,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+
+    color: var(--text-color-light)
 }
 
 .login-page-div div {
@@ -89,7 +90,7 @@
 
 /*Register time*/
 .signup-page-div {
-    color: white;
+    color: var(--text-color-light);
     font-family: "JetBrains Mono", "Segoe UI", serif;
     font-size: 0.9rem;
 
@@ -98,6 +99,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+
+
 }
 
 .signup-page-div div {

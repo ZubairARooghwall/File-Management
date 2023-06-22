@@ -183,7 +183,7 @@ class Membership(models.Model):
 class GroupMessages(models.Model):
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
   sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  message = models.CharField(max_length=1000, null=False, blank=False)
+  message = models.CharField(max_length=1000, null=False, blank=False, help_text="Message")
   created = models.DateTimeField(auto_now_add=True)
   reply = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name="replyGroup")
   

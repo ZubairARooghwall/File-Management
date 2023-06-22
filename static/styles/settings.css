@@ -1,8 +1,8 @@
 
 /*Register time*/
 .settings-page {
-    color: white;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    color: var(--text-color-light);
+    font-family: inherit;
     font-size: 0.9rem;
 
     display: flex;
@@ -62,7 +62,7 @@
     height: 30px;
     border: none;
     border-radius: 5px;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
     padding: 5px;
 }
 
@@ -150,7 +150,7 @@ option:not(:checked) {
     background-color: #343434;
     border-radius: 5px;
     color: white;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
 }
 
 .current-image {
@@ -163,10 +163,11 @@ option:not(:checked) {
     height: 30px;
     border: none;
     border-radius: 5px;
-    font-family: "JetBrains Mono", "Segoe UI", serif;
+    font-family: inherit;
     padding: 5px;
-    background: #ffff;
+    background: #a4a4a4;
     width: 100%;
+    color: #ffffff;
 
 }
 

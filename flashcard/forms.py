@@ -77,9 +77,13 @@ class GroupMessageForm(forms.ModelForm):
 	class Meta:
 		model = GroupMessages
 		fields = ['message']
+		widgets = {
+			'message': forms.TextInput(attrs={'placeholder': 'Message...'}),
+		}
 		
 
 class GroupForm(forms.ModelForm):
 	class Meta:
 		model = Group
 		fields = ['group_name', 'description', 'is_public', 'image']
+		

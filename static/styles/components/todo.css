@@ -1,6 +1,6 @@
 .to-do-container {
     border-radius: 5px;
-    background-color: #4fc1cc;
+    background-color: #87CEEB;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -23,6 +23,8 @@
 .to-do-header {
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
+
+    color: #000000;
 }
 
 
@@ -31,13 +33,15 @@
     flex-direction: row;
     flex-wrap: nowrap;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(236, 236, 236, 0.32);
     padding: 5px;
     transition: background-color 0.3s ease-in-out;
+
+    color: black;
 }
 
 .todo-element:hover, .todo-element-paragraph:hover {
-    background-color: #e81d1d;
+    background-color: #d0ba3b;
     cursor: pointer;
 }
 

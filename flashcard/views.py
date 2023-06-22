@@ -212,6 +212,7 @@ def group(request, group_id):
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	group = Group.objects.get(id = group_id)
+	group_messages = GroupMessages.objects.filter(group=group).order_by("-created")
 	
 	if request.method == 'POST':
 		form = GroupMessageForm(request.POST)
@@ -227,8 +228,7 @@ def group(request, group_id):
 	else:
 		form = GroupMessageForm()
 	
-	
-	return render(request, 'flashcards/social/group_chat.html', {"form": form, "notes": notes, "todo": to_do, "group": group})
+	return render(request, 'flashcards/social/group_chat.html', {"form": form, "notes": notes, "todo": to_do, "group": group, "messages": group_messages})
 
 
 # Chat #################################################################################################################
@@ -251,8 +251,10 @@ def profile(request, username):
 	# friends += Friendship.objects.filter(friend = profile)
 	flashcards = FlashCard.objects.filter(creator = profile, is_hidden=False)
 	
+	message = GroupMessages.objects.filter(sender=profile)
 	
-	return render(request, 'flashcards/social/profile.html', {"profile": profile, "flashcards": flashcards, "friends": friends})
+	
+	return render(request, 'flashcards/social/profile.html', {"profile": profile, "flashcards": flashcards, "friends": friends, "messages": message})
 
 
 from .forms import GroupMessageForm

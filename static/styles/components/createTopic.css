@@ -4,6 +4,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+
 }
 
 .createTopic-div div.form-group {
@@ -15,7 +17,14 @@
     gap: 10px;
     width: 500px;
 
+
+
 }
+
+.createTopic-div form .form-group label {
+    color: var(--text-color-light)
+}
+
 
 .createTopic-div input.create_topic {
     background-color: #ffffff;
@@ -25,6 +34,8 @@
     width: 100px;
     font-family: inherit;
     margin-left: 10px;
+
+
 }
 
 .createTopic-div input#id_topic_name {
@@ -35,6 +46,7 @@
     width: 100%;
     font-family: inherit;
     padding: 1rem;
+
 }
 
 #id_topic_name:focus {

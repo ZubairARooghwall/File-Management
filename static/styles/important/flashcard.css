@@ -44,6 +44,7 @@
     align-items: center;
     gap: 4px;
 
+    color: var(--background-color);
 }
 
 .flashcard-right .flashcard-details div h1 {
