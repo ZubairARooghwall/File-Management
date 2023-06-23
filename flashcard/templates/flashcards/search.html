@@ -59,7 +59,7 @@
       {% for group in results.4 %}
         <li>
           <a href="{% url 'group' group.id %}">
-            <img src="{{ group.image.url }}">
+             <img src="{% if group.image.url == "/images/static/images/related/group.jpeg" %} {% static 'images/related/group.jpeg' %} {% else %} {{ group.image.url }}{% endif %}">
             <p>{{ group.group_name }}</p>
           </a>
         </li>
