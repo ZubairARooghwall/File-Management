@@ -1,16 +1,22 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Flashy</title>
-</head>
-<body>
+{% extends 'main.html' %}
+{% load static %} 
+{% block title %} Flashy {% endblock title %}   
+{% block css_file %} <link rel="stylesheet" href="{% static 'styles/newVisitor.css' %}"> {% endblock css_file %}
+
+{% block content %} 
+  <div class="new">
+   <p>Learn with flashcards</p> 
 
 
 
 
-</body>
-</html>
+
+
+
+
+
+
+
+  
+  </div>   
+{% endblock content %} 
