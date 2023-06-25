@@ -26,3 +26,5 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 - I should create it in a way that it doesn't make you 'isolated' from the world. Make it more social and engaging.
 - You can download a PDF file of your flashcards and notes and mind-maps. You can sort them by date, weakness, ...
 - Text to sign langauge, sign language to text
+
+- Testing
