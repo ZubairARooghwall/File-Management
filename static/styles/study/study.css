@@ -75,6 +75,8 @@ body {
     transition: background-color 0.3s ease-in-out;
     font-family: inherit;
 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
 }
 
 .study-flashcard-div .flashcard .buttons div button:hover {
@@ -91,7 +93,7 @@ body {
 .study-flashcard-div .flashcard .buttons div .answer-button {
     position: absolute;
     z-index: -10;
-    left: -20px;
+    left: -5px;
     transition: transform 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
