@@ -3,14 +3,15 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 
 ## How to Set Up
 1. Download the zip file.
-2. Create a virtual environment for python. (venv env)
-3. Activate the virtual environment. (env/bin/activate)
-4. Install the required packages. (Django, Pillow, ...)
+2. In the root director, create a virtual environment for python. (python -m venv venv)
+3. Activate the virtual environment. (venv\Scripts\activate)
+4. Install the required packages. (pip install django, Pillow)
 5. Open terminal
 6. Change to the root directory where manage.py it located.
 7. Enter 'python manage.py runserver'
 8. It will start the server and output the localhost ip.
 9. Click on the link, it will open the website.
+
 
 
 ### Implemented
