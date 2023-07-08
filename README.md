@@ -1,6 +1,8 @@
 # Flashcard
 Website that helps organize your notes, flashcards, mind-maps, sketches, reminders, time spent studying, statistics and much more.
 
+[GitHub](https://github.com/ZubairARooghwall/Study)
+
 ## How to Set Up
 1. Download the zip file.
 2. In the root director, create a virtual environment for python. (python -m venv venv)
