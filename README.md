@@ -1,5 +1,18 @@
 # Flashcard
 Website that helps organize your notes, flashcards, mind-maps, sketches, reminders, time spent studying, statistics and much more.
+
+## How to Set Up
+1. Download the zip file.
+2. Create a virtual environment for python. (venv env)
+3. Activate the virtual environment. (env/bin/activate)
+4. Install the required packages. (Django, Pillow, ...)
+5. Open terminal
+6. Change to the root directory where manage.py it located.
+7. Enter 'python manage.py runserver'
+8. It will start the server and output the localhost ip.
+9. Click on the link, it will open the website.
+
+
 ### Implemented
 - You can create flashcards
 - You can add notes for flashcards when reviewing them
