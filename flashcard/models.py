@@ -13,7 +13,7 @@ class User(AbstractUser):
   name = models.CharField(max_length=200, null=True, blank=False, unique=True)
   username = models.CharField(max_length=100, unique=True)
   email = models.EmailField(unique=True, blank=False)
-  bio = models.TextField(null=True, blank=True)
+  biography = models.TextField(null=True, blank=True)
   score = models.IntegerField(null=False, default=0, blank=False)
   education_choices = [
     ("MSC", "Middle_School"),

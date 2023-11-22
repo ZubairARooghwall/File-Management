@@ -8,7 +8,7 @@ from .models import User, Notes, FlashCard, Topics, Todo, Subject, GroupMessages
 class MyUserRegistrationForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ['name', 'username', 'email', 'password1', 'password2', 'bio', 'avatar', 'prefer_dark_theme', 'education']
+		fields = ['name', 'username', 'email', 'password1', 'password2', 'biography', 'avatar', 'prefer_dark_theme', 'education']
 		
 		# in form, you add enctype="multipart/form-data"
 		# in views.py, form = MyUserRegistrationForm(..add request.FILES...)
