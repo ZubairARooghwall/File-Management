@@ -41,7 +41,7 @@ class User(AbstractUser):
 
 class File(models.Model):
   file_name = models.CharField(max_length=255)
-  type = models.CharField(10)
+  type = models.CharField(max_length=10)
   file_size = models.IntegerField(null=False, blank=False)
   upload_time = models.DateTimeField(auto_now_add=True)
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -55,29 +55,28 @@ class activity_log(models.Model):
   activity = models.CharField(max_length=10)
   creation_time = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  file = models.ForeignKey(User, on_delete=models.CASCADE)
+  file = models.ForeignKey(File, on_delete=models.CASCADE)
 
 class tag(models.Model):
   tag_name = models.CharField(primary_key=True, max_length=100)
   creation_time = models.DateTimeField(auto_now_add=True)
 
   class colors(models.TextChoices):
-    RED = "RED", _("RED")
-    GREEN = "GREEN", _("GREEN")
-    YELLOW = "YELLOW", _("YELLOW")
-    GRAY = "GRAY", _("GRAY")
-    BLUE = "BLUE", _("BLUE")
+    RED = "RED"
+    GREEN = "GREEN"
+    YELLOW = "YELLOW"
+    GRAY = "GRAY"
+    BLUE = "BLUE"
 
   color = models.CharField(max_length=20, choices=colors.choices, default=colors.BLUE)
 
 
 class Notification(models.Model):
-  to_user = models.ForeignKey(User, on_delete=models.CASECASE)
+  to_user = models.ForeignKey(User, on_delete=models.CASCADE)
   notification_type = models.CharField(max_length=7)
   creation_time = models.DateTimeField(auto_now_add=True)
-  from_user = models.ForeignKey(User, on_delete=models.CASCADE)
   content = models.CharField(max_length=255)
-  isRead = models.BoleanField(default=False)
+  isRead = models.BooleanField(default=False)
 
 
 # New Project end
