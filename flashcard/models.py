@@ -51,13 +51,13 @@ class Permission(models.Model):
   to_user = models.ForeignKey(User, on_delete=models.CASCADE)
   creation_time = models.DateTimeField(auto_now_add=True)
 
-class activity_log(models.Model):
+class Activity_log(models.Model):
   activity = models.CharField(max_length=10)
   creation_time = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   file = models.ForeignKey(File, on_delete=models.CASCADE)
 
-class tag(models.Model):
+class Tag(models.Model):
   tag_name = models.CharField(primary_key=True, max_length=100)
   creation_time = models.DateTimeField(auto_now_add=True)
 
