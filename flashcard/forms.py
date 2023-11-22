@@ -17,7 +17,7 @@ class MyUserRegistrationForm(UserCreationForm):
 class UserForm(ModelForm):
 	class Meta:
 		model = User
-		fields = ['name', 'email', 'bio', 'education', 'prefer_dark_theme', 'avatar']
+		fields = ['name', 'email', 'biography', 'education', 'prefer_dark_theme', 'avatar']
 		exclude = ['score', 'is_staff', 'is_superuser', 'is_active']
 
 

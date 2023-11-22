@@ -21,8 +21,13 @@ class User(AbstractUser):
     ("Col", "College"),
     ("GSC", "Graduate_School")
   ]
+  class educations(models.TextChoices):
+    MSC = "Middle_School"
+    HSC = "High_School"
+    COL = "College"
+    GSC = "Graduate_School"
   # When adding values, User(...., education="MSC",...)
-  education = models.CharField(max_length=3, choices=education_choices, default="other")
+  education = models.CharField(max_length=20, choices=educations.choices, default=educations.COL)
   avatar = models.ImageField(null=True, default=get_default_avatar)
   prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
   is_active = models.BooleanField(default=True, help_text="If the person is active, it is True")
@@ -31,6 +36,51 @@ class User(AbstractUser):
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = []
   
+# New Project time
+## Files table
+
+class File(models.Model):
+  file_name = models.CharField(max_length=255)
+  type = models.CharField(10)
+  file_size = models.IntegerField(null=False, blank=False)
+  upload_time = models.DateTimeField(auto_now_add=True)
+  owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Permission(models.Model):
+  file = models.ForeignKey(File, on_delete=models.CASCADE)
+  to_user = models.ForeignKey(User, on_delete=models.CASCADE)
+  creation_time = models.DateTimeField(auto_now_add=True)
+
+class activity_log(models.Model):
+  activity = models.CharField(max_length=10)
+  creation_time = models.DateTimeField(auto_now_add=True)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  file = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class tag(models.Model):
+  tag_name = models.CharField(primary_key=True, max_length=100)
+  creation_time = models.DateTimeField(auto_now_add=True)
+
+  class colors(models.TextChoices):
+    RED = "RED", _("RED")
+    GREEN = "GREEN", _("GREEN")
+    YELLOW = "YELLOW", _("YELLOW")
+    GRAY = "GRAY", _("GRAY")
+    BLUE = "BLUE", _("BLUE")
+
+  color = models.CharField(max_length=20, choices=colors.choices, default=colors.BLUE)
+
+
+class Notification(models.Model):
+  to_user = models.ForeignKey(User, on_delete=models.CASECASE)
+  notification_type = models.CharField(max_length=7)
+  creation_time = models.DateTimeField(auto_now_add=True)
+  from_user = models.ForeignKey(User, on_delete=models.CASCADE)
+  content = models.CharField(max_length=255)
+  isRead = models.BoleanField(default=False)
+
+
+# New Project end
 
 class Subject(models.Model):
   subject_name = models.CharField(max_length=120, null=False, blank=False)
