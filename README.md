@@ -1,9 +1,11 @@
-# Flashcard
+# File Management
+
 Website that helps organize your notes, flashcards, mind-maps, sketches, reminders, time spent studying, statistics and much more.
 
-[GitHub](https://github.com/ZubairARooghwall/Study)
+[File Management GitHub page](https://github.com/ZubairARooghwall/File-Management)
 
 ## How to Set Up
+
 1. Download the zip file.
 2. In the root director, create a virtual environment for python. (python -m venv venv)
 3. Activate the virtual environment. (venv\Scripts\activate)
@@ -14,17 +16,18 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 8. It will start the server and output the localhost ip.
 9. Click on the link, it will open the website.
 
-
-
 ### Implemented
+
 - You can create flashcards
 - You can add notes for flashcards when reviewing them
 - You can add notes in general
 - You can message anyone
 - You can create groups and chat
 
-
 ### Not Implemented
+
+- You can upload files 
+- You can share the files
 - You can share your flashcards. 
 - You can study together with friends, online. 
 - You can have video or audio calls the Call-of-Duty-style. 
