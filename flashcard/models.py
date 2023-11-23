@@ -5,7 +5,7 @@ from django.utils import timezone # for updating time
 
 
 def get_default_avatar():
-    return staticfiles_storage.url('image/avatar/avatar.png')
+  return staticfiles_storage.url('image/avatar/avatar.png')
 
 
 # Create your models here.
@@ -15,12 +15,6 @@ class User(AbstractUser):
   email = models.EmailField(unique=True, blank=False)
   biography = models.TextField(null=True, blank=True)
   score = models.IntegerField(null=False, default=0, blank=False)
-  education_choices = [
-    ("MSC", "Middle_School"),
-    ("HSC", "High_School"),
-    ("Col", "College"),
-    ("GSC", "Graduate_School")
-  ]
   class educations(models.TextChoices):
     MSC = "Middle_School"
     HSC = "High_School"
@@ -35,12 +29,13 @@ class User(AbstractUser):
   
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = []
-  
+
 # New Project time
 ## Files table
 
 class File(models.Model):
   file_name = models.CharField(max_length=255)
+  file = models.FileField(upload_to="files")
   type = models.CharField(max_length=10)
   file_size = models.IntegerField(null=False, blank=False)
   upload_time = models.DateTimeField(auto_now_add=True)
@@ -60,14 +55,14 @@ class Activity_log(models.Model):
 class Tag(models.Model):
   tag_name = models.CharField(primary_key=True, max_length=100)
   creation_time = models.DateTimeField(auto_now_add=True)
-
+  
   class colors(models.TextChoices):
     RED = "RED"
     GREEN = "GREEN"
     YELLOW = "YELLOW"
     GRAY = "GRAY"
     BLUE = "BLUE"
-
+  
   color = models.CharField(max_length=20, choices=colors.choices, default=colors.BLUE)
 
 
@@ -100,7 +95,7 @@ class Topics(models.Model):
     self.subject.update = timezone.now()
     self.subject.save()
     super().save(*args, **kwargs)
-  
+
 
 
 
@@ -118,12 +113,12 @@ class FlashCard(models.Model):
   is_hidden = models.BooleanField(default=False)
   
   def save(self, *args, **kwargs):
-      self.topic.updated = timezone.now()
-      self.topic.save()
-      self.topic.subject.updated = timezone.now()
-      self.topic.subject.save()
-      super().save(*args, **kwargs)
-	    
+    self.topic.updated = timezone.now()
+    self.topic.save()
+    self.topic.subject.updated = timezone.now()
+    self.topic.subject.save()
+    super().save(*args, **kwargs)
+
 
 
 class Notes(models.Model):
@@ -193,7 +188,7 @@ class Friendship(models.Model):
 
 
 
-  
+
 # Social
 
 def get_default_group_avatar():
@@ -218,7 +213,7 @@ class Group(models.Model):
   )
   def __str__(self):
     return self.group_name
-  
+
 class Membership(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
@@ -230,10 +225,10 @@ class Membership(models.Model):
   ]
   
   role = models.CharField(max_length=120, null=True, choices=choices_field)
-
+  
   def __str__(self):
     return f"{self.user} - {self.group}"
-  
+
 class GroupMessages(models.Model):
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
   sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
