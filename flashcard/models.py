@@ -10,19 +10,19 @@ def get_default_avatar():
 
 # Create your models here.
 class User(AbstractUser):
-  name = models.CharField(max_length=200, null=True, blank=False, unique=True)
-  username = models.CharField(max_length=100, unique=True)
+  name = models.CharField(max_length=300, null=True, blank=False, unique=True)
+  username = models.CharField(max_length=300, unique=True)
   email = models.EmailField(unique=True, blank=False)
   biography = models.TextField(null=True, blank=True)
   score = models.IntegerField(null=False, default=0, blank=False)
   class educations(models.TextChoices):
-    MSC = "Middle_School"
-    HSC = "High_School"
-    COL = "College"
-    GSC = "Graduate_School"
+    Middle_School = "Middle_School"
+    High_School = "High_School"
+    College = "College"
+    Graduate_School = "Graduate_School"
   # When adding values, User(...., education="MSC",...)
-  education = models.CharField(max_length=20, choices=educations.choices, default=educations.COL)
-  avatar = models.ImageField(null=True, default=get_default_avatar)
+  education = models.CharField(max_length=20, choices=educations.choices, default=educations.College)
+  avatar = models.ImageField(null=True, default=get_default_avatar, max_length=500)
   prefer_dark_theme = models.BooleanField(default=False, help_text="Do you prefer dark theme?")
   is_active = models.BooleanField(default=True, help_text="If the person is active, it is True")
   date_joined = models.DateTimeField(auto_now_add=True)
@@ -34,12 +34,13 @@ class User(AbstractUser):
 ## Files table
 
 class File(models.Model):
-  file_name = models.CharField(max_length=255)
-  file = models.FileField(upload_to="files")
+  file_name = models.CharField(max_length=300)
+  file = models.FileField(upload_to="files", max_length=500)
   type = models.CharField(max_length=10)
   file_size = models.IntegerField(null=False, blank=False)
   upload_time = models.DateTimeField(auto_now_add=True)
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
+  description = models.TextField(max_length=1000)
 
 class Permission(models.Model):
   file = models.ForeignKey(File, on_delete=models.CASCADE)
@@ -53,7 +54,7 @@ class Activity_log(models.Model):
   file = models.ForeignKey(File, on_delete=models.CASCADE)
 
 class Tag(models.Model):
-  tag_name = models.CharField(primary_key=True, max_length=100)
+  tag_name = models.CharField(primary_key=True, max_length=300)
   creation_time = models.DateTimeField(auto_now_add=True)
   
   class colors(models.TextChoices):
@@ -77,10 +78,10 @@ class Notification(models.Model):
 # New Project end
 
 class Subject(models.Model):
-  subject_name = models.CharField(max_length=120, null=False, blank=False)
+  subject_name = models.CharField(max_length=255, null=False, blank=False)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
-  picture = models.ImageField(null=True, default="#", blank=True, upload_to="image/avatar") # Add a default image
+  picture = models.ImageField(null=True, default="#", blank=True, upload_to="image/avatar", max_length=500) # Add a default image
   creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -122,8 +123,8 @@ class FlashCard(models.Model):
 
 
 class Notes(models.Model):
-  title = models.CharField(max_length=100, null=False, blank=False, default="")
-  note = models.TextField(max_length=3000, null=False, blank=False)
+  title = models.CharField(max_length=3000, null=False, blank=False, default="")
+  note = models.TextField(max_length=255, null=False, blank=False)
   flashcard = models.ForeignKey(FlashCard, null=True, on_delete=models.SET_NULL, blank=True)
   topic = models.ForeignKey(Topics, null=True, on_delete=models.SET_NULL, blank=True)
   created = models.DateTimeField(auto_now_add=True)
@@ -202,7 +203,7 @@ class Group(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
   is_public = models.BooleanField(default=True)
-  image = models.ImageField(null=True, default=get_default_group_avatar) # Add default image!
+  image = models.ImageField(null=True, default=get_default_group_avatar, max_length=500) # Add default image!
   members = models.ManyToManyField(User, through="Membership", related_name="members")
   last_message = models.OneToOneField(
     'GroupMessages',
@@ -232,7 +233,7 @@ class Membership(models.Model):
 class GroupMessages(models.Model):
   group = models.ForeignKey(Group, on_delete=models.CASCADE)
   sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  message = models.CharField(max_length=1000, null=False, blank=False, help_text="Message")
+  message = models.CharField(max_length=300, null=False, blank=False, help_text="Message")
   created = models.DateTimeField(auto_now_add=True)
   reply = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name="replyGroup")
   
@@ -248,7 +249,7 @@ class GroupMessages(models.Model):
 
 
 class Todo(models.Model):
-  task = models.TextField(max_length=300, null=False, blank=False)
+  task = models.TextField(max_length=255, null=False, blank=False)
   created = models.DateTimeField(auto_now_add=True)
   creator = models.ForeignKey(User, on_delete=models.CASCADE)
   

@@ -1,0 +1,32 @@
+.file-container.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.file-container {
+    height: 245px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 1rem;
+
+    font-size: 11px;
+
+
+    background-color: #55e326;
+}
+
+.file-div {
+    min-height: 50px;
+    max-width: 250px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #FFA07A;
+}
+
+.file-div p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

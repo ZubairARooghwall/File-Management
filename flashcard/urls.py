@@ -58,4 +58,6 @@ urlpatterns = [
 	#Search
 	path('search', views.search, name='search'),
 	
+	# Files
+	path('file/<int:file_id>',  views.view_file, name='view_file'),
 ]

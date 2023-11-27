@@ -1,0 +1,32 @@
+.file_page-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.left-file_page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+
+}
+
+.right-file_page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.right-file_page .file-info {
+    background-color: #34bb9c;
+    border-radius: 5px;
+
+    height: 100%;
+    width: 100%;
+
+
+
+}

@@ -6,10 +6,14 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm, GroupForm
+from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm, \
+	GroupForm
 
-#Import all the models
-from .models import User, Subject, Topics, FlashCard, Notes, Messages, Friendship, Group, Membership, GroupMessages, Todo # Continue adding the models
+# Import all the models
+from .models import User, Subject, Topics, FlashCard, Notes, Messages, Friendship, Group, Membership, GroupMessages, \
+	Todo, File  # Continue adding the models
+
+
 # Create your views here.
 
 # user authentication###################################################################################################
@@ -33,7 +37,7 @@ def loginPage(request):
 		except User.DoesNotExist:
 			messages.error(request, "User does not exist")
 			return redirect('login')
-			
+		
 		user = authenticate(request, email=email, password=password)
 		
 		if user is not None:
@@ -41,11 +45,11 @@ def loginPage(request):
 			return redirect('home')
 		else:
 			messages.error(request, 'Username or password does not exist')
-		
+	
 	page = 'login'
 	context = {'page': page}
 	return render(request, 'flashcards/registration/login_registration.html', context)
-		
+
 
 def registerPage(request):
 	form = MyUserRegistrationForm()
@@ -67,13 +71,14 @@ def registerPage(request):
 			return redirect('home')
 		else:
 			messages.error(request, form.errors)
-			
+	
 	return render(request, 'flashcards/registration/login_registration.html', {"form": form})
 
 
 def logoutPage(request):
 	logout(request)
 	return redirect('home')
+
 
 # end user authentication
 # all user management
@@ -88,7 +93,6 @@ def delete_account(request):
 	
 	except User.DoesNotExist:
 		messages.error(request, "User does not exist")
-
 	
 	return render(request, 'flashcards/conf/delete.html')
 
@@ -108,7 +112,7 @@ def settings(request):
 	return render(request, 'flashcards/conf/settings.html', {'form': form})
 
 
-#End user management####################################################################################################
+# End user management####################################################################################################
 # Main pages############################################################################################################
 
 @login_required(login_url='login')
@@ -116,21 +120,22 @@ def home(request):
 	user = request.user
 	inspirational_quote = 0
 	
+	files = File.objects.filter(owner=request.user).order_by("upload_time")
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	subjects = Subject.objects.filter(creator=request.user).order_by("-updated")
-	topics = Topics.objects.filter(creator = user).order_by("-updated")
-	flashcards = FlashCard.objects.filter(creator = user).order_by("-updated")
+	topics = Topics.objects.filter(creator=user).order_by("-updated")
+	flashcards = FlashCard.objects.filter(creator=user).order_by("-updated")
 	groups = Group.objects.all()
 	GroupMessages.objects.all().order_by("-created")
 	
 	context = {"user": user, "inspirational": inspirational_quote, "todo": to_do,
 	           "notes": notes, "topics": topics, "flashcards": flashcards,
-	            "subjects": subjects, "groups": groups,
-			}
+	           "subjects": subjects, "groups": groups,
+	           "files": files,
+	           }
 	
 	return render(request, 'flashcards/home.html', context)
-
 
 
 @login_required(login_url='login')
@@ -153,7 +158,8 @@ def topic(request, topic_id, subject_id):
 	current_subject = Subject.objects.get(id=subject_id)
 	
 	current_topic = Topics.objects.get(id=topic_id)
-	flashcards = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject, topic=current_topic).order_by("-updated")
+	flashcards = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
+	                                      topic=current_topic).order_by("-updated")
 	
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
@@ -172,7 +178,6 @@ def topic(request, topic_id, subject_id):
 		if len(answer) > 20:
 			flashcard_answer_preview += "..."
 	
-	
 	context = {"notes": notes, "todo": to_do, "current_topic": current_topic,
 	           "current_subject": current_subject, "flashcards": flashcards,
 	           "question_preview": flashcard_question_preview, "answer_preview": flashcard_answer_preview}
@@ -187,9 +192,10 @@ def flashcard(request, subject_id, topic_id, flashcard_id):
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
 	flashcards = FlashCard.objects.get(creator=request.user, topic__subject=current_topic.subject,
-	                                     topic=current_topic, id=flashcard_id)
+	                                   topic=current_topic, id=flashcard_id)
 	
-	context = {"notes": notes, "todo": to_do, "topic": current_topic, "subject": current_subject, "flashcards": flashcards}
+	context = {"notes": notes, "todo": to_do, "topic": current_topic, "subject": current_subject,
+	           "flashcards": flashcards}
 	return render(request, "flashcards/important/flashcard.html", context)
 
 
@@ -211,7 +217,7 @@ def flashcard_preview(request, subject_id, topic_id, flashcard_id):
 def group(request, group_id):
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
-	group = Group.objects.get(id = group_id)
+	group = Group.objects.get(id=group_id)
 	group_messages = GroupMessages.objects.filter(group=group).order_by("-created")
 	
 	if request.method == 'POST':
@@ -228,7 +234,8 @@ def group(request, group_id):
 	else:
 		form = GroupMessageForm()
 	
-	return render(request, 'flashcards/social/group_chat.html', {"form": form, "notes": notes, "todo": to_do, "group": group, "messages": group_messages})
+	return render(request, 'flashcards/social/group_chat.html',
+	              {"form": form, "notes": notes, "todo": to_do, "group": group, "messages": group_messages})
 
 
 # Chat #################################################################################################################
@@ -237,36 +244,36 @@ def all_profiles(request):
 	
 	return render(request, 'flashcards/social/find_profiles.html', {"profiles": profiles})
 
+
 # def show_groups(request):
-	# groups = Group.objects.
+# groups = Group.objects.
 
 
 def profile(request, username):
-	profile = User.objects.get(name = username)
+	profile = User.objects.get(name=username)
 	
 	friendships = Friendship.objects.filter(user=profile)
 	friends = [friendship.friend for friendship in friendships]
 	
-	
 	# friends += Friendship.objects.filter(friend = profile)
-	flashcards = FlashCard.objects.filter(creator = profile, is_hidden=False)
+	flashcards = FlashCard.objects.filter(creator=profile, is_hidden=False)
 	
 	message = GroupMessages.objects.filter(sender=profile)
 	
-	
-	return render(request, 'flashcards/social/profile.html', {"profile": profile, "flashcards": flashcards, "friends": friends, "messages": message})
+	return render(request, 'flashcards/social/profile.html',
+	              {"profile": profile, "flashcards": flashcards, "friends": friends, "messages": message})
 
 
 from .forms import GroupMessageForm
+
 
 def show_all_groups(request):
 	groups = Group.objects.all()
 	
 	return render(request, 'flashcards/social/chat.html', {'groups': groups})
-	
+
 
 def create_group(request):
-	
 	if request.method == 'POST':
 		form = GroupForm(request.POST, request.FILES)
 		
@@ -277,13 +284,12 @@ def create_group(request):
 			return redirect('group', group.id)
 	else:
 		form = GroupForm()
-		
 	
 	return render(request, 'flashcards/social/create_group.html', {"form": form})
-	
+
 
 # End chat #############################################################################################################
-#Study flashcards #######################################################################################################
+# Study flashcards #######################################################################################################
 @csrf_exempt
 def study_flashcards(request):
 	flashcards = FlashCard.objects.filter(creator=request.user)
@@ -305,7 +311,6 @@ def study_flashcards(request):
 	})
 
 
-	
 # @csrf_exempt
 # def update_flashcard_score(request):
 # 	if request.method != 'POST':
@@ -346,8 +351,8 @@ def update_flashcard_index(request):
 		return JsonResponse({'success': True, 'index': current_flashcard_index})
 	
 	return JsonResponse({'success': False, 'message': 'Invalid request method'})
-	
-	
+
+
 def completed_page(request):
 	# Get all flashcards
 	flashcards = FlashCard.objects.all()
@@ -364,8 +369,7 @@ def completed_page(request):
 	}
 	
 	return render(request, 'flashcards/studying/completed.html', context)
-	
-	
+
 
 def credit(request):
 	# This view is for all the people or websites who helped me
@@ -377,15 +381,13 @@ def credit(request):
 def statistics(request):
 	return render(request, 'flashcards/components/statistics.html')
 
-#End Main Pages#########################################################################################################
-#Component pages########################################################################################################
+
+# End Main Pages#########################################################################################################
+# Component pages########################################################################################################
 
 
-
-
-
-#End Component page#####################################################################################################
-#Create Things##########################################################################################################
+# End Component page#####################################################################################################
+# Create Things##########################################################################################################
 @login_required(login_url='login')
 def create_todo(request):
 	if request.method == "POST":
@@ -441,7 +443,6 @@ def subject_create(request):
 def create_topic(request, pk):
 	subject = Subject.objects.get(id=pk)
 	
-	
 	if request.method == "POST":
 		form = TopicForm(request.POST)
 		if form.is_valid():
@@ -458,35 +459,35 @@ def create_topic(request, pk):
 
 
 def create_flashcard(request, subject_id, topic_id):
-	
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	
-	current_subject = Subject.objects.get(id = subject_id)
+	current_subject = Subject.objects.get(id=subject_id)
 	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
 	flashcard = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
 	                                     topic=current_topic).order_by("-updated")
 	if request.method == 'POST':
 		form = FlashcardForm(request.POST)
 		user = request.user
-
+		
 		if form.is_valid():
 			flashcard = form.save(commit=False)
 			flashcard.creator = user
 			flashcard.topic = current_topic
 			flashcard.save()
 			# return redirect('flashcard', subject_id = current_subject.id, topic_id = current_topic.id, flashcard_id = flashcard.id)
-			return redirect('create-flashcard', subject_id = current_subject.id, topic_id = current_topic.id)
+			return redirect('create-flashcard', subject_id=current_subject.id, topic_id=current_topic.id)
 	else:
 		form = FlashcardForm()
+	
+	return render(request, 'flashcards/important/flashcard_create.html',
+	              {"forms": form, "flashcards": flashcard, "current_topic": current_topic,
+	               "current_subject": current_subject, "CreateOrUpdate": "Create", "notes": notes,
+	               "todo": to_do, "isUpdate": "false"})
 
 
-	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "flashcards": flashcard, "current_topic": current_topic,
-	                                                                      "current_subject": current_subject, "CreateOrUpdate": "Create", "notes": notes,
-	                                                                      "todo": to_do, "isUpdate": "false"})
-
-#End Create Things######################################################################################################
-#Update Things##########################################################################################################
+# End Create Things######################################################################################################
+# Update Things##########################################################################################################
 
 
 @login_required(login_url='login')
@@ -510,7 +511,6 @@ def topic_update(request, subject_id, topic_id):
 	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
 	user = request.user
 	
-	
 	if request.method == 'POST':
 		# form = UpdateTopicForm(request.POST, request.user.id , instance=current_topic)
 		form = TopicForm(request.POST, instance=current_topic)
@@ -528,17 +528,17 @@ def topic_update(request, subject_id, topic_id):
 
 @login_required(login_url='login')
 def update_flashcard(request, subject_id, topic_id, flashcard_id):
-	current_subject = Subject.objects.get(id = subject_id)
-	current_topic = Topics.objects.get(id=topic_id, subject = current_subject)
+	current_subject = Subject.objects.get(id=subject_id)
+	current_topic = Topics.objects.get(id=topic_id, subject=current_subject)
 	
 	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
 	to_do = Todo.objects.filter(creator=request.user).order_by("created")
 	flashcards = FlashCard.objects.filter(creator=request.user, topic__subject=current_topic.subject,
-	                                     topic=current_topic).order_by("-updated")
-		
+	                                      topic=current_topic).order_by("-updated")
+	
 	user = request.user
 	
-	current_flashcard = FlashCard.objects.get(id = flashcard_id)
+	current_flashcard = FlashCard.objects.get(id=flashcard_id)
 	if current_flashcard.creator != user:
 		return redirect('flashcard', current_subject, current_topic)
 	
@@ -556,17 +556,19 @@ def update_flashcard(request, subject_id, topic_id, flashcard_id):
 	
 	else:
 		form = FlashcardForm(instance=current_flashcard)
-		
-		
+	
 	return render(request, 'flashcards/important/flashcard_create.html', {"forms": form, "CreateOrUpdate": "Update",
-	                                                                      "isUpdate": "true", "current_flashcard": current_flashcard,
-	                                                                      "current_subject": current_subject, "current_topic": current_topic,
-	                                                                      "flashcards": flashcards, "notes": notes, "todo": to_do
+	                                                                      "isUpdate": "true",
+	                                                                      "current_flashcard": current_flashcard,
+	                                                                      "current_subject": current_subject,
+	                                                                      "current_topic": current_topic,
+	                                                                      "flashcards": flashcards, "notes": notes,
+	                                                                      "todo": to_do
 	                                                                      })
 
 
-#End Update Things######################################################################################################
-#Delete Things##########################################################################################################
+# End Update Things######################################################################################################
+# Delete Things##########################################################################################################
 @login_required(login_url='login')
 def delete_todo(request, pk):
 	do = Todo.objects.get(id=pk)
@@ -612,14 +614,15 @@ def delete_flashcard(request, subject_id, topic_id, flashcard_id):
 	
 	return redirect(request.GET.get('next_url', '/'))
 
-#End Delete Things######################################################################################################
-#Search ###############################################################################################################
+
+# End Delete Things######################################################################################################
+# Search ###############################################################################################################
 
 @login_required(login_url='login')
 def search(request):
 	query = request.GET.get('q')
 	results = []
-
+	
 	if query:
 		results.extend(
 			(
@@ -634,4 +637,40 @@ def search(request):
 		)
 	context = {"query": query, "results": results}
 	return render(request, 'flashcards/search.html', context)
+
+
+# File Management
+
+
+def group(request, group_id):
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	to_do = Todo.objects.filter(creator=request.user).order_by("created")
+	group = Group.objects.get(id=group_id)
+	group_messages = GroupMessages.objects.filter(group=group).order_by("-created")
 	
+	if request.method == 'POST':
+		form = GroupMessageForm(request.POST)
+		if form.is_valid():
+			message = form.save(commit=False)
+			message.sender = request.user
+			message.group = group
+			message.save()
+			
+			group.last_message = message
+			group.save()
+			return redirect('group', group.id)
+	else:
+		form = GroupMessageForm()
+	
+	return render(request, 'flashcards/social/group_chat.html',
+	              {"form": form, "notes": notes, "todo": to_do, "group": group, "messages": group_messages})
+
+
+@login_required(login_url='login')
+def view_file(request, file_id):
+	file = File.objects.get(id=file_id)
+	notes = Notes.objects.filter(creator=request.user).order_by("-updated")
+	todo = Todo.objects.filter(creator=request.user).order_by("created")
+	
+	return render(request, 'flashcards/important/file_page.html',
+	              {"file": file, "notes": notes, "todo": todo})

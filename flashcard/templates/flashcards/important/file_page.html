@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{ file.file_name }} {% endblock title %}
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'styles/important/file_page.css' %}">
+{% endblock css_file %}
+
+{% block content %}
+  <div class="file_page-container">
+    <div class="left-file_page">
+      {% include 'flashcards/components/todo.html' %}
+      {% include 'flashcards/components/notes.html' %}
+    </div>
+    <div class="right-file_page">
+        <div class="file-info">
+            <h2>{{ file.file_name }}</h2>
+            <h3>{{ file.file_size }}MB</h3>
+            <h4>{{ file.upload_time|timesince }} ago</h4>
+            {% if file.type == 'docx' %}
+                <img src="{% static 'images/file_types/google-docs.png' %}" alt="Document">
+            {% endif %}
+
+            <p>{{ file.description }}</p>
+            <p>{{ file.owner.email }}</p>
+        </div>
+
+
+
+    </div>
+
+
+
+
+  </div>
+
+
+{% endblock content %}

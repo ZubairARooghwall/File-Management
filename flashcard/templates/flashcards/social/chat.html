@@ -2,7 +2,10 @@
 <link rel="stylesheet" href="{% static 'styles/social/chat.css' %}">
 
 <div class="chat-div">
-  <a href="{% url 'profiles' %}">Profiles</a>
+     <a href="{% url 'create-group' %}" class="group-link">
+    <p>Groups</p>
+  </a>
+
 
   <div class="groups">
     {% for group in groups %}
@@ -29,9 +32,8 @@
 
       </a>
     {% endfor %}
+
+      <a href="{% url 'profiles' %}">Profiles</a>
   </div>
-  <hr>
-  <a href="{% url 'create-group' %}">
-    <p>Groups</p>
-  </a>
+
 </div>

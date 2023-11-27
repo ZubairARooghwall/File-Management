@@ -1,7 +1,7 @@
 .chat-div {
     background-color: #007BFF;
-    min-height: 555px;
-    max-height: 555px;
+    min-height: 277px;
+    max-height: 277px;
 
     border-radius: 5px;
     padding: 1rem;
@@ -13,8 +13,8 @@
     gap: 5px;
 
     overflow: auto;
-    max-height: 490px;
-    min-height: 490px;
+    max-height: 95%;
+    min-height: 95%;
 }
 
 .chat-div .groups .group {
@@ -79,4 +79,8 @@
 
 .chat-div .groups .group .right .last_message p {
     font-size: 0.7rem;
+}
+
+a.group-link {
+    margin-top: 40px;
 }

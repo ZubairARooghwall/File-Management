@@ -4,7 +4,7 @@
     padding: 5px;
     background-color: #FFD700;
     border-radius: 5px;
-    height: 490px;
+    height: 475px;
 
 
 }
@@ -12,6 +12,7 @@
 .subjects-list a p {
     color: #333333;
 }
+
 
 .subject a div p {
     font-size: 0.9rem;
@@ -27,6 +28,7 @@
     overflow: auto;
     position: relative;
     margin: 1rem;
+    min-height: 200px;
 }
 
 
@@ -94,4 +96,3 @@
 .subjects-list .subject a:hover p.subject-name{
     transform: translateY(-25px);
 }
-
