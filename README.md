@@ -7,7 +7,7 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 ## How to Set Up
 
 1. Download the zip file.
-2. In the root director, create a virtual environment for python. (python -m venv venv)
+2. In the root directory, create a virtual environment for python. (python -m venv venv)
 3. Activate the virtual environment. (venv\Scripts\activate)
 4. Install the required packages. (pip install django, Pillow)
 5. Open terminal
