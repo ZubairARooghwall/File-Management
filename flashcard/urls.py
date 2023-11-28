@@ -60,4 +60,7 @@ urlpatterns = [
 	
 	# Files
 	path('file/<int:file_id>',  views.view_file, name='view_file'),
+	# Download file
+	path('file/download/<int:file_id>', views.download_file, name='download_file'),
+	
 ]

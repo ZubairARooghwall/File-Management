@@ -2,7 +2,7 @@ from django.db.models import Max
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse, Http404
 from django.contrib.auth.decorators import login_required  # It ensures that the user is logged in or not
 from django.views.decorators.csrf import csrf_exempt
 
@@ -674,3 +674,12 @@ def view_file(request, file_id):
 	
 	return render(request, 'flashcards/important/file_page.html',
 	              {"file": file, "notes": notes, "todo": todo})
+
+@login_required(login_url='login')
+def download_file(request, file_id):
+	try:
+		file = File.objects.get(id = file_id)
+		return FileResponse(file.file.open(), as_attachment=True)
+	except:
+		raise Http404
+

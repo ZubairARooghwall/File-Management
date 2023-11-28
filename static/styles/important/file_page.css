@@ -24,9 +24,84 @@
     background-color: #34bb9c;
     border-radius: 5px;
 
-    height: 100%;
+    height: 540px;
     width: 100%;
 
+    padding: 1rem;
+
+}
+
+.file-name {
+
+}
+
+.file-size-time {
+    width: 300px;
+
+    display: flex;
+    justify-content: space-between;
 
 
+}
+
+.file-information-image {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.file-information-image img {
+    height: 200px;
+}
+
+.file-owner-description {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+}
+
+.file-download-button {
+    margin-top: 100px;
+    margin-left: 400px;
+}
+
+
+.file-information-description {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+
+
+}
+
+
+.file-download-button {
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    font-family: "Segoe UI";
+    background-color: #55e326;
+    box-shadow: 5px 5px 5px black;
+
+    transition: all 0.2s ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-download-button:hover {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.file-download-button a {
+    font-size: 15px;
+    color: black;
 }

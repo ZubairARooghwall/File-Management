@@ -13,16 +13,42 @@
     </div>
     <div class="right-file_page">
         <div class="file-info">
-            <h2>{{ file.file_name }}</h2>
-            <h3>{{ file.file_size }}MB</h3>
-            <h4>{{ file.upload_time|timesince }} ago</h4>
+
+            <div class="file-name">
+                <h2>{{ file.file_name }}</h2>
+            </div>
+
+        <div class="file-information-image">
+
+        <div class="file-information-description">
+            <div class="file-size-time">
+                <p>{{ file.file_size }}MB</p>
+                <p>{{ file.upload_time|timesince }} ago</p>
+            </div>
+
+             <div class="file-owner-description">
+                <p>{{ file.description }}</p>
+                <p>{{ file.owner.email }}</p>
+            </div>
+
+        </div>
+
             {% if file.type == 'docx' %}
                 <img src="{% static 'images/file_types/google-docs.png' %}" alt="Document">
+            {% elif file.type == 'pdf' %}
+                <img src="{% static 'images/file_types/pdf.png' %}" alt="PDF">
+            {% elif file.type == 'png' or file.type == 'jpg' or file.type == 'jpeg' or file.type == 'webp' %}
+                <img src="{% static 'images/file_types/picture.png' %}" alt="Picture">
+            {% elif file.type == 'mp4' or file.type == 'wmv' or file.type == 'mkv' %}
+                <img src="{% static 'images/file_types/video.png' %}" alt="">
             {% endif %}
-
-            <p>{{ file.description }}</p>
-            <p>{{ file.owner.email }}</p>
         </div>
+        <div class="file-download-button">
+            <a href="{% url 'download_file' file.id %}" class="download-link-a">
+                Download
+            </a>
+        </div>
+    </div>
 
 
 
