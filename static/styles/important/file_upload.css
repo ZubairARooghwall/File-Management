@@ -1,0 +1,110 @@
+body {
+    overflow: hidden;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    height: 550px;
+
+    border-radius: 5px;
+}
+
+.container p {
+    font-size: 20px;
+}
+
+.container .message-container {
+    color: red;
+}
+
+.container .forms {
+    background-color: #c5ae1b;
+    padding: 1rem;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.container .forms .form {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.container .forms .form #id_file::file-selector-button {
+    height: 25px;
+    font-family: "Segoe UI";
+
+    border-radius: 5px;
+    border: none;
+}
+
+.container .forms .form #id_file:hover {
+    cursor: pointer;
+}
+
+.container .forms .form #id_file::file-selector-button:hover {
+    cursor: pointer;
+}
+
+
+.container .forms .form #id_type {
+    height: 30px;
+    border-radius: 5px;
+
+    font-family: "Segoe UI"
+}
+
+.container .forms .form #id_type:focus {
+    outline: none;
+}
+
+.container .forms .form #id_description {
+    border-radius: 5px;
+
+    padding: 10px;
+    font-family: "Segoe UI"
+}
+
+.container .forms .form #id_description:hover {
+    outline: none;
+}
+
+.container .forms .form #id_description:focus {
+    outline: none;
+}
+
+.container .forms form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.container .forms form input {
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    padding: 5px;
+
+    font-family: 'Segoe UI';
+    transition: all 0.3s ease-in-out;
+}
+
+.container .forms input:focus {
+    outline: 2px solid #00d2ff;
+
+}
+
+.container .forms #id_file_name {
+    height: 30px;
+    width: 200px;
+
+}

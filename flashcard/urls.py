@@ -62,5 +62,7 @@ urlpatterns = [
 	path('file/<int:file_id>',  views.view_file, name='view_file'),
 	# Download file
 	path('file/download/<int:file_id>', views.download_file, name='download_file'),
+	# Create or Upload files
+	path('file/upload', views.upload_file, name='upload_file'),
 	
 ]

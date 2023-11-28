@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 
 #Import all the models
-from .models import User, Notes, FlashCard, Topics, Todo, Subject, GroupMessages, Group
+from .models import User, Notes, FlashCard, Topics, Todo, Subject, GroupMessages, Group, File
 
 class MyUserRegistrationForm(UserCreationForm):
 	class Meta:
@@ -13,6 +13,10 @@ class MyUserRegistrationForm(UserCreationForm):
 		# in form, you add enctype="multipart/form-data"
 		# in views.py, form = MyUserRegistrationForm(..add request.FILES...)
 
+class FileForm(ModelForm):
+	class Meta:
+		model = File
+		fields = ['file_name', 'file', 'file_size', 'type', 'description']
 
 class UserForm(ModelForm):
 	class Meta:

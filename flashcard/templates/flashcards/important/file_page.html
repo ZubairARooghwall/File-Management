@@ -33,21 +33,23 @@
 
         </div>
 
-            {% if file.type == 'docx' %}
+            {% if file.type == 'DOCX' %}
                 <img src="{% static 'images/file_types/google-docs.png' %}" alt="Document">
-            {% elif file.type == 'pdf' %}
+            {% elif file.type == 'PDF' %}
                 <img src="{% static 'images/file_types/pdf.png' %}" alt="PDF">
-            {% elif file.type == 'png' or file.type == 'jpg' or file.type == 'jpeg' or file.type == 'webp' %}
+            {% elif file.type == 'PNG' or file.type == 'JPG' or file.type == 'JPEG' or file.type == 'WEBP' %}
                 <img src="{% static 'images/file_types/picture.png' %}" alt="Picture">
-            {% elif file.type == 'mp4' or file.type == 'wmv' or file.type == 'mkv' %}
+            {% elif file.type == 'MP4' or file.type == 'WMV' or file.type == 'MKV' %}
                 <img src="{% static 'images/file_types/video.png' %}" alt="">
+            {% else %}
+                <img src="{% static 'images/file_types/other.png' %}" alt="Others">
             {% endif %}
         </div>
         <div class="file-download-button">
             <a href="{% url 'download_file' file.id %}" class="download-link-a">
                 Download
             </a>
-        </div>
+        </div>  
     </div>
 
 

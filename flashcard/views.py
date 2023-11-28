@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required  # It ensures that the
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import MyUserRegistrationForm, UserForm, NotesForm, TodoForm, SubjectForm, TopicForm, FlashcardForm, \
-	GroupForm
+	GroupForm, FileForm
 
 # Import all the models
 from .models import User, Subject, Topics, FlashCard, Notes, Messages, Friendship, Group, Membership, GroupMessages, \
@@ -420,6 +420,7 @@ def create_notes(request):
 	return render(request, 'flashcards/components/create.html', {'forms': form})
 
 
+
 @login_required(login_url='login')
 def subject_create(request):
 	if request.method == "POST":
@@ -683,3 +684,33 @@ def download_file(request, file_id):
 	except:
 		raise Http404
 
+
+def create_notes(request):
+	if request.method == 'POST':
+		form = NotesForm(request.POST)
+		if form.is_valid():
+			notes = form.save(commit=False)
+			notes.creator = request.user
+			notes.save()
+			next_url = request.GET.get("next_url", '/')
+			return redirect(next_url)
+	else:
+		form = NotesForm()
+	
+	return render(request, 'flashcards/components/create.html', {'forms': form})
+
+
+@login_required(login_url='login')
+def upload_file(request):
+	if request.method == 'POST':
+		form = FileForm(request.POST, request.FILES)
+		if form.is_valid():
+			file = form.save(commit=False)
+			file.owner = request.user
+			file.save()
+			return redirect('home')
+
+	else:
+		form = FileForm()
+
+	return render(request, 'flashcards/important/file_upload.html', {'forms': form})

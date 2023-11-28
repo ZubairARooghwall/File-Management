@@ -1,17 +1,14 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles/components/file.css' %}">
 <div class="file-container container">
-  <div class="file-body body">
-
+    <a href="{% url 'upload_file' %}">
+        <p>Files</p>
+    </a>
     {% for file in files %}
       <div class="file-div">
         <p>{{ file.file.file }}</p>
         <a href="{% url 'view_file' file.id %}" class="file-div-a">{{ file.file_name }}</a>
       </div>
     {% endfor %}
-  </div>
-
-
-
 
 </div>
