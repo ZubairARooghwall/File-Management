@@ -1,10 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles/components/action.css' %}">
+<a href="{% url 'flashcard-study' %}">
 <div class="action">
-  <a href="{% url 'flashcard-study' %}">
-    <button>Study</button>
-  </a>
-
-
-
+    <button style="font-family: 'Segoe UI'; background-color: transparent; color: white; font-size: 20px;">Study</button>
 </div>
+</a>

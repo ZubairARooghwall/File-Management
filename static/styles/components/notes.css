@@ -12,10 +12,12 @@ a {
     padding: 5px;
     overflow: auto;
     height: 325px;
+
+    transition: background-color 0.3s ease-in-out;
 }
 
 .notes-container:hover {
-
+   background-color: #ea7c58;
 }
 
 .notes-body {

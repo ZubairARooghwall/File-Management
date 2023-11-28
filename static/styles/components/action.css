@@ -5,8 +5,14 @@
 
     border-radius: 5px;
     padding: 5px;
-    background-color: #3b15ad;
+    background-color: #575bea;
     height: 50px;
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+.action:hover {
+    background-color: #4044ea;
 }
 
 .action button {

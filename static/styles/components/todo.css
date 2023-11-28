@@ -6,9 +6,12 @@
     overflow: auto;
     height: 200px;
     padding: 0.5rem;
+
+    transition: background-color 0.3s ease-in-out;
 }
 
 .to-do-container:hover {
+    background-color: #5da8be;
 
 }
 

@@ -6,7 +6,6 @@
     </a>
     {% for file in files %}
       <div class="file-div">
-        <p>{{ file.file.file }}</p>
         <a href="{% url 'view_file' file.id %}" class="file-div-a">{{ file.file_name }}</a>
       </div>
     {% endfor %}

@@ -5,7 +5,14 @@
 
     border-radius: 5px;
     padding: 1rem;
+
+    transition: background-color 0.2s ease-in-out;
 }
+
+.chat-div:hover {
+    background-color: #0261ce;
+}
+
 
 .chat-div .groups {
     display: flex;
