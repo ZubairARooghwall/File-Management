@@ -16,6 +16,7 @@ Website that helps organize your notes, flashcards, mind-maps, sketches, reminde
 8. It will start the server and output the localhost ip.
 9. Click on the link, it will open the website.
 
+
 ### Implemented
 
 - You can create flashcards
